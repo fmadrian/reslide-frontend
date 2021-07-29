@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="login-container">
+    <mat-card>
+        <mat-card-title class="login-container-header">
+            <section class="mat-typography">  
+                <h1>Login</h1>  
+            </section>  
+        </mat-card-title>
+        <mat-card-content class="login-container-content">
+            <mat-divider></mat-divider>
+            <!-- Login form -->
+            <form [formGroup]="loginForm"> 
+                <mat-form-field class="form-component" appearance="standard">
+                    <mat-label>Enter your username</mat-label>
+                    <input matInput [formControlName]="'username'" >
+                  </mat-form-field>
+                <mat-form-field class="form-component" appearance="standard">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [formControlName]="'password'" [type]="hidePassword ? 'password' : 'text'">
+                    <!-- A form group must be created. Otherwise, the button will misbehave -->
+                    <button mat-icon-button matSuffix (click)="(hidePassword = !hidePassword)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+           <!-- Error message -->
+            <ng-template [ngIf]="error.active">
+                <section class="mat-typography error-message">  
+                    <p>{{error.message}}</p>  
+                </section>  
+            </ng-template>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class="login-container-button" mat-raised-button color="primary">Log in</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
