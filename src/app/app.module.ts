@@ -19,6 +19,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptor/token-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,8 @@ import {NgxWebstorageModule} from 'ngx-webstorage'
     AppRoutingModule,
     // Reactive forms
     ReactiveFormsModule,
+    // HTTP client 
+    HttpClientModule,
     // NGX webstorage
     NgxWebstorageModule.forRoot(),
     // Angular material
@@ -48,7 +52,14 @@ import {NgxWebstorageModule} from 'ngx-webstorage'
     MatInputModule
     
   ],
-  providers: [],
+  providers: [
+    // HTTP interceptors
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
