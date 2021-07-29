@@ -18,6 +18,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatInputModule} from '@angular/material/input'; 
 import { ReactiveFormsModule } from '@angular/forms';
+import {NgxWebstorageModule} from 'ngx-webstorage'
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     // Reactive forms
     ReactiveFormsModule,
+    // NGX webstorage
+    NgxWebstorageModule.forRoot(),
     // Angular material
     BrowserAnimationsModule,
     // Angular material components
