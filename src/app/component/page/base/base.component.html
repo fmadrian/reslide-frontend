@@ -1,5 +1,7 @@
 <!-- If the user is logged in, it shows the template with header, footer and sidebar
      If the user is not logged in, it shows the empty template. -->
+
+<!-- Logged in, shows sidebar and navbar -->
 <ng-template [ngIf]="isLoggedIn" [ngIfElse]="notLoggedIn">
   <app-navbar></app-navbar>
     <mat-drawer-container>
@@ -14,7 +16,7 @@
       </mat-drawer-content>
     </mat-drawer-container>
 </ng-template>
-
+<!-- Not logged in, only shows the content -->
 <ng-template #notLoggedIn>
   <router-outlet></router-outlet>  
 </ng-template>

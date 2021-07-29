@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from './component/page/base/base.component';
 import { LoginComponent } from './component/page/login/login.component';
 import { SignupComponent } from './component/page/signup/signup.component';
-import { AppRoutes } from './utils/routes';
+import { AppRoutes } from './utils/appRoutes';
 
 const routes: Routes = [
   {path : AppRoutes.landing, component: BaseComponent},
