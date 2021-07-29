@@ -13,7 +13,11 @@ import { SignupComponent } from './component/page/signup/signup.component';
 import { BaseComponent } from './component/page/base/base.component';
 import { SidenavComponent } from './component/shared/base/sidenav/sidenav.component';
 import { NavbarComponent } from './component/shared/base/navbar/navbar.component';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider'; 
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatInputModule} from '@angular/material/input'; 
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +31,19 @@ import { NavbarComponent } from './component/shared/base/navbar/navbar.component
   imports: [
     BrowserModule,
     AppRoutingModule,
+    // Reactive forms
+    ReactiveFormsModule,
     // Angular material
     BrowserAnimationsModule,
     // Angular material components
     MatButtonModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
