@@ -23,15 +23,15 @@
                 </mat-form-field>
             </form>
            <!-- Error message -->
-            <ng-template [ngIf]="error.active">
+            <ng-template [ngIf]="errorMessage">
                 <section class="mat-typography error-message">  
-                    <p>{{error.message}}</p>  
+                    <p>{{errorMessage}}</p>  
                 </section>  
             </ng-template>
             <mat-divider></mat-divider>
         </mat-card-content>
         <mat-card-actions>
-            <button class="login-container-button" mat-raised-button color="primary">Log in</button>
+            <button (click)="login()" class="login-container-button" mat-raised-button color="primary">Log in</button>
         </mat-card-actions>
     </mat-card>
 </div>
