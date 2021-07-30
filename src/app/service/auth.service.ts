@@ -46,9 +46,12 @@ export class AuthService {
     }));
   }
 
-
   getJwtToken() : string{
     return this.localStorage.retrieve('refreshToken');
+  }
+
+  isLoggedIn(){
+    return false;
   }
 
 }
