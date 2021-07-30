@@ -21,6 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token-interceptor';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import { LandingComponent } from './component/page/landing/landing.component';
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { TokenInterceptor } from './interceptor/token-interceptor';
     SignupComponent,
     SidenavComponent,
     NavbarComponent,
-    BaseComponent
+    BaseComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,10 @@ import { TokenInterceptor } from './interceptor/token-interceptor';
     MatCardModule,
     MatDividerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule
     
   ],
   providers: [
