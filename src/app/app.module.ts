@@ -24,7 +24,7 @@ import { TokenInterceptor } from './interceptor/token-interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import { LandingComponent } from './component/page/landing/landing.component';
-
+import {MatMenuModule} from '@angular/material/menu'; 
 
 @NgModule({
   declarations: [
@@ -58,7 +58,8 @@ import { LandingComponent } from './component/page/landing/landing.component';
     MatInputModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule
     
   ],
   providers: [

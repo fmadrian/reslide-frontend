@@ -1,1 +1,19 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+    <button (click)="switchSidenav()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <section class="mat-typography">
+          <h2>My Application</h2>  
+    </section>
+    <span class="toolbar-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>    
+        <span>username</span>
+    </button>
+    <mat-menu #menu>
+        <button mat-menu-item>Change user details</button>
+    </mat-menu>    
+    <button mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
