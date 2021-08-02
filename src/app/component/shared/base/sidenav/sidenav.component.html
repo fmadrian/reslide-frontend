@@ -1,6 +1,28 @@
 <mat-list>
-    <mat-list-item> Functionality A </mat-list-item>
-    <mat-list-item>  Functionality B </mat-list-item>
-    <mat-list-item>  Functionality C </mat-list-item>
-    <a routerLink="/login"><mat-list-item> Login</mat-list-item> </a>
+    <ng-container *ngIf="sidenavMenu">
+        <div *ngFor="let mainItem of sidenavMenu">
+            <mat-list-item>
+                {{mainItem.name}}
+            </mat-list-item> 
+            <mat-list>
+                <div style="margin-left: 30px;" *ngFor="let subItem of mainItem.subItems">
+                    <a routerLink={{subItem.route}}>
+                        <mat-list-item>
+                            {{subItem.name}}
+                        </mat-list-item> 
+                    </a>
+                </div>
+            </mat-list>
+        </div>
+    </ng-container>
 </mat-list>
+
+<!--
+MENU STRUCTURE 
+    menu
+        - item A
+            + subitem 1  
+            + subitem 2
+            + subitem 3
+        - item B
+-->
