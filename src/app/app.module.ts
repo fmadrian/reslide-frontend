@@ -24,7 +24,9 @@ import { TokenInterceptor } from './interceptor/token-interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import { LandingComponent } from './component/page/landing/landing.component';
-import {MatMenuModule} from '@angular/material/menu'; 
+import {MatMenuModule} from '@angular/material/menu';
+import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
+import { UserFormComponent } from './shared/user/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {MatMenuModule} from '@angular/material/menu';
     SidenavComponent,
     NavbarComponent,
     BaseComponent,
-    LandingComponent
+    LandingComponent,
+    CreateUserComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

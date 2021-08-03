@@ -20,7 +20,7 @@ var createMainItem = (name: string, subItems: SubMenuItem[])=>{
 export const SidenavMenu =[
     createMainItem('Users', 
         [
-            createSubItem('Create new user', AppRoutes.landing, 'Creates a new user'), // TODO: Change to the actual page.
+            createSubItem('Create new user', AppRoutes.user.create, 'Creates a new user'), // TODO: Change to the actual page.
             createSubItem('Edit users', AppRoutes.login) // TODO: Change to the actual page.
         ]
     ),

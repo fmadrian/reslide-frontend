@@ -38,7 +38,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
+    /* Observes any change in a form.
+    this.loginForm.valueChanges.subscribe(
+      (data)=>{
+        console.log(data)
+      }
+    ) 
+    */   
   }
   
   switchPassword(){
