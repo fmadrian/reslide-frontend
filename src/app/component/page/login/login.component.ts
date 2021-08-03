@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Injectable, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { LoginRequest } from 'src/app/payload/auth/login/login.request';
 import { Router } from '@angular/router';
@@ -18,14 +18,18 @@ export class LoginComponent implements OnInit {
   loginForm : FormGroup;
   loginRequest : LoginRequest
 
-  constructor(private authService: AuthService, private router: Router) { 
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) { 
     this.hidePassword = true;
     this.errorMessage =  '';
 
-    this.loginForm = new FormGroup({
+    /*this.loginForm = new FormGroup({
       username : new FormControl('', Validators.required),
       password : new FormControl('', Validators.required)
-    });
+    });*/
+    this.loginForm = this.fb.group({
+      username : ['', Validators.required],
+      password : ['', Validators.required]
+    })
     
     this.loginRequest = {
       username : '',
@@ -34,10 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      username : new FormControl('', Validators.required),
-      password : new FormControl('', Validators.required)
-    });
+      
   }
   
   switchPassword(){
@@ -48,12 +49,13 @@ export class LoginComponent implements OnInit {
       this.loginRequest.password = this.loginForm.get('password')?.value;
       this.loginRequest.username = this.loginForm.get('username')?.value;
       // If everything is okay, redirects to landing.
-      this.authService.login(this.loginRequest)
+      /*this.authService.login(this.loginRequest)
       .subscribe( (data) =>{
         this.router.navigateByUrl(AppRoutes.landing);
       },
       (error)=>{
         this.errorMessage = error.message;
-      });
+      });*/
+      console.log(this.loginRequest)
   }
 }
