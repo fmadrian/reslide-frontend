@@ -3,9 +3,8 @@ const baseRoutes ={
 }
 export const AppRoutes = {
     'login' : 'login',
-    'signup' : 'signup',
     'landing' : '',
     'user' : {
-        'create' : `${baseRoutes}/create`
+        'create' : `${baseRoutes.user}/create`
     }
 }

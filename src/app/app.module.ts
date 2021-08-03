@@ -9,7 +9,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import { FooterComponent } from './component/shared/base/footer/footer.component';
 import { LoginComponent } from './component/page/login/login.component';
-import { SignupComponent } from './component/page/signup/signup.component';
 import { BaseComponent } from './component/page/base/base.component';
 import { SidenavComponent } from './component/shared/base/sidenav/sidenav.component';
 import { NavbarComponent } from './component/shared/base/navbar/navbar.component';
@@ -26,20 +25,17 @@ import {MatListModule} from '@angular/material/list';
 import { LandingComponent } from './component/page/landing/landing.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
-import { UserFormComponent } from './shared/user/user-form/user-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     LoginComponent,
-    SignupComponent,
     SidenavComponent,
     NavbarComponent,
     BaseComponent,
     LandingComponent,
     CreateUserComponent,
-    UserFormComponent
   ],
   imports: [
     BrowserModule,
