@@ -1,0 +1,21 @@
+<!-- If the user is logged in, it shows the template with header, footer and sidebar
+     If the user is not logged in, it shows the empty template. -->
+
+<!-- Logged in, shows sidebar and navbar -->
+<ng-template [ngIf]="!isLoggedIn" [ngIfElse]="notLoggedIn">
+    <app-navbar [isSidenavOpen]="isSidenavOpen$"></app-navbar>
+      <mat-drawer-container class="sidenav-container" autosize>
+        <!-- Shows the sidebar if the isSidebarOpen value is true-->
+        <mat-drawer class="sidenav" mode="side" [(opened)]="isSidenavOpen">
+            <app-sidenav></app-sidenav>      
+        </mat-drawer>
+        <mat-drawer-content class="sidenav-content">
+            <router-outlet></router-outlet>
+            <app-footer></app-footer> 
+        </mat-drawer-content>
+      </mat-drawer-container>
+  </ng-template>
+  <!-- Not logged in, only shows the content -->
+  <ng-template #notLoggedIn>
+    <router-outlet></router-outlet>  
+  </ng-template>

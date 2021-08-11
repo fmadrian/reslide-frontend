@@ -29,3 +29,4 @@ export class BaseComponent implements OnInit {
   }
   
 }
+
