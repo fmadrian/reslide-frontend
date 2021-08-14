@@ -1,0 +1,11 @@
+$width : 100%;
+$margin: 10px;
+
+.form-divider{
+    margin-top: $margin; 
+    margin-bottom: $margin;
+}
+.form-button{
+    width: $width;
+    margin-bottom: $margin;
+}

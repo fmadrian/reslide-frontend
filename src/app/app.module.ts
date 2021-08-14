@@ -9,7 +9,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import { FooterComponent } from './component/shared/base/footer/footer.component';
 import { LoginComponent } from './component/page/login/login.component';
-import { BaseComponent } from './component/page/base/base.component';
 import { SidenavComponent } from './component/shared/base/sidenav/sidenav.component';
 import { NavbarComponent } from './component/shared/base/navbar/navbar.component';
 import {MatCardModule} from '@angular/material/card';
@@ -25,6 +24,20 @@ import {MatListModule} from '@angular/material/list';
 import { LandingComponent } from './component/page/landing/landing.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
+import { UserFormComponent } from './component/shared/user/user-form/user-form.component';
+import { IndividualFormComponent } from './component/shared/individual/individual-form/individual-form.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { ContactIndividualFormComponent } from './component/shared/contact/contact-individual-form/contact-individual-form.component'  
+import {MatSortModule} from '@angular/material/sort';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSnackBarModule} from '@angular/material/snack-bar'; 
+import { AddressIndividualFormComponent } from './component/shared/address/address-individual-form/address-individual-form.component'; 
+import { ErrorStateMatcher } from '@angular/material/core';
+import { CustomErrorStateMatcher } from './utils/errorState/errorStateMatcher';
+import { BaseComponent } from './component/base/base.component';
+import { InternalErrorComponent } from './component/page/error/internal-error/internal-error.component';
+import { NotFoundComponent } from './component/page/error/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -33,9 +46,15 @@ import { CreateUserComponent } from './component/page/user/create-user/create-us
     LoginComponent,
     SidenavComponent,
     NavbarComponent,
-    BaseComponent,
     LandingComponent,
     CreateUserComponent,
+    UserFormComponent,
+    IndividualFormComponent,
+    ContactIndividualFormComponent,
+    AddressIndividualFormComponent,
+    BaseComponent, 
+    InternalErrorComponent, 
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -59,16 +78,23 @@ import { CreateUserComponent } from './component/page/user/create-user/create-us
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatMenuModule
-    
+    MatMenuModule,
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule,
+    MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [
+    // Dependency injections. 
     // HTTP interceptors
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    }
+    },
+    // Form error state matcher
+    {provide: ErrorStateMatcher, useClass: CustomErrorStateMatcher}
   ],
   bootstrap: [AppComponent]
 })

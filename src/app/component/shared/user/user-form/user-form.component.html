@@ -1,0 +1,106 @@
+<form [formGroup]="userForm" (ngSubmit)="submit()"> 
+  <mat-tab-group>
+    <mat-tab label="Basic information">
+      <section class="mat-typography">
+        <h2>Basic information</h2>
+      </section>
+      <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Enter your username</mat-label>
+          <input matInput [formControlName]="'username'"> 
+          <mat-error>
+            <ng-container *ngFor="let error of formValidation.errors">
+              <div *ngIf="userForm.get('username')?.hasError(error)">
+                {{formValidation.getErrorMessage('username', userForm)}}
+              </div>
+            </ng-container>
+          </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [formControlName]="'password'" [type]="hidePassword ? 'password' : 'text'">
+          <!-- Generic input error message -->
+          <!-- It will display the correct error message if the input has one of the errors defined -->
+          <mat-error>
+            <ng-container *ngFor="let error of formValidation.errors">
+              <div *ngIf="userForm.get('password')?.hasError(error)">
+                {{formValidation.getErrorMessage('password', userForm)}}
+              </div>
+            </ng-container>
+          </mat-error>          
+          <!-- A form group must be created. Otherwise, the button will misbehave -->
+          <button type="button" mat-icon-button matSuffix (click)="(hidePassword = !hidePassword)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Individual type</mat-label>
+          <!-- 1. We name the select -->
+          <mat-select [formControlName]="'type'">
+            <!-- 2. We get the individual types (this.individualTypes)-->
+            <!-- 3. We pass them to the option component using [value]="variableName"-->
+            <!-- 4. Inside the option, we read the value.-->
+            <mat-option *ngFor="let iType of this.individualTypes" [value]="iType">
+              {{iType.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+          <ng-container *ngFor="let error of formValidation.errors">
+            <div *ngIf="userForm.get('type')?.hasError(error)">
+              {{formValidation.getErrorMessage('type', userForm)}}
+            </div>
+          </ng-container>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Individual name</mat-label>
+        <input matInput [formControlName]="'name'" value="">
+        <mat-error>
+          <div *ngFor="let error of formValidation.errors">
+            <mat-error *ngIf="userForm.get('name')?.hasError(error)">
+              {{formValidation.getErrorMessage('name', userForm)}}
+            </mat-error>
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Code</mat-label>
+        <input [formControlName]="'code'" matInput>
+        <mat-error>
+        <ng-container *ngFor="let error of formValidation.errors">
+          <div *ngIf="userForm.get('code')?.hasError(error)">
+            {{formValidation.getErrorMessage('code', userForm)}}
+          </div>
+        </ng-container>
+      </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Notes</mat-label>
+        <textarea [formControlName]="'notes'" matInput></textarea>
+      </mat-form-field>
+      <!-- Display errors -->
+      <section class="mat-typography error">
+      <div *ngIf="apiError">
+        {{apiError?.message}}
+      </div>
+    </section>
+    </mat-tab>    
+    <!-- contacts -->
+    <mat-tab label="Contacts"> 
+        <app-contact-individual-form 
+        (componentOutput)="receiveContactsOutput($event)"
+        [contacts]="this.userData.individual.contacts" 
+        ></app-contact-individual-form>
+    </mat-tab>
+    <!-- addresses -->
+    <mat-tab label="Addresses"> 
+      <app-address-individual-form 
+      (componentOutput)="receiveAddressOutput($event)"
+      [addresses]="this.userData.individual.addresses" 
+      ></app-address-individual-form>  
+    </mat-tab>
+  </mat-tab-group>
+  <mat-divider class="form-divider" ></mat-divider>
+    <button type="submit" class="form-button" mat-flat-button color="primary">Create user</button>
+    <button type="button" class="form-button" mat-flat-button color="warn" (click)="resetForm()">Reset form</button>
+  <mat-divider class="form-divider" ></mat-divider>
+</form>

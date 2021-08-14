@@ -1,1 +1,13 @@
-<p>Create user component!</p>
+<div class="content mat-elevation-z8">
+        <div class="title">
+            <section class="mat-typography">
+                <h1>Create new user</h1>
+            </section>
+        </div>
+    <div class="forms">
+        <section class="mat-typography">
+            <h2>User and individual information</h2>
+        </section>
+        <app-user-form (userOutput)="createUser($event)" [userInput]="null" [apiError]="apiError"></app-user-form>
+    </div>
+</div>

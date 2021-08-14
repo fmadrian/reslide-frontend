@@ -2,3 +2,24 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/**
+    Form styles.
+*/
+$form-width : 100%;
+$form-margin: 15px;
+
+.form-field{
+    width: $form-width;
+}
+.form-divider{
+    margin-top: $form-margin; 
+    margin-bottom: $form-margin;
+}
+.form-button{
+    width: $form-width;
+    margin-bottom: $form-margin;
+}
+.error{
+    color: red;
+}

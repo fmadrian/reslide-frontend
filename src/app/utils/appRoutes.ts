@@ -6,5 +6,9 @@ export const AppRoutes = {
     'landing' : '',
     'user' : {
         'create' : `${baseRoutes.user}/create`
+    },
+    'error':{
+        'notFound' : '**',
+        'internal' : 'internal'
     }
 }
