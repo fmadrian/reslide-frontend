@@ -100,15 +100,15 @@ export class TokenInterceptor implements HttpInterceptor{
         let errorMsg = '';
         if (error.error instanceof ErrorEvent) {
             // Client side error.
-            errorMsg = `Error: ${error.error.message}`;
+            errorMsg = `Error: ${error.error.message}`
         }
         else {
             // Server side error
-            // The API returns an error object that includes (type and message)
+            // The API returns an error object that includes (type and message) different from the client side error
             // so we can use it to return error messages in the client.
             errorMsg = `${error.error.message}`;
-            return throwError(error.error);
         }
         return throwError(errorMsg)
+        
     }
 }

@@ -37,14 +37,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    /* Observes any change in a form.
-    this.loginForm.valueChanges.subscribe(
-      (data)=>{
-        console.log(data)
-      }
-    ) 
-    */   
+  ngOnInit(): void {   
   }
   
   switchPassword(){
@@ -55,13 +48,12 @@ export class LoginComponent implements OnInit {
       this.loginRequest.password = this.loginForm.get('password')?.value;
       this.loginRequest.username = this.loginForm.get('username')?.value;
       // If everything is okay, redirects to landing.
-      /*this.authService.login(this.loginRequest)
+      this.authService.login(this.loginRequest)
       .subscribe( (data) =>{
         this.router.navigateByUrl(AppRoutes.landing);
       },
       (error)=>{
-        this.errorMessage = error.message;
-      });*/
-      console.log(this.loginRequest)
+        this.errorMessage = error;
+      });
   }
 }
