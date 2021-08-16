@@ -12,6 +12,12 @@ export const ApiRoutes = {
         login : `${baseRoutes.auth}/login`,
         refreshToken : `${baseRoutes.auth}/refresh/token`
     },
+    individual : {
+        search: `${baseRoutes.individual}/search`,
+        get: `${baseRoutes.individual}/get`,
+        create: `${baseRoutes.individual}/create`,
+        update: `${baseRoutes.individual}/update`,
+    },
     individualType : {
         getAll: `${baseRoutes.individualType}/getAll`,
         create: `${baseRoutes.individualType}/create`,
