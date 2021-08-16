@@ -6,9 +6,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /**
     Form styles.
 */
+
 $form-width : 100%;
 $form-margin: 15px;
+$padding: 10px;
+$margin: 10px;
 
+.content{
+    padding-top: $padding;
+    width: 100%;
+ }
+ .forms{
+    width: 75%;
+    padding: 25px;
+    margin-top: $form-margin;
+    margin-left: $form-margin;
+ }
 .form-field{
     width: $form-width;
 }
@@ -18,7 +31,11 @@ $form-margin: 15px;
 }
 .form-button{
     width: $form-width;
+    margin-top: $form-margin;
     margin-bottom: $form-margin;
+    button{ //button inside class
+        width: $form-width;
+    }
 }
 .error{
     color: red;

@@ -26,7 +26,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Output() userOutput = new EventEmitter<UserPayload>();
   userData : UserPayload;
   // Select data
-  individualTypes: IndividualTypePayload[] = [];
+  individualTypes: string[] = [];
   
   constructor(private formBuilder: FormBuilder, private individualTypeService: IndividualTypeService, private router: Router) {
     this.userForm = this.formBuilder.group({})
@@ -58,7 +58,9 @@ export class UserFormComponent implements OnInit, OnChanges {
     // Loads the individual types into the select component. 
     this.individualTypeService.getAll().subscribe(
       (data) =>{
-        this.individualTypes = data;
+        for(let i = 0; i < data.length; i++){
+          this.individualTypes.push(data[i].name);
+        }
       }, (error) => {
         // Show error message or redirect.
         this.router.navigateByUrl(AppRoutes.error.internal);
@@ -78,7 +80,7 @@ export class UserFormComponent implements OnInit, OnChanges {
         password : this.userForm.get('password')?.value,
         individual :  { 
           ...this.userData.individual,
-          type : this.userForm.get('type')?.value.name,
+          type : this.userForm.get('type')?.value,
           name : this.userForm.get('name')?.value,
           code : this.userForm.get('code')?.value,
           notes : this.userForm.get('notes')?.value,
