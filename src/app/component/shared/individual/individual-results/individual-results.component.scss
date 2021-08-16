@@ -1,0 +1,38 @@
+.search-container{
+    width: 75%;
+    padding-left: 10px;
+    padding-right: 10px;
+    .bar{
+        width: 100%;
+    }
+    table{
+        width: 100%;
+    }
+    .form-field{
+        width: 100%;    
+    }
+    button{
+        width: 100%;
+        margin-bottom: 25px;
+    }
+    .spinner{
+        padding-top: 1%; 
+        padding-left: 40%; 
+    }
+}
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+    border-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+  
+.clicked-row {
+    border-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
