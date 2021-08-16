@@ -38,6 +38,12 @@ import { CustomErrorStateMatcher } from './utils/errorState/errorStateMatcher';
 import { BaseComponent } from './component/base/base.component';
 import { InternalErrorComponent } from './component/page/error/internal-error/internal-error.component';
 import { NotFoundComponent } from './component/page/error/not-found/not-found.component';
+import { CreateIndividualComponent } from './component/page/individual/create-individual/create-individual.component';
+import { SearchIndividualComponent } from './component/page/individual/search-individual/search-individual.component';
+import { UpdateIndividualComponent } from './component/page/individual/update-individual/update-individual.component'; 
+import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { IndividualResultsComponent } from './component/shared/individual/individual-results/individual-results.component'; 
 
 @NgModule({
   declarations: [
@@ -54,7 +60,11 @@ import { NotFoundComponent } from './component/page/error/not-found/not-found.co
     AddressIndividualFormComponent,
     BaseComponent, 
     InternalErrorComponent, 
-    NotFoundComponent
+    NotFoundComponent, 
+    CreateIndividualComponent, 
+    SearchIndividualComponent,
+    UpdateIndividualComponent,
+    IndividualResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +93,9 @@ import { NotFoundComponent } from './component/page/error/not-found/not-found.co
     MatTableModule,
     MatSortModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     // Dependency injections. 
