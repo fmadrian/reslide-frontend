@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { SidenavMenu } from 'src/app/utils/menu/menu';
 import { MenuItem } from 'src/app/utils/menu/menuItem';
 

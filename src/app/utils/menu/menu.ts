@@ -20,14 +20,19 @@ var createMainItem = (name: string, subItems: SubMenuItem[])=>{
 export const SidenavMenu =[
     createMainItem('Users', 
         [
-            createSubItem('Create new user', AppRoutes.user.create, 'Creates a new user'), // TODO: Change to the actual page.
-            createSubItem('Edit users', AppRoutes.login) // TODO: Change to the actual page.
+            createSubItem('Create new user', AppRoutes.user.create, 'Creates a new user')
+        ]
+    ),
+    createMainItem('Clients / Providers',
+        [
+            createSubItem('Create new client or provider', AppRoutes.individual.create),
+            createSubItem('Search for a client or provider', AppRoutes.individual.search),
         ]
     ),
     createMainItem('Products',
         [
-            createSubItem('Create new product', AppRoutes.landing),
-            createSubItem('Product placeholder', AppRoutes.landing),
+            createSubItem('Create new product', AppRoutes.product.create),
+            createSubItem('Search for a product', AppRoutes.product.search),
         ]
     )
     

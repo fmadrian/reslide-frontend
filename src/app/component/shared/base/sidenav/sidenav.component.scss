@@ -1,0 +1,23 @@
+$margin-menu-item: 0px;
+$margin-submenu-item: 5px;
+
+.menu-item{
+    margin-top: $margin-menu-item;
+    margin-bottom: $margin-menu-item;
+    a{
+        text-decoration: none;
+    }
+}
+.menu-subitem{
+    width: 100%;
+    margin-top: $margin-submenu-item;
+    margin-bottom: $margin-submenu-item;
+    a{
+        margin-left: 5px;
+        color: black;
+        text-decoration: none;
+    }
+    &:hover{
+        background-color: cornsilk;
+    }
+}
