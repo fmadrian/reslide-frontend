@@ -1,43 +1,119 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /**
     Form styles.
 */
 
-$form-width : 100%;
+$form-width: 100%;
 $form-margin: 15px;
 $padding: 10px;
 $margin: 10px;
 
-.content{
-    padding-top: $padding;
-    margin-left: 20px;
+.content {
+  padding-top: $padding;
+  margin-left: 20px;
+  width: 100%;
+}
+.forms {
+  width: 75%;
+  padding: 25px;
+  margin-top: $form-margin;
+  margin-left: $form-margin;
+}
+.form-field {
+  width: $form-width;
+}
+.form-divider {
+  margin-top: $form-margin;
+  margin-bottom: $form-margin;
+}
+.form-button {
+  width: $form-width;
+  margin-top: $form-margin;
+  margin-bottom: $form-margin;
+  button {
+    //button inside class
+    width: $form-width;
+  }
+}
+.error {
+  color: red;
+}
+
+.results-container {
+  width: 70%;
+  .close-dialog {
     width: 100%;
- }
- .forms{
-    width: 75%;
-    padding: 25px;
-    margin-top: $form-margin;
-    margin-left: $form-margin;
- }
-.form-field{
-    width: $form-width;
-}
-.form-divider{
-    margin-top: $form-margin; 
-    margin-bottom: $form-margin;
-}
-.form-button{
-    width: $form-width;
-    margin-top: $form-margin;
-    margin-bottom: $form-margin;
-    button{ //button inside class
-        width: $form-width;
+    padding: 20px;
+    margin: 20px;
+  }
+  table {
+    width: 100%;
+    button {
+      height: 100%;
     }
+  }
+  .form-field {
+    width: 100%;
+  }
+  button {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  .spinner {
+    padding-top: 1%;
+    padding-left: 40%;
+  }
+  .search-form {
+    width: 100%;
+    padding: 20px;
+    margin: 20px;
+    .selection-box {
+      button {
+        width: auto;
+      }
+    }
+  }
+  .table-container {
+    width: 100%;
+    padding: 20px;
+    margin: 20px;
+  }
 }
-.error{
-    color: red;
+.radio-horizontal-label {
+  width: 100%;
+  margin-left: 10px;
+}
+.radio-horizontal-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+}
+
+// Table
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.clicked-row {
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
 }
