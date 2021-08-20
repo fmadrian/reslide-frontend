@@ -1,0 +1,133 @@
+<form [formGroup]="productForm" (ngSubmit)="submit()">
+  <div class="search-box">
+    <button
+      mat-button
+      color="primary"
+      (click)="openDialog('productType')"
+      type="button"
+    >
+      Select product type
+    </button>
+    <mat-label>Product type: {{ selectedValues.productType?.type }} </mat-label>
+  </div>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Product name</mat-label>
+    <input matInput [formControlName]="'name'" value="" />
+    <mat-error>
+      <div *ngFor="let error of formValidation.errors">
+        <mat-error *ngIf="productForm.get('name')?.hasError(error)">
+          {{ formValidation.getErrorMessage("name", productForm) }}
+        </mat-error>
+      </div>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Code</mat-label>
+    <input [formControlName]="'code'" matInput />
+    <mat-error>
+      <ng-container *ngFor="let error of formValidation.errors">
+        <div *ngIf="productForm.get('code')?.hasError(error)">
+          {{ formValidation.getErrorMessage("code", productForm) }}
+        </div>
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+  <div class="selection-box">
+    <button
+      mat-button
+      color="primary"
+      (click)="openDialog('brand')"
+      type="button"
+    >
+      Select product brand
+    </button>
+    <mat-label>Brand: {{ selectedValues.productBrand?.name }}</mat-label>
+  </div>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Price</mat-label>
+    <input [formControlName]="'price'" matInput />
+    <mat-error> </mat-error>
+  </mat-form-field>
+  <div class="selection-box">
+    <button
+      mat-button
+      color="primary"
+      (click)="openDialog('measurementType')"
+      type="button"
+    >
+      Select measurement type
+    </button>
+    <mat-label
+      >Measurement type: {{ selectedValues.measurementType?.name }}
+    </mat-label>
+  </div>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Quantity available</mat-label>
+    <input [formControlName]="'quantity'" matInput />
+    <mat-error> </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Notes</mat-label>
+    <textarea [formControlName]="'notes'" matInput></textarea>
+  </mat-form-field>
+  <!-- Tax exemption -->
+  <mat-radio-group [formControlName]="'taxExempt'">
+    <mat-label class="radio-horizontal-label">Is it tax exempt?:</mat-label>
+    <mat-radio-button
+      class="radio-horizontal-button"
+      color="primary"
+      value="true"
+      >Yes</mat-radio-button
+    >
+    <mat-radio-button
+      class="radio-horizontal-button"
+      color="primary"
+      value="false"
+      >No</mat-radio-button
+    >
+  </mat-radio-group>
+  <!-- Product status -->
+  <div [hidden]="!productInput">
+    <mat-radio-group [formControlName]="'productStatus'">
+      <mat-label class="radio-horizontal-label">Product status:</mat-label>
+      <mat-radio-button
+        class="radio-horizontal-button"
+        color="primary"
+        value="active"
+        >Active</mat-radio-button
+      >
+      <mat-radio-button
+        class="radio-horizontal-button"
+        color="primary"
+        value="inactive"
+        >Inactive</mat-radio-button
+      >
+      <mat-radio-button
+        class="radio-horizontal-button"
+        color="primary"
+        value="discontinued"
+        >Discontinued</mat-radio-button
+      >
+    </mat-radio-group>
+  </div>
+  <!-- Display errors -->
+  <section class="mat-typography error">
+    <div *ngIf="apiError">
+      {{ apiError?.message }}
+    </div>
+  </section>
+  <div>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="resetForm()">
+        Reset form
+      </button>
+    </div>
+
+    <mat-divider class="form-divider"></mat-divider>
+  </div>
+</form>
