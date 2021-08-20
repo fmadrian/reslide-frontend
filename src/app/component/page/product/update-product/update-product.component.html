@@ -1,0 +1,22 @@
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!retrieveError" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update client or provider</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Product information</h2>
+      </section>
+      <app-product-form
+        (productOutput)="update($event)"
+        [productInput]="product"
+        [apiError]="apiError"
+      ></app-product-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ retrieveError?.message }}</h1>
+  </ng-template>
+</div>
