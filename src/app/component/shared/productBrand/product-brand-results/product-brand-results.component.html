@@ -1,11 +1,16 @@
 <div class="content results-container">
+  <div class="close-dialog mat-elevation-z8" *ngIf="!showUpdateButton">
+    <button mat-flat-button color="primary" (click)="closeDialog()">
+      Close
+    </button>
+  </div>
   <div class="search-form mat-elevation-z8">
     <section class="mat-typography">
-      <h2>Search a client or provider</h2>
+      <h2>Search a product brand</h2>
     </section>
     <form [formGroup]="searchForm">
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Name or code</mat-label>
+        <mat-label>Brand</mat-label>
         <input [formControlName]="'query'" matInput />
       </mat-form-field>
       <button
@@ -23,10 +28,9 @@
     <section class="mat-typography">
       <h2>Results</h2>
     </section>
+    <!-- while we are waiting for the brands, we should see the indicator container-->
     <div [hidden]="isLoading">
       <!-- Sortable table -->
-      <!-- 'contacts' is a variable defined in the ts file-->
-      <!-- mat-elevation-z8 is an angular material css class-->
       <table
         mat-table
         matSort
@@ -36,47 +40,33 @@
         <!-- Id column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-          <td mat-cell *matCellDef="let individual">{{ individual.id }}</td>
+          <td mat-cell *matCellDef="let brand">{{ brand.id }}</td>
         </ng-container>
         <!-- Type column -->
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-          <td mat-cell *matCellDef="let individual">{{ individual.type }}</td>
-        </ng-container>
-        <!-- Code column -->
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
-          <td mat-cell *matCellDef="let individual">{{ individual.code }}</td>
-        </ng-container>
-        <!-- Name column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td mat-cell *matCellDef="let individual">{{ individual.name }}</td>
+          <td mat-cell *matCellDef="let brand">{{ brand.name }}</td>
         </ng-container>
         <!-- Notes column -->
         <ng-container matColumnDef="notes">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
-          <td mat-cell *matCellDef="let individual">
+          <td mat-cell *matCellDef="let brand">
             <textarea matInput readonly>
-                            {{ individual.notes }} 
+                            {{ brand.notes }} 
                         </textarea
             >
           </td>
         </ng-container>
         <ng-container matColumnDef="button">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td mat-cell *matCellDef="let individual">
+          <td mat-cell *matCellDef="let brand">
             <div *ngIf="showUpdateButton; else notUpdating">
-              <button mat-button color="primary" (click)="update(individual)">
+              <button mat-button color="primary" (click)="update(brand)">
                 Update
               </button>
             </div>
             <ng-template #notUpdating>
-              <button
-                mat-button
-                color="primary"
-                (click)="sendToParentComponent(individual)"
-              >
+              <button mat-button color="primary" (click)="closeDialog(brand)">
                 Select
               </button>
             </ng-template>
@@ -88,8 +78,8 @@
         <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
         <tr
           mat-row
-          (click)="selectIndividual(row)"
-          [class.clicked-row]="row === individualSelected"
+          (click)="selectBrand(row)"
+          [class.clicked-row]="row === brandSelected"
           *matRowDef="let row; columns: displayedColumns"
         ></tr>
       </table>

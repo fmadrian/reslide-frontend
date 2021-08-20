@@ -1,0 +1,193 @@
+<div class="content results-container">
+  <div class="close-dialog-button" *ngIf="!showUpdateButton">
+    <button mat-flat-button color="primary" (click)="closeDialog()">
+      Close
+    </button>
+  </div>
+  <div class="search-form mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Search a product</h2>
+    </section>
+    <form [formGroup]="searchForm">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input [formControlName]="'name'" matInput />
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Code</mat-label>
+        <input [formControlName]="'code'" matInput />
+      </mat-form-field>
+      <!-- Brand -->
+      <div class="selection-box">
+        <button
+          mat-button
+          color="primary"
+          (click)="openDialog('brand')"
+          type="button"
+        >
+          Select product brand
+        </button>
+        <mat-label>Brand: {{ searchQuerySelection.brand?.name }}</mat-label>
+      </div>
+      <!-- Type -->
+      <div class="selection-box">
+        <button
+          mat-button
+          color="primary"
+          (click)="openDialog('productType')"
+          type="button"
+        >
+          Select product type
+        </button>
+        <mat-label>Type: {{ searchQuerySelection.type?.type }}</mat-label>
+      </div>
+      <div [hidden]="!showUpdateButton">
+        <mat-radio-group [formControlName]="'status'">
+          <mat-label class="radio-horizontal-label"> Status:</mat-label>
+          <mat-radio-button
+            class="radio-horizontal-button"
+            color="primary"
+            value="active"
+            >Active</mat-radio-button
+          >
+          <mat-radio-button
+            class="radio-horizontal-button"
+            color="primary"
+            value="inactive"
+            >Inactive</mat-radio-button
+          >
+          <mat-radio-button
+            class="radio-horizontal-button"
+            color="primary"
+            value="discontinued"
+            >Discontinued</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <button
+        type="button"
+        (click)="search()"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Search
+      </button>
+      <button
+        type="button"
+        (click)="resetForm()"
+        type="button"
+        mat-raised-button
+        color="warn"
+      >
+        Clear
+      </button>
+    </form>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Results</h2>
+    </section>
+    <!-- while we are waiting for the types, we should see the indicator container-->
+    <div [hidden]="isLoading">
+      <!-- Sortable table -->
+      <table
+        mat-table
+        matSort
+        [dataSource]="datasource"
+        class="mat-elevation-z8"
+      >
+        <!-- Id column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+        </ng-container>
+        <!-- Product type column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+        </ng-container>
+        <!-- Product brand-->
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
+          <td mat-cell *matCellDef="let product">{{ product.brand }}</td>
+        </ng-container>
+        <!-- Product code -->
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Code</th>
+          <td mat-cell *matCellDef="let product">{{ product.code }}</td>
+        </ng-container>
+        <!-- Product type -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+          <td mat-cell *matCellDef="let product">{{ product.type }}</td>
+        </ng-container>
+        <!-- Quantity available -->
+        <ng-container matColumnDef="quantityAvailable">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Quantity available
+          </th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.quantityAvailable }}
+          </td>
+        </ng-container>
+        <!-- Measurement type -->
+        <ng-container matColumnDef="measurementType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Measurement type
+          </th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.measurementType }}
+          </td>
+        </ng-container>
+        <!-- Product status -->
+        <ng-container matColumnDef="productStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.productStatus }}
+          </td>
+        </ng-container>
+        <!-- Tax exempt -->
+        <ng-container matColumnDef="taxExempt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax exempt</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.taxExempt === false ? "No" : "Yes" }}
+          </td>
+        </ng-container>
+        <!-- Price -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+          <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+        </ng-container>
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let product">
+            <div *ngIf="showUpdateButton; else notUpdating">
+              <button mat-button color="primary" (click)="update(product)">
+                Update
+              </button>
+            </div>
+            <ng-template #notUpdating>
+              <button mat-button color="primary" (click)="closeDialog(product)">
+                Select
+              </button>
+            </ng-template>
+          </td>
+        </ng-container>
+        <!-- Header row and row definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- (click)= event triggered by a click on the table -->
+        <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
+        <tr
+          mat-row
+          (click)="selectProduct(row)"
+          [class.clicked-row]="row === productSelected"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+    <div [hidden]="!isLoading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>
