@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { share } from 'rxjs/operators';
 import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { ApiRoutes } from 'src/app/utils/apiRoutes';
 import { AppRoutes } from 'src/app/utils/appRoutes';
@@ -21,6 +22,8 @@ export class IndividualService {
     return this.httpClient.get<IndividualPayload>(ApiRoutes.individual.get, {params: {id}})
   }
   search(query: string = "") {
-    return this.httpClient.get<IndividualPayload[]>(ApiRoutes.individual.search, {params: {query}})
+    // share() transforms the cold observable into a hot one.
+    // in a hot observable the same results can be shared among different subscribers (if they subscribe before certain time has passed)
+    return this.httpClient.get<IndividualPayload[]>(ApiRoutes.individual.search, {params: {query}}).pipe(share());
   }
 }
