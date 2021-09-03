@@ -1,12 +1,14 @@
 import {
   Component,
   EventEmitter,
+  Injector,
   Input,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -36,8 +38,10 @@ export class IndividualResultsComponent implements OnInit {
   // GUI flag
   isLoading = true;
   @Input() showUpdateButton: boolean;
-
+  // Dialog
+  dialogRef: MatDialogRef<IndividualResultsComponent> | null;
   constructor(
+    public injector: Injector,
     private router: Router,
     private individualService: IndividualService,
     private formBuilder: FormBuilder
@@ -45,7 +49,9 @@ export class IndividualResultsComponent implements OnInit {
     this.searchForm = this.formBuilder.group({});
     this.datasource = new MatTableDataSource();
     this.individualSelected = null;
-    this.showUpdateButton = true;
+    this.showUpdateButton = false;
+    // Tries to inject a dialog reference (if it doesn't exist, it returns null)
+    this.dialogRef = this.injector.get(MatDialogRef, null);
   }
 
   ngOnInit(): void {
@@ -97,6 +103,12 @@ export class IndividualResultsComponent implements OnInit {
   sendToParentComponent(individual: IndividualPayload) {
     if (individual !== null && individual !== undefined) {
       // Send individual to parent component
+    }
+  }
+  closeDialog(type: IndividualPayload | null = null) {
+    if (this.dialogRef !== null) {
+      // Closes the dialog and sends the individual selected to whoever called the dialog.
+      this.dialogRef?.close(type);
     }
   }
 }
