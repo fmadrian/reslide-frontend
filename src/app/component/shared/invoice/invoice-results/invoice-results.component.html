@@ -1,0 +1,116 @@
+<div class="content results-container">
+  <div class="search-form mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Search a invoice</h2>
+    </section>
+    <form [formGroup]="searchForm">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Name or code</mat-label>
+        <input [formControlName]="'query'" matInput />
+      </mat-form-field>
+      <button
+        type="button"
+        (click)="search()"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Results</h2>
+    </section>
+    <div [hidden]="isLoading">
+      <!-- Sortable table -->
+      <!-- 'contacts' is a variable defined in the ts file-->
+      <!-- mat-elevation-z8 is an angular material css class-->
+      <table
+        mat-table
+        matSort
+        [dataSource]="datasource"
+        class="mat-elevation-z8"
+      >
+        <!-- Id column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.id }}</td>
+        </ng-container>
+        <!-- Date column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let invoice">
+            {{ invoice.transaction.date }}
+          </td>
+        </ng-container>
+        <!-- Client code column -->
+        <ng-container matColumnDef="clientCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Client code</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.clientCode }}</td>
+        </ng-container>
+        <!-- Client name column -->
+        <ng-container matColumnDef="clientName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Client name</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.clientName }}</td>
+        </ng-container>
+        <!-- Subtotal column -->
+        <ng-container matColumnDef="subtotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Subtotal</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.subtotal }}</td>
+        </ng-container>
+        <!-- tax column -->
+        <ng-container matColumnDef="tax">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.tax }}</td>
+        </ng-container>
+        <!-- discount column -->
+        <ng-container matColumnDef="discount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.discount }}</td>
+        </ng-container>
+        <!-- total column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.total }}</td>
+        </ng-container>
+        <!-- username column -->
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Made by</th>
+          <td mat-cell *matCellDef="let invoice">
+            {{ invoice.transaction.username }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let invoice">
+            <div *ngIf="showUpdateButton; else notUpdating">
+              <button mat-button color="primary" (click)="update(invoice)">
+                Update
+              </button>
+            </div>
+            <ng-template #notUpdating>
+              <button mat-button color="primary" (click)="closeDialog(invoice)">
+                Select
+              </button>
+            </ng-template>
+          </td>
+        </ng-container>
+        <!-- Header row and row definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- (click)= event triggered by a click on the table -->
+        <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
+        <tr
+          mat-row
+          (click)="selectInvoice(row)"
+          [class.clicked-row]="row === invoiceSelected"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+    <div [hidden]="!isLoading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>

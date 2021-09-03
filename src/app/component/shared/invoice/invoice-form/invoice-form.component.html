@@ -1,0 +1,152 @@
+<mat-divider class="form-divider"></mat-divider>
+<form [formGroup]="invoiceForm" (ngSubmit)="submit()">
+  <mat-tab-group class="information">
+    <mat-tab label="Invoice information">
+      <section class="mat-typography">
+        <h2>Invoice information</h2>
+      </section>
+      <!-- Client (code) or search field -->
+      <!--Search button -->
+      <div class="search">
+        <!-- Autocomplete bar -->
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Client code or name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'clientAutocomplete'"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let client of clients$ | async"
+              [value]="client.code + ' ' + client.name"
+              (click)="changeClient(client)"
+            >
+              {{ client.code + "  " + client.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="openDialog('client')"
+        >
+          Search a client
+        </button>
+      </div>
+      <!-- TODO: implement date-->
+      <!-- Date-->
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput type="text" [formControlName]="'date'" />
+      </mat-form-field>
+      <!-- Notes -->
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Notes</mat-label>
+        <textarea [formControlName]="'notes'" matInput></textarea>
+      </mat-form-field>
+      <mat-divider class="form-divider"></mat-divider>
+    </mat-tab>
+    <!-- Invoice details tab -->
+    <mat-tab label="Invoice detail">
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add invoice detail </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Add a new detail component-->
+        <app-invoice-detail-form
+          (invoiceDetailOutput)="receiveDetail($event)"
+        ></app-invoice-detail-form>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> See invoice details </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- See details in the invoice component-->
+        <app-invoice-detail-results
+          [invoiceDetailsInput]="invoice.details"
+          (invoiceDetailsOutput)="receiveDetails($event)"
+        ></app-invoice-detail-results>
+      </mat-expansion-panel>
+    </mat-tab>
+
+    <!-- Payments tab -->
+    <mat-tab label="Payments">
+      <!--Add new payment section -->
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add new payment </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-payment-form
+          (paymentFormOutput)="receivePayment($event)"
+          [transactionId]="invoice?.transaction?.id"
+          (refreshInvoice)="getRefreshInvoice()"
+        ></app-payment-form>
+      </mat-expansion-panel>
+      <!--See payments section -->
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> See payments </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-payment-results
+          [paymentResultsInput]="invoice.transaction.payments"
+          (paymentResultsOutput)="receivePayments($event)"
+          [transactionId]="invoice?.transaction?.id"
+        ></app-payment-results>
+      </mat-expansion-panel>
+    </mat-tab>
+    <mat-tab label="Save">
+      <!-- Display errors -->
+      <section class="mat-typography error">
+        <div *ngIf="apiError">
+          {{ apiError?.message }}
+        </div>
+      </section>
+      <!-- Save buttons -->
+      <div>
+        <mat-divider class="form-divider"></mat-divider>
+        <div class="form-button">
+          <button type="submit" mat-flat-button color="primary">Save</button>
+        </div>
+        <div class="form-button">
+          <button
+            type="button"
+            mat-flat-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset form
+          </button>
+        </div>
+        <mat-divider class="form-divider"></mat-divider>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="mat-elevation-z8 summary">
+    <section class="mat-typography">
+      <h2>Total:</h2>
+      <p>
+        {{ invoice ? "Date: " + invoice?.transaction?.date : "Date: " }}
+      </p>
+      <p>
+        {{
+          client ? "Client: [" + client.code + "] " + client.name : "Client: "
+        }}
+      </p>
+      <p>
+        {{ invoice ? "Subtotal: " + invoice?.subtotal : "Subtotal: 0" }}
+      </p>
+      <p>{{ invoice ? "Tax: " + invoice?.tax : "Tax: 0" }}</p>
+      <p>
+        {{ invoice ? "Discount: " + invoice?.discount : "Discount: 0" }}
+      </p>
+      <p>{{ invoice ? "Total: " + invoice?.total : "Total: 0" }}</p>
+      <p>{{ invoice ? "Paid: " + invoice?.paid : "Paid: 0" }}</p>
+      <p>{{ invoice ? "Owed: " + invoice?.owed : "Owed: 0" }}</p>
+    </section>
+  </div>
+</form>
