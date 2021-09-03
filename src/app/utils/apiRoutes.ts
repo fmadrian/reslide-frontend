@@ -8,6 +8,10 @@ const baseRoutes = {
   measurementType: `${serverRoute}/measurement/type`,
   productType: `${serverRoute}/product/type`,
   productBrand: `${serverRoute}/product/brand`,
+  paymentMethod: `${serverRoute}/payment/method`,
+  payment: `${serverRoute}/payment`,
+  invoiceDetail: `${serverRoute}/invoice/detail`,
+  invoice: `${serverRoute}/invoice`,
 };
 
 export const ApiRoutes = {
@@ -15,6 +19,7 @@ export const ApiRoutes = {
     createUser: `${baseRoutes.auth}/create/user`,
     login: `${baseRoutes.auth}/login`,
     refreshToken: `${baseRoutes.auth}/refresh/token`,
+    delete: `${baseRoutes.auth}/delete`,
   },
   individual: {
     search: `${baseRoutes.individual}/search`,
@@ -54,5 +59,24 @@ export const ApiRoutes = {
     get: `${baseRoutes.productBrand}/get`,
     create: `${baseRoutes.productBrand}/create`,
     update: `${baseRoutes.productBrand}/update`,
+  },
+  paymentMethod: {
+    search: `${baseRoutes.paymentMethod}/search`,
+    get: `${baseRoutes.paymentMethod}/get`,
+    create: `${baseRoutes.paymentMethod}/create`,
+    update: `${baseRoutes.paymentMethod}/update`,
+  },
+  invoiceDetail: {
+    validate: `${baseRoutes.invoiceDetail}/validate`,
+  },
+  invoice: {
+    search: `${baseRoutes.invoice}/search`,
+    get: (id: number) => `${baseRoutes.invoice}/get/${id}`,
+    create: `${baseRoutes.invoice}/create`,
+    update: `${baseRoutes.invoice}/update`,
+  },
+  payment: {
+    create: `${baseRoutes.payment}/create`,
+    overturn: `${baseRoutes.payment}/overturn`,
   },
 };
