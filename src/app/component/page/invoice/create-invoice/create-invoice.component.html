@@ -1,0 +1,14 @@
+<div class="myForms mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h2>Create an invoice</h2>
+    </section>
+  </div>
+  <div class="myForms-extra">
+    <app-invoice-form
+      [apiError]="apiError"
+      (invoiceOutput)="createInvoice($event)"
+    >
+    </app-invoice-form>
+  </div>
+</div>

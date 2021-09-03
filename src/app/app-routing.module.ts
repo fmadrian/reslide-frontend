@@ -6,6 +6,9 @@ import { NotFoundComponent } from './component/page/error/not-found/not-found.co
 import { CreateIndividualComponent } from './component/page/individual/create-individual/create-individual.component';
 import { SearchIndividualComponent } from './component/page/individual/search-individual/search-individual.component';
 import { UpdateIndividualComponent } from './component/page/individual/update-individual/update-individual.component';
+import { CreateInvoiceComponent } from './component/page/invoice/create-invoice/create-invoice.component';
+import { SearchInvoiceComponent } from './component/page/invoice/search-invoice/search-invoice.component';
+import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
 import { LandingComponent } from './component/page/landing/landing.component';
 import { LoginComponent } from './component/page/login/login.component';
 import { CreateProductComponent } from './component/page/product/create-product/create-product.component';
@@ -31,7 +34,9 @@ const routes: Routes = [
   { path: AppRoutes.product.create, component: CreateProductComponent },
   { path: AppRoutes.product.search, component: SearchProductComponent },
   { path: AppRoutes.product.update, component: UpdateProductComponent },
-
+  { path: AppRoutes.invoice.create, component: CreateInvoiceComponent },
+  { path: AppRoutes.invoice.search, component: SearchInvoiceComponent },
+  { path: AppRoutes.invoice.update, component: UpdateInvoiceComponent },
   {
     path: AppRoutes.measurementType.search,
     component: ProductTypeResultsComponent,

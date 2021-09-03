@@ -54,6 +54,19 @@ import { ProductTypeResultsComponent } from './component/shared/productType/prod
 import { SearchProductComponent } from './component/page/product/search-product/search-product.component';
 import { ProductResultsComponent } from './component/shared/product/product-results/product-results.component';
 import { UpdateProductComponent } from './component/page/product/update-product/update-product.component';
+import { CreateInvoiceComponent } from './component/page/invoice/create-invoice/create-invoice.component';
+import { InvoiceFormComponent } from './component/shared/invoice/invoice-form/invoice-form.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { InvoiceDetailResultsComponent } from './component/shared/invoiceDetail/invoice-detail-results/invoice-detail-results.component';
+import { InvoiceDetailFormComponent } from './component/shared/invoiceDetail/invoice-detail-form/invoice-detail-form.component';
+import { DiscountFormComponent } from './component/shared/discount/discount-form/discount-form.component';
+import { PaymentFormComponent } from './component/shared/payment/payment-form/payment-form.component';
+import { PaymentResultsComponent } from './component/shared/payment/payment-results/payment-results.component';
+import { PaymentMethodResultsComponent } from './component/shared/paymentMethod/payment-method-results/payment-method-results.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SearchInvoiceComponent } from './component/page/invoice/search-invoice/search-invoice.component';
+import { InvoiceResultsComponent } from './component/shared/invoice/invoice-results/invoice-results.component';
+import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +95,17 @@ import { UpdateProductComponent } from './component/page/product/update-product/
     SearchProductComponent,
     ProductResultsComponent,
     UpdateProductComponent,
+    CreateInvoiceComponent,
+    InvoiceFormComponent,
+    InvoiceDetailResultsComponent,
+    InvoiceDetailFormComponent,
+    DiscountFormComponent,
+    PaymentFormComponent,
+    PaymentResultsComponent,
+    PaymentMethodResultsComponent,
+    InvoiceResultsComponent,
+    SearchInvoiceComponent,
+    UpdateInvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,6 +139,8 @@ import { UpdateProductComponent } from './component/page/product/update-product/
     MatProgressSpinnerModule,
     MatRadioModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule,
   ],
   providers: [
     // Dependency injections.
