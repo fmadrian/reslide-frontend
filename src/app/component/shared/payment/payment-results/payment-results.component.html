@@ -1,0 +1,94 @@
+<div class="content results-container">
+  <div class="table-container mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Payments</h2>
+    </section>
+    <div [hidden]="isLoading">
+      <!-- Sortable table -->
+      <table
+        mat-table
+        matSort
+        [dataSource]="datasource"
+        class="mat-elevation-z8"
+      >
+        <!-- Date  -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.date }}</td>
+        </ng-container>
+        <!-- Notes  -->
+        <ng-container matColumnDef="notes">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.notes }}</td>
+        </ng-container>
+        <!-- Owed before  -->
+        <ng-container matColumnDef="owedBefore">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Owed before</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.owedBefore }}</td>
+        </ng-container>
+        <!-- Owed after  -->
+        <ng-container matColumnDef="owedAfter">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Owed after</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.owedAfter }}</td>
+        </ng-container>
+        <!-- Paid -->
+        <ng-container matColumnDef="paid">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.paid }}</td>
+        </ng-container>
+        <!-- Payment method -->
+        <ng-container matColumnDef="paymentMethod">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Payment method
+          </th>
+          <td mat-cell *matCellDef="let payment">
+            {{ payment.paymentMethod }}
+          </td>
+        </ng-container>
+        <!-- Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.status }}</td>
+        </ng-container>
+        <!-- Username -->
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+          <td mat-cell *matCellDef="let payment">{{ payment.username }}</td>
+        </ng-container>
+        <!-- Overturn button-->
+        <ng-container matColumnDef="overturnButton">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let payment">
+            <button mat-button color="primary" (click)="overturn(payment)">
+              Overturn
+            </button>
+          </td>
+        </ng-container>
+        <!-- State switch button-->
+        <div *ngIf="showUpdateButton">
+          <ng-container matColumnDef="switchButton">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let payment">
+              <button mat-button color="primary" (click)="switchState(payment)">
+                {{ payment.state === "active" ? "Return" : "Activate" }}
+              </button>
+            </td>
+          </ng-container>
+        </div>
+        <!-- Header row and row definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- (click)= event triggered by a click on the table -->
+        <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
+        <tr
+          mat-row
+          (click)="selectPayment(row)"
+          [class.clicked-row]="row === paymentSelected"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+    <div [hidden]="!isLoading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>
