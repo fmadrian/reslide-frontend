@@ -1,0 +1,42 @@
+<form [formGroup]="discountForm">
+  <div class="mat-elevation-z8">
+    <!-- Percentage -->
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Percentage</mat-label>
+      <input [formControlName]="'percentage'" type="number" matInput />
+    </mat-form-field>
+    <!-- Reason -->
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Reason</mat-label>
+      <input [formControlName]="'reason'" matInput />
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea [formControlName]="'notes'" matInput> </textarea>
+    </mat-form-field>
+    <div>
+      <mat-divider class="form-divider"></mat-divider>
+      <div class="form-button">
+        <button
+          type="button"
+          (click)="closeDialog()"
+          mat-flat-button
+          color="primary"
+        >
+          Save discount
+        </button>
+      </div>
+      <div class="form-button">
+        <button
+          type="button"
+          (click)="resetForm()"
+          mat-flat-button
+          color="warn"
+        >
+          Reset form
+        </button>
+      </div>
+      <mat-divider class="form-divider"></mat-divider>
+    </div>
+  </div>
+</form>
