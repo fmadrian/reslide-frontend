@@ -56,7 +56,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.invoiceForm = this.formBuilder.group({
-      date: ['', Validators.required],
+      date: [new Date(), Validators.required],
       clientAutocomplete: ['', Validators.required],
       notes: [''],
     });
@@ -158,7 +158,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     this.invoiceForm.reset();
     this.invoice = this.resetInvoice();
     this.invoiceForm.get('date')?.setValue(this.invoice?.transaction.date);
-    this.invoiceForm.get('clientAutocomplete')?.setValue(''); // TODO: CLIENT
+    this.invoiceForm.get('clientAutocomplete')?.setValue('');
     this.invoiceForm.get('notes')?.setValue(this.invoice?.transaction.notes);
   }
   resetInvoice() {
@@ -192,7 +192,6 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
    * Submits an invoice to its parent component.
    */
   submit() {
-    console.log(this.invoiceForm.get('date')?.value);
     // If we are creating, we send it to the parent component.
     if (
       this.invoiceForm.valid &&
@@ -241,11 +240,19 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       details: this.invoice.details,
       status: 'DELIVERED',
       transaction: {
-        date: new Date().toISOString(), //TODO> DATE
+        date: this.getISODate(this.invoiceForm.get('date')?.value),
         notes: this.invoiceForm.get('notes')?.value,
         payments: this.invoice.transaction.payments,
         username: '',
       },
     };
+  }
+
+  getISODate(date: Date) {
+    if (date) {
+      date.setHours(date.getHours() - 6);
+      return date.toISOString();
+    }
+    return '';
   }
 }
