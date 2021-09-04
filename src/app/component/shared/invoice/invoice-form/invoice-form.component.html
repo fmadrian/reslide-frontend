@@ -40,8 +40,10 @@
       <!-- TODO: implement date-->
       <!-- Date-->
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Date</mat-label>
-        <input matInput type="text" [formControlName]="'date'" />
+        <mat-label>Choose a datetime</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="'date'" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker type="datetime" #picker></mat-datepicker>
       </mat-form-field>
       <!-- Notes -->
       <mat-form-field class="form-field" appearance="fill">
@@ -130,7 +132,11 @@
     <section class="mat-typography">
       <h2>Total:</h2>
       <p>
-        {{ invoice ? "Date: " + invoice?.transaction?.date : "Date: " }}
+        {{
+          invoice?.transaction
+            ? "Date: " + invoice?.transaction?.date
+            : "Date: "
+        }}
       </p>
       <p>
         {{

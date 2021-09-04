@@ -62,11 +62,12 @@ import { InvoiceDetailFormComponent } from './component/shared/invoiceDetail/inv
 import { DiscountFormComponent } from './component/shared/discount/discount-form/discount-form.component';
 import { PaymentFormComponent } from './component/shared/payment/payment-form/payment-form.component';
 import { PaymentResultsComponent } from './component/shared/payment/payment-results/payment-results.component';
-import { PaymentMethodResultsComponent } from './component/shared/paymentMethod/payment-method-results/payment-method-results.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SearchInvoiceComponent } from './component/page/invoice/search-invoice/search-invoice.component';
 import { InvoiceResultsComponent } from './component/shared/invoice/invoice-results/invoice-results.component';
 import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
+import { MatDatepickerModule } from '@matheo/datepicker';
+import { MatNativeDateModule } from '@matheo/datepicker/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +103,6 @@ import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/
     DiscountFormComponent,
     PaymentFormComponent,
     PaymentResultsComponent,
-    PaymentMethodResultsComponent,
     InvoiceResultsComponent,
     SearchInvoiceComponent,
     UpdateInvoiceComponent,
@@ -116,6 +116,9 @@ import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/
     HttpClientModule,
     // NGX webstorage
     NgxWebstorageModule.forRoot(),
+    // Matheo datepicker
+    MatDatepickerModule,
+    MatNativeDateModule,
     // Angular material
     BrowserAnimationsModule,
     // Angular material components
