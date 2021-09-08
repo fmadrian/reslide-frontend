@@ -3,14 +3,40 @@
     <section class="mat-typography">
       <h2>Search a invoice</h2>
     </section>
-    <form [formGroup]="searchForm">
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Name or code</mat-label>
-        <input [formControlName]="'code'" matInput />
-      </mat-form-field>
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="search">
+        <!-- Autocomplete bar -->
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Client code or name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'clientAutocomplete'"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let client of clients$ | async"
+              [value]="client.code + ' ' + client.name"
+              (click)="changeClient(client)"
+            >
+              {{ client.code + "  " + client.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="openDialog('client')"
+        >
+          Search a client
+        </button>
+      </div>
       <!-- Start date-->
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Choose a date and time</mat-label>
+        <mat-label>Choose a datetime</mat-label>
         <input
           matInput
           readonly
@@ -38,13 +64,7 @@
         ></mat-datepicker-toggle>
         <mat-datepicker type="datetime" #endpicker></mat-datepicker>
       </mat-form-field>
-      <button
-        type="button"
-        (click)="search()"
-        type="submit"
-        mat-raised-button
-        color="primary"
-      >
+      <button type="button" type="submit" mat-raised-button color="primary">
         Search
       </button>
     </form>
@@ -72,7 +92,7 @@
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let invoice">
-            {{ dateService.getDate(invoice.transaction.date) }}
+            {{ getDate(invoice.transaction.date) }}
           </td>
         </ng-container>
         <!-- Client code column -->

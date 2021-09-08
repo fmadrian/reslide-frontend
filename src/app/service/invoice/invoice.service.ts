@@ -11,13 +11,25 @@ export class InvoiceService {
   create(payload: InvoicePayload) {
     return this.httpClient.post(ApiRoutes.invoice.create, payload);
   }
-  search(start: string, end: string) {
-    return this.httpClient.get<InvoicePayload[]>(ApiRoutes.invoice.search, {
-      params: {
-        start,
-        end,
-      },
-    });
+  search(start: string, end: string, clientCode = '') {
+    if (clientCode.trim() === '') {
+      return this.httpClient.get<InvoicePayload[]>(ApiRoutes.invoice.search, {
+        params: {
+          start,
+          end,
+        },
+      });
+    }
+    return this.httpClient.get<InvoicePayload[]>(
+      ApiRoutes.invoice.searchByClient,
+      {
+        params: {
+          start,
+          end,
+          clientCode,
+        },
+      }
+    );
   }
   get(id: number) {
     return this.httpClient.get<InvoicePayload>(ApiRoutes.invoice.get(id));

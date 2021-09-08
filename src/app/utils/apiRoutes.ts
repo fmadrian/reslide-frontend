@@ -71,6 +71,7 @@ export const ApiRoutes = {
   },
   invoice: {
     search: `${baseRoutes.invoice}/search`,
+    searchByClient: `${baseRoutes.invoice}/search/client`,
     get: (id: number) => `${baseRoutes.invoice}/get/${id}`,
     create: `${baseRoutes.invoice}/create`,
     update: `${baseRoutes.invoice}/update`,
