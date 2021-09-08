@@ -27,12 +27,19 @@
   <!-- Paid -->
   <mat-form-field class="form-field" appearance="fill">
     <mat-label>Paid</mat-label>
-    <input matInput [formControlName]="'paid'" />
+    <input type="number" matInput [formControlName]="'paid'" />
   </mat-form-field>
   <!-- Date-->
   <mat-form-field class="form-field" appearance="fill">
-    <mat-label>Date</mat-label>
-    <input matInput [formControlName]="'date'" />
+    <mat-label>Choose a datetime</mat-label>
+    <input
+      matInput
+      readonly
+      [matDatepicker]="picker"
+      [formControlName]="'date'"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker type="datetime" #picker></mat-datepicker>
   </mat-form-field>
   <!-- Notes -->
   <mat-form-field class="form-field" appearance="fill">

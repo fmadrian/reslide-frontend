@@ -15,6 +15,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
 import { PaymentMethodPayload } from 'src/app/payload/paymentMethod/payment-method.payload';
 import { ProductPayload } from 'src/app/payload/product/product.payload';
+import { DateService } from 'src/app/service/date/date.service';
 import { PaymentService } from 'src/app/service/payment/payment.service';
 import { PaymentMethodService } from 'src/app/service/paymentMethod/payment-method.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
@@ -42,14 +43,15 @@ export class PaymentFormComponent implements OnInit {
     private router: Router,
     public paymentMethodService: PaymentMethodService,
     public dialog: MatDialog,
-    public paymentService: PaymentService
+    public paymentService: PaymentService,
+    public dateService: DateService
   ) {
     this.paymentForm = this.formBuilder.group({});
   }
   ngOnInit() {
     this.paymentForm = this.formBuilder.group({
       notes: [''],
-      date: ['', [Validators.required]],
+      date: [new Date(), [Validators.required]],
       paid: [1, [Validators.required, Validators.min(1)]],
       paymentMethodAutocomplete: ['', [Validators.required]],
     });
@@ -67,20 +69,20 @@ export class PaymentFormComponent implements OnInit {
       );
   }
   submit() {
-    let myDate = new Date().toISOString(); // TODO: FIX
     if (this.paymentForm.valid && this.paymentMethodSelected !== null) {
       // If this is not an invoice update, has to send it back to the parent component.
       // If it is an invoice update, has to do an API call to create payment.
       // We know if it is an invoice update, because we will receive the transaction id.
       let payment: PaymentPayload = {
-        date: myDate,
+        date: this.dateService.getISOString(
+          this.paymentForm.get('date')?.value
+        ),
         notes: this.paymentForm.get('notes')?.value,
         paid: this.paymentForm.get('paid')?.value,
         paymentMethod: this.paymentMethodSelected.name,
         username: '',
       };
       if (this.transactionId) {
-        console.log('n');
         payment = { ...payment, transactionId: this.transactionId };
         this.paymentService.create(payment).subscribe(
           () => {
@@ -91,13 +93,13 @@ export class PaymentFormComponent implements OnInit {
           }
         );
       } else {
-        console.log('a');
         this.paymentFormOutput.next(payment);
       }
     }
   }
   resetForm() {
     this.paymentForm.reset();
+    this.paymentForm.get('date')?.setValue(new Date());
     this.paymentMethodSelected = null;
   }
   changePaymentMethod(paymentMethod: PaymentMethodPayload) {
