@@ -7,12 +7,13 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { InvoicePayload } from 'src/app/payload/invoice/invoice.payload';
+import { DateService } from 'src/app/service/date/date.service';
 import { InvoiceService } from 'src/app/service/invoice/invoice.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
@@ -54,7 +55,8 @@ export class InvoiceResultsComponent implements OnInit {
     public injector: Injector,
     private router: Router,
     private invoiceService: InvoiceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dateService: DateService
   ) {
     this.searchForm = this.formBuilder.group({});
     this.datasource = new MatTableDataSource();
@@ -66,22 +68,23 @@ export class InvoiceResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
-      query: [''],
+      code: [''],
+      start: [new Date(), Validators.required],
+      end: [new Date(), Validators.required],
     });
-    this.invoiceService
-      // TODO: Incorporate actual date components
-      .search('2016-10-20T00:00:00.00Z', '2022-10-20T00:00:00.00Z')
-      .subscribe(
-        (data) => {
-          this.loadDataSource(data);
-        },
-        () => {
-          this.router.navigateByUrl(AppRoutes.error.internal);
-        },
-        () => {
-          this.isLoading = false;
-        }
-      );
+    const start = this.searchForm.get('start')?.value;
+    const end = this.searchForm.get('end')?.value;
+    this.invoiceService.search(start, end).subscribe(
+      (data) => {
+        this.loadDataSource(data);
+      },
+      () => {
+        this.router.navigateByUrl(AppRoutes.error.internal);
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
   loadDataSource(data: InvoicePayload[]) {
     this.datasource = new MatTableDataSource(data);
@@ -94,22 +97,25 @@ export class InvoiceResultsComponent implements OnInit {
     }
   }
   search() {
-    let query = this.searchForm.get('query')?.value;
+    const code = this.searchForm.get('code')?.value;
+    const start = this.dateService.getISOString(
+      this.searchForm.get('start')?.value
+    );
+    const end = this.dateService.getISOString(
+      this.searchForm.get('end')?.value
+    );
     this.isLoading = true;
-    this.invoiceService
-      // TODO: Incorporate actual date components
-      .search('2016-10-20T00:00:00.00Z', '2022-10-20T00:00:00.00Z')
-      .subscribe(
-        (data) => {
-          this.loadDataSource(data);
-        },
-        () => {
-          this.router.navigateByUrl(AppRoutes.error.internal);
-        },
-        () => {
-          this.isLoading = false;
-        }
-      );
+    this.invoiceService.search(start, end).subscribe(
+      (data) => {
+        this.loadDataSource(data);
+      },
+      () => {
+        this.router.navigateByUrl(AppRoutes.error.internal);
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
   update(invoice: InvoicePayload) {
     if (invoice?.id !== null && invoice?.id !== undefined) {

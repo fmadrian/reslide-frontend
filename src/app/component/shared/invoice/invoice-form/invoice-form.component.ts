@@ -10,12 +10,14 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DateTime } from 'luxon';
 import { Observable, of, pipe, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { InvoicePayload } from 'src/app/payload/invoice/invoice.payload';
 import { InvoiceDetailPayload } from 'src/app/payload/invoiceDetail/invoice-detail.payload';
 import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
+import { DateService } from 'src/app/service/date/date.service';
 import { DialogService } from 'src/app/service/dialog/dialog.service';
 import { IndividualService } from 'src/app/service/individual/individual.service';
 import { NumberService } from 'src/app/service/number/number.service';
@@ -47,7 +49,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     private individualService: IndividualService,
     private router: Router,
     private numberService: NumberService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private dateService: DateService
   ) {
     this.invoiceForm = this.formBuilder.group({});
     this.clients$ = new Observable<IndividualPayload[]>();
@@ -240,19 +243,13 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       details: this.invoice.details,
       status: 'DELIVERED',
       transaction: {
-        date: this.getISODate(this.invoiceForm.get('date')?.value),
+        date: this.dateService.getISOString(
+          this.invoiceForm.get('date')?.value
+        ),
         notes: this.invoiceForm.get('notes')?.value,
         payments: this.invoice.transaction.payments,
         username: '',
       },
     };
-  }
-
-  getISODate(date: Date) {
-    if (date) {
-      date.setHours(date.getHours() - 6);
-      return date.toISOString();
-    }
-    return '';
   }
 }
