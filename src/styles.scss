@@ -99,6 +99,47 @@ $margin: 10px;
   padding-bottom: 20px;
 }
 
+// Form components
+
+.summary {
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 25px;
+}
+.information {
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.search {
+  width: 100%;
+  .button {
+    width: 35%;
+  }
+  .field {
+    width: 65%;
+  }
+}
+.subtab {
+  margin-bottom: 10px;
+}
+// Page component
+.component-wrapper {
+  width: 75%;
+  margin-top: 20px;
+  padding-top: 10px;
+  margin-left: 40px;
+}
+.component-content {
+  width: 95%;
+  margin-top: 15px;
+  margin-left: 40px;
+  padding-bottom: 15px;
+}
+.title {
+  padding-left: 15px;
+}
+
 // Table
 
 .mat-row .mat-cell {
