@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   Injector,
@@ -27,7 +28,7 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
   templateUrl: './invoice-results.component.html',
   styleUrls: ['./invoice-results.component.scss'],
 })
-export class InvoiceResultsComponent implements OnInit {
+export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   // Search form
   searchForm: FormGroup;
   // invoice table
@@ -75,6 +76,9 @@ export class InvoiceResultsComponent implements OnInit {
     // Tries to inject a dialog reference (if it doesn't exist, it returns null)
     this.dialogRef = this.injector.get(MatDialogRef, null);
   }
+  ngAfterViewInit(): void {
+    this.datasource.sort = this.sort;
+  }
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
@@ -115,6 +119,7 @@ export class InvoiceResultsComponent implements OnInit {
   }
   loadDataSource(data: InvoicePayload[]) {
     this.datasource = new MatTableDataSource(data);
+    this.datasource.sort = this.sort;
   }
   selectInvoice(row: InvoicePayload) {
     if (this.invoiceSelected && this.invoiceSelected === row) {
