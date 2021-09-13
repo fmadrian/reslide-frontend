@@ -20,8 +20,7 @@ export class UpdateInvoiceComponent implements OnInit {
   constructor(
     private invoiceService: InvoiceService,
     private snackbarService: SnackbarService,
-    private activateRoute: ActivatedRoute,
-    private paymentService: PaymentService
+    private activateRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -45,9 +44,10 @@ export class UpdateInvoiceComponent implements OnInit {
     this.invoiceService.get(this.id).subscribe(
       (data) => {
         this.invoiceInput = data;
+        this.error = null;
       },
       (error) => {
-        this.error = error.message;
+        this.error = error;
       }
     );
   }

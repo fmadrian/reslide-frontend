@@ -26,8 +26,8 @@ export class CreateInvoiceComponent implements OnInit {
         this.apiError = null;
       },
       (error) => {
-        this.apiError = ApiErrorMessage(error.error); // We pass it to the child component
-        this.snackbarService.show(error.error.message);
+        this.apiError = error;
+        this.snackbarService.show(error);
       }
     );
   }
