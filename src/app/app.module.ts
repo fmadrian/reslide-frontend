@@ -68,6 +68,7 @@ import { InvoiceResultsComponent } from './component/shared/invoice/invoice-resu
 import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
 import { MatDatepickerModule } from '@matheo/datepicker';
 import { MatNativeDateModule } from '@matheo/datepicker/core';
+import { InvoiceTotalComponent } from './component/shared/invoice/invoice-total/invoice-total.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,6 +107,7 @@ import { MatNativeDateModule } from '@matheo/datepicker/core';
     InvoiceResultsComponent,
     SearchInvoiceComponent,
     UpdateInvoiceComponent,
+    InvoiceTotalComponent,
   ],
   imports: [
     BrowserModule,
