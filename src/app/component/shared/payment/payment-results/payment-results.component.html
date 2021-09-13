@@ -14,7 +14,9 @@
         <!-- Date  -->
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-          <td mat-cell *matCellDef="let payment">{{ payment.date }}</td>
+          <td mat-cell *matCellDef="let payment">
+            {{ getDate(payment.date) }}
+          </td>
         </ng-container>
         <!-- Notes  -->
         <ng-container matColumnDef="notes">
@@ -55,12 +57,12 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
           <td mat-cell *matCellDef="let payment">{{ payment.username }}</td>
         </ng-container>
-        <!-- Overturn button-->
+        <!-- Overturn / Delete button-->
         <ng-container matColumnDef="overturnButton">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let payment">
             <button mat-button color="primary" (click)="overturn(payment)">
-              Overturn
+              {{ transactionId ? "Overturn" : "Delete" }}
             </button>
           </td>
         </ng-container>

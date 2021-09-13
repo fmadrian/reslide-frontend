@@ -13,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
+import { DateService } from 'src/app/service/date/date.service';
 import { PaymentService } from 'src/app/service/payment/payment.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 
@@ -52,7 +53,8 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private paymentService: PaymentService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private dateService: DateService
   ) {
     this.datasource = new MatTableDataSource();
     this.paymentSelected = null;
@@ -72,7 +74,7 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   selectPayment(payment: PaymentPayload) {}
   overturn(payment: PaymentPayload) {
     if (this.transactionId) {
-      // Adds the transaction id an
+      // Adds the transaction id and then, overturns the payment.
       payment = { ...payment, transactionId: this.transactionId };
       this.paymentService.overturn(payment).subscribe(
         () => {
@@ -98,5 +100,9 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   reloadDatasource() {
     this.datasource = new MatTableDataSource(this.paymentResultsInput);
     this.datasource.sort = this.sort;
+  }
+
+  getDate(date: string) {
+    return this.dateService.getDate(date);
   }
 }
