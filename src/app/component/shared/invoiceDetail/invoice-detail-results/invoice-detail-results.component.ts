@@ -12,7 +12,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { InvoiceDetailPayload } from 'src/app/payload/invoiceDetail/invoice-detail.payload';
-
 @Component({
   selector: 'app-invoice-detail-results',
   templateUrl: './invoice-detail-results.component.html',

@@ -109,7 +109,7 @@ export class InvoiceDetailFormComponent implements OnInit {
             this.invoiceDetailOutput.next(data);
           },
           (error) => {
-            this.snackbarService.show(error.error.message);
+            this.snackbarService.show(error);
           }
         );
     }

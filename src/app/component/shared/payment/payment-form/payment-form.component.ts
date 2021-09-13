@@ -18,6 +18,7 @@ import { ProductPayload } from 'src/app/payload/product/product.payload';
 import { DateService } from 'src/app/service/date/date.service';
 import { PaymentService } from 'src/app/service/payment/payment.service';
 import { PaymentMethodService } from 'src/app/service/paymentMethod/payment-method.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
@@ -44,7 +45,8 @@ export class PaymentFormComponent implements OnInit {
     public paymentMethodService: PaymentMethodService,
     public dialog: MatDialog,
     public paymentService: PaymentService,
-    public dateService: DateService
+    public dateService: DateService,
+    private snackbarService: SnackbarService
   ) {
     this.paymentForm = this.formBuilder.group({});
   }
@@ -89,7 +91,7 @@ export class PaymentFormComponent implements OnInit {
             this.refreshInvoice.next();
           },
           (error) => {
-            console.error(error);
+            this.snackbarService.show(error);
           }
         );
       } else {
