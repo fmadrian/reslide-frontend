@@ -68,6 +68,9 @@ export const ApiRoutes = {
   },
   invoiceDetail: {
     validate: `${baseRoutes.invoiceDetail}/validate`,
+    create: `${baseRoutes.invoiceDetail}/create`,
+    delete: (detailId: number, invoiceId: number) =>
+      `${baseRoutes.invoiceDetail}/delete/${invoiceId}/${detailId}`,
   },
   invoice: {
     search: `${baseRoutes.invoice}/search`,

@@ -15,4 +15,12 @@ export class InvoiceDetailService {
       payload
     );
   }
+  create(payload: InvoiceDetailPayload) {
+    return this.httpClient.post<any>(ApiRoutes.invoiceDetail.create, payload);
+  }
+  delete(detailId: number, invoiceId: number) {
+    return this.httpClient.delete<any>(
+      ApiRoutes.invoiceDetail.delete(invoiceId, detailId)
+    );
+  }
 }
