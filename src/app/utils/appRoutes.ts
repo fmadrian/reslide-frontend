@@ -4,6 +4,7 @@ const baseRoutes = {
   product: 'product',
   measurementType: 'measurementType',
   invoice: 'invoice',
+  order: 'order',
 };
 export const AppRoutes = {
   login: 'login',
@@ -36,6 +37,14 @@ export const AppRoutes = {
     view_id: (id: number) => `${baseRoutes.invoice}/${id}`,
     update: `${baseRoutes.invoice}/update/:id`,
     update_id: (id: number) => `${baseRoutes.invoice}/update/${id}`, // Includes the id
+  },
+  order: {
+    create: `${baseRoutes.order}/create`,
+    search: `${baseRoutes.order}/search`,
+    view: `${baseRoutes.order}/:id`,
+    view_id: (id: number) => `${baseRoutes.order}/${id}`,
+    update: `${baseRoutes.order}/update/:id`,
+    update_id: (id: number) => `${baseRoutes.order}/update/${id}`, // Includes the id
   },
   error: {
     notFound: '**',

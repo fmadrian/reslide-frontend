@@ -70,6 +70,15 @@ import { MatDatepickerModule } from '@matheo/datepicker';
 import { MatNativeDateModule } from '@matheo/datepicker/core';
 import { InvoiceTotalComponent } from './component/shared/invoice/invoice-total/invoice-total.component';
 import { ViewInvoiceComponent } from './component/page/invoice/view-invoice/view-invoice.component';
+import { OrderFormComponent } from './component/shared/order/order-form/order-form.component';
+import { OrderResultsComponent } from './component/shared/order/order-results/order-results.component';
+import { OrderTotalComponent } from './component/shared/order/order-total/order-total.component';
+import { OrderDetailFormComponent } from './component/shared/orderDetail/order-detail-form/order-detail-form.component';
+import { OrderDetailResultsComponent } from './component/shared/orderDetail/order-detail-results/order-detail-results.component';
+import { CreateOrderComponent } from './component/page/order/create-order/create-order.component';
+import { SearchOrderComponent } from './component/page/order/search-order/search-order.component';
+import { UpdateOrderComponent } from './component/page/order/update-order/update-order.component';
+import { ViewOrderComponent } from './component/page/order/view-order/view-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +119,15 @@ import { ViewInvoiceComponent } from './component/page/invoice/view-invoice/view
     UpdateInvoiceComponent,
     InvoiceTotalComponent,
     ViewInvoiceComponent,
+    OrderFormComponent,
+    OrderResultsComponent,
+    OrderTotalComponent,
+    OrderDetailFormComponent,
+    OrderDetailResultsComponent,
+    CreateOrderComponent,
+    SearchOrderComponent,
+    UpdateOrderComponent,
+    ViewOrderComponent,
   ],
   imports: [
     BrowserModule,

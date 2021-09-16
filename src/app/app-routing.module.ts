@@ -12,6 +12,10 @@ import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/
 import { ViewInvoiceComponent } from './component/page/invoice/view-invoice/view-invoice.component';
 import { LandingComponent } from './component/page/landing/landing.component';
 import { LoginComponent } from './component/page/login/login.component';
+import { CreateOrderComponent } from './component/page/order/create-order/create-order.component';
+import { SearchOrderComponent } from './component/page/order/search-order/search-order.component';
+import { UpdateOrderComponent } from './component/page/order/update-order/update-order.component';
+import { ViewOrderComponent } from './component/page/order/view-order/view-order.component';
 import { CreateProductComponent } from './component/page/product/create-product/create-product.component';
 import { SearchProductComponent } from './component/page/product/search-product/search-product.component';
 import { UpdateProductComponent } from './component/page/product/update-product/update-product.component';
@@ -39,6 +43,10 @@ const routes: Routes = [
   { path: AppRoutes.invoice.search, component: SearchInvoiceComponent },
   { path: AppRoutes.invoice.update, component: UpdateInvoiceComponent },
   { path: AppRoutes.invoice.view, component: ViewInvoiceComponent },
+  { path: AppRoutes.order.create, component: CreateOrderComponent },
+  { path: AppRoutes.order.search, component: SearchOrderComponent },
+  { path: AppRoutes.order.update, component: UpdateOrderComponent },
+  { path: AppRoutes.order.view, component: ViewOrderComponent },
   {
     path: AppRoutes.measurementType.search,
     component: ProductTypeResultsComponent,
