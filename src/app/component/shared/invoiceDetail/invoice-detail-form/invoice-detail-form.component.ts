@@ -32,8 +32,10 @@ export class InvoiceDetailFormComponent implements OnInit {
   discount: DiscountPayload | undefined;
   // Input
   @Input() invoiceDetailInput: InvoiceDetailPayload | null = null;
+  @Input() invoiceId: number | null = null;
   // Output
   @Output() invoiceDetailOutput = new EventEmitter<InvoiceDetailPayload>();
+  @Output() refreshInvoice = new EventEmitter<void>();
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -105,8 +107,22 @@ export class InvoiceDetailFormComponent implements OnInit {
         })
         .subscribe(
           (data) => {
-            // Send the returned validated line to the parent component.
-            this.invoiceDetailOutput.next(data);
+            // If we are updating, we have to add the detail to the invoice and ask the parent component to refresh the invoice.
+            if (this.invoiceId) {
+              data.invoiceId = this.invoiceId;
+              this.invoiceDetailService.create(data).subscribe(
+                () => {
+                  this.snackbarService.show('Detail added.');
+                  this.refreshInvoice.next();
+                },
+                (error) => {
+                  this.snackbarService.show(error);
+                }
+              );
+            } else {
+              // Send the returned validated line to the parent component.
+              this.invoiceDetailOutput.next(data);
+            }
           },
           (error) => {
             this.snackbarService.show(error);

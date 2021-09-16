@@ -7,7 +7,7 @@
     </div>
     <div class="component-content">
       <app-invoice-form
-        (invoiceOutput)="updateIndividual($event)"
+        (invoiceOutput)="update($event)"
         (refreshInvoice)="getInvoice()"
         [invoiceInput]="invoiceInput"
         [apiError]="apiError"

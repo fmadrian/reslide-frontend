@@ -41,8 +41,11 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     'tax',
     'discount',
     'total',
+    'paid',
+    'owed',
     'username',
-    'button',
+    'updateButton',
+    'viewButton',
   ];
   // Autocomplete bar
   clients$: undefined | Observable<IndividualPayload[]>;
@@ -153,6 +156,11 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   update(invoice: InvoicePayload) {
     if (invoice?.id !== null && invoice?.id !== undefined) {
       this.router.navigateByUrl(AppRoutes.invoice.update_id(invoice.id));
+    }
+  }
+  view(invoice: InvoicePayload) {
+    if (invoice.id !== null && invoice.id !== undefined) {
+      this.router.navigateByUrl(AppRoutes.invoice.view_id(invoice.id));
     }
   }
   closeDialog(type: InvoicePayload | null = null) {

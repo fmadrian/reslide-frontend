@@ -125,6 +125,16 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
           <td mat-cell *matCellDef="let invoice">{{ invoice.total }}</td>
         </ng-container>
+        <!-- paid column -->
+        <ng-container matColumnDef="paid">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.paid }}</td>
+        </ng-container>
+        <!-- owed column -->
+        <ng-container matColumnDef="owed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Owed</th>
+          <td mat-cell *matCellDef="let invoice">{{ invoice.owed }}</td>
+        </ng-container>
         <!-- username column -->
         <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Made by</th>
@@ -132,7 +142,7 @@
             {{ invoice.transaction.username }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="button">
+        <ng-container matColumnDef="updateButton">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let invoice">
             <div *ngIf="showUpdateButton; else notUpdating">
@@ -145,6 +155,21 @@
                 Select
               </button>
             </ng-template>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="viewButton">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let invoice">
+            <div *ngIf="showUpdateButton">
+              <button
+                type="button"
+                mat-button
+                color="primary"
+                (click)="view(invoice)"
+              >
+                View
+              </button>
+            </div>
           </td>
         </ng-container>
         <!-- Header row and row definitions -->

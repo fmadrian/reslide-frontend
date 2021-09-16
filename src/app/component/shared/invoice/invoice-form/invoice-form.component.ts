@@ -62,6 +62,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       clientAutocomplete: ['', Validators.required],
       notes: [''],
     });
+    this.getInvoiceAproximate();
+
     // Chain 2 or more methods applied to same observable with pipe
     // 1st function: switchMap will switch from one observable to the other.
     // 2nd function: catchError will catch a error thrown by the observable and return a new observable or error.
@@ -73,7 +75,12 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       ?.valueChanges.pipe(
         switchMap(() => {
           let query = this.invoiceForm.get('clientAutocomplete')?.value;
-          return this.individualService.search(query);
+          // Avoid making empty queries.
+          if (query !== null || query === '') {
+            return this.individualService.search(query);
+          } else {
+            return of([]);
+          }
         }),
         catchError(() => {
           this.router.navigateByUrl(AppRoutes.error.internal); // Redirects the user.
@@ -82,8 +89,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       );
   }
   ngOnChanges(changes: SimpleChanges): void {
+    // Resets the form if receives a new input or if there isn't an API error after creating a form.
     if (this.invoiceInput) {
-      this.invoice = this.resetInvoice();
       this.resetForm();
     } else {
       // If we receive a value (update), it has to pass into the other child components.
@@ -99,6 +106,11 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.invoiceForm
         .get('clientAutocomplete')
         ?.setValue(`${this.client?.code} ${this.client?.name}`);
+      this.invoice = {
+        ...this.invoice,
+        clientName: this.client.name,
+        clientCode: this.client.code,
+      };
     }
   }
   openDialog(name: string) {
@@ -151,7 +163,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
    * It's used when we delete a detail and want to propagate the new payments array.
    * */
   receivePayments(payments: PaymentPayload[]) {
-    this.invoice.transaction.payments = [...this.invoice.transaction.payments];
+    this.invoice.transaction.payments = [...payments];
     this.getInvoiceAproximate();
   }
 
@@ -159,9 +171,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     // Resets the invoice and the form values.
     this.invoiceForm.reset();
     this.invoice = this.resetInvoice();
-    this.invoiceForm.get('date')?.setValue(this.invoice?.transaction.date);
-    this.invoiceForm.get('clientAutocomplete')?.setValue('');
-    this.invoiceForm.get('notes')?.setValue(this.invoice?.transaction.notes);
+    this.invoiceForm.get('date')?.setValue(this.invoice.transaction.date);
+    this.invoiceForm.get('notes')?.setValue(this.invoice.transaction.notes);
   }
   resetInvoice() {
     let result: InvoicePayload;
@@ -173,21 +184,36 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
         details: [],
         transaction: {
           username: '',
-          date: '',
+          date: this.dateService.getISOString(new Date()),
           notes: '',
           payments: [],
         },
         status: '',
+        owed: 0,
+        paid: 0,
+        subtotal: 0,
+        tax: 0,
+        total: 0,
+        discount: 0,
       };
-      this.client = null;
+      this.changeClient(null);
     } else {
       result = {
         ...this.invoiceInput,
         details: [...this.invoiceInput.details],
         transaction: { ...this.invoiceInput.transaction },
       };
-      this.client = null;
+      // Build the client from the information received from the invoice
+      const client: IndividualPayload = {
+        name: this.invoiceInput.clientName,
+        code: this.invoiceInput.clientCode,
+        addresses: [],
+        contacts: [],
+        notes: '',
+      };
+      this.changeClient(client);
     }
+    this.apiError = null;
     return result;
   }
   /**
@@ -201,54 +227,62 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.invoice &&
       this.client
     ) {
+      this.invoice.transaction.date = this.invoiceForm.get('date')?.value;
+      this.invoice.transaction.notes = this.invoiceForm.get('notes')?.value;
+
+      if (this.invoice.id) {
+        this.invoice.transaction.date = this.invoiceForm.get('date')?.value;
+        this.invoice.transaction.notes = this.invoiceForm.get('notes')?.value;
+      }
       this.invoiceOutput.next(this.invoice);
-      this.resetForm();
     }
   }
   /**
    * Only used when creating an invoice.
-   * Gets an aproximate of the invoice with its payments to show on screen
+   * When we are updating, the informations gets reloaded every time it changes.
+   * Gets an aproximate of the invoice with its payments to show on screen.
    */
   getInvoiceAproximate() {
-    let subtotal = this.invoice.details
-      .map((detail) => this.numberService.numberFilter(detail.subtotal))
-      .reduce(this.numberService.add, 0);
+    if (!this.invoice.id) {
+      let subtotal = this.invoice.details
+        .map((detail) => this.numberService.numberFilter(detail.subtotal))
+        .reduce(this.numberService.add, 0);
 
-    let tax = this.invoice.details
-      .map((detail) => this.numberService.numberFilter(detail.tax))
-      .reduce(this.numberService.add, 0);
+      let tax = this.invoice.details
+        .map((detail) => this.numberService.numberFilter(detail.tax))
+        .reduce(this.numberService.add, 0);
 
-    let discount = this.invoice.details
-      .map((detail) => this.numberService.numberFilter(detail.discount))
-      .reduce(this.numberService.add, 0);
+      let discount = this.invoice.details
+        .map((detail) => this.numberService.numberFilter(detail.discount))
+        .reduce(this.numberService.add, 0);
 
-    let total = this.invoice.details
-      .map((detail) => this.numberService.numberFilter(detail.total))
-      .reduce(this.numberService.add, 0);
+      let total = this.invoice.details
+        .map((detail) => this.numberService.numberFilter(detail.total))
+        .reduce(this.numberService.add, 0);
 
-    let paid = this.invoice.transaction.payments
-      .map((payment) => this.numberService.numberFilter(payment.paid))
-      .reduce(this.numberService.add, 0);
-
-    this.invoice = {
-      clientCode: this.client ? this.client.code : '',
-      clientName: this.client ? this.client.name : '',
-      owed: total - paid,
-      paid,
-      subtotal,
-      tax,
-      total,
-      discount,
-      details: this.invoice.details,
-      status: 'DELIVERED',
-      transaction: {
-        date: this.dateService.getISOString(
-          this.invoiceForm.get('date')?.value
-        ),
-        notes: this.invoiceForm.get('notes')?.value,
-        payments: this.invoice.transaction.payments,
-        username: '',
-      },
-    };
+      let paid = this.invoice.transaction.payments
+        .map((payment) => this.numberService.numberFilter(payment.paid))
+        .reduce(this.numberService.add, 0);
+      this.invoice = {
+        clientCode: this.client ? this.client.code : '',
+        clientName: this.client ? this.client.name : '',
+        owed: total - paid,
+        paid,
+        subtotal,
+        tax,
+        total,
+        discount,
+        details: this.invoice.details,
+        status: '',
+        transaction: {
+          date: this.dateService.getISOString(
+            this.invoiceForm.get('date')?.value
+          ),
+          notes: this.invoiceForm.get('notes')?.value,
+          payments: this.invoice.transaction.payments,
+          username: '',
+        },
+      };
+    }
   }
 }
