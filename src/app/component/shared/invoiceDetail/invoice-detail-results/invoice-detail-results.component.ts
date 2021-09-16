@@ -11,7 +11,10 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { InvoiceDetailPayload } from 'src/app/payload/invoiceDetail/invoice-detail.payload';
+import { InvoiceDetailService } from 'src/app/service/invoiceDetail/invoice-detail.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 @Component({
   selector: 'app-invoice-detail-results',
   templateUrl: './invoice-detail-results.component.html',
@@ -28,7 +31,6 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
     'tax',
     'discount',
     'total',
-    'status',
     'deleteButton',
   ];
   // Dataset created to manipulate the data in the table.
@@ -39,20 +41,20 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
   detailSelected: InvoiceDetailPayload | null;
   // GUI flag
   isLoading = false;
-  @Input() showUpdateButton: boolean;
   // Input
   @Input() invoiceDetailsInput: InvoiceDetailPayload[] = [];
+  @Input() invoiceId: number | null = null;
+  @Input() showButton = true; // Determines if we should show the delete button
   // Output
   @Output() invoiceDetailsOutput = new EventEmitter<InvoiceDetailPayload[]>();
-  constructor(private router: Router) {
+  @Output() refreshInvoice = new EventEmitter<void>();
+  constructor(
+    private router: Router,
+    private invoiceDetailService: InvoiceDetailService,
+    private snackbarService: SnackbarService
+  ) {
     this.datasource = new MatTableDataSource();
     this.detailSelected = null;
-    this.showUpdateButton = false;
-
-    if (this.showUpdateButton) {
-      // Displays the switch state button column
-      this.displayedColumns.push('switchButton');
-    }
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.reloadDatasource();
@@ -62,17 +64,30 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
   }
   selectDetail(detail: InvoiceDetailPayload) {}
   delete(detail: InvoiceDetailPayload) {
-    // Eliminates the element from the array and sends it back to the parent component.
-    let index = this.invoiceDetailsInput.indexOf(detail);
-    this.invoiceDetailsOutput.next([
-      ...this.invoiceDetailsInput.slice(0, index),
-      ...this.invoiceDetailsInput.slice(
-        index + 1,
-        this.invoiceDetailsInput.length
-      ),
-    ]);
+    // If we are updating an invoice, and we want to delete a line, we must do it by doing an API to delete
+    // the line, then asking the parent component to refresh the invoice.
+    if (detail.id && this.invoiceId) {
+      this.invoiceDetailService.delete(this.invoiceId, detail.id).subscribe(
+        (response) => {
+          this.snackbarService.show(response.message);
+          this.refreshInvoice.next();
+        },
+        (error) => {
+          this.snackbarService.show(error.message);
+        }
+      );
+    } else {
+      // Eliminates the element from the array and sends it back to the parent component.
+      let index = this.invoiceDetailsInput.indexOf(detail);
+      this.invoiceDetailsOutput.next([
+        ...this.invoiceDetailsInput.slice(0, index),
+        ...this.invoiceDetailsInput.slice(
+          index + 1,
+          this.invoiceDetailsInput.length
+        ),
+      ]);
+    }
   }
-  switchState(detail: InvoiceDetailPayload) {}
   reloadDatasource() {
     this.datasource = new MatTableDataSource(this.invoiceDetailsInput);
     this.datasource.sort = this.sort;

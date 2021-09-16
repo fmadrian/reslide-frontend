@@ -9,7 +9,10 @@ import { ApiRoutes } from 'src/app/utils/apiRoutes';
 export class InvoiceService {
   constructor(private httpClient: HttpClient) {}
   create(payload: InvoicePayload) {
-    return this.httpClient.post(ApiRoutes.invoice.create, payload);
+    return this.httpClient.post<InvoicePayload>(
+      ApiRoutes.invoice.create,
+      payload
+    );
   }
   search(start: string, end: string, clientCode = '') {
     if (clientCode.trim() === '') {
@@ -35,6 +38,6 @@ export class InvoiceService {
     return this.httpClient.get<InvoicePayload>(ApiRoutes.invoice.get(id));
   }
   update(payload: InvoicePayload) {
-    return this.httpClient.post(ApiRoutes.invoice.update, payload);
+    return this.httpClient.put(ApiRoutes.invoice.update, payload);
   }
 }

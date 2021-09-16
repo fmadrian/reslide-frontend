@@ -9,6 +9,7 @@ import { UpdateIndividualComponent } from './component/page/individual/update-in
 import { CreateInvoiceComponent } from './component/page/invoice/create-invoice/create-invoice.component';
 import { SearchInvoiceComponent } from './component/page/invoice/search-invoice/search-invoice.component';
 import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
+import { ViewInvoiceComponent } from './component/page/invoice/view-invoice/view-invoice.component';
 import { LandingComponent } from './component/page/landing/landing.component';
 import { LoginComponent } from './component/page/login/login.component';
 import { CreateProductComponent } from './component/page/product/create-product/create-product.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: AppRoutes.invoice.create, component: CreateInvoiceComponent },
   { path: AppRoutes.invoice.search, component: SearchInvoiceComponent },
   { path: AppRoutes.invoice.update, component: UpdateInvoiceComponent },
+  { path: AppRoutes.invoice.view, component: ViewInvoiceComponent },
   {
     path: AppRoutes.measurementType.search,
     component: ProductTypeResultsComponent,

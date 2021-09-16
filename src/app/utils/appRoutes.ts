@@ -32,6 +32,8 @@ export const AppRoutes = {
   invoice: {
     create: `${baseRoutes.invoice}/create`,
     search: `${baseRoutes.invoice}/search`,
+    view: `${baseRoutes.invoice}/:id`,
+    view_id: (id: number) => `${baseRoutes.invoice}/${id}`,
     update: `${baseRoutes.invoice}/update/:id`,
     update_id: (id: number) => `${baseRoutes.invoice}/update/${id}`, // Includes the id
   },

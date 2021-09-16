@@ -58,25 +58,18 @@
           <td mat-cell *matCellDef="let payment">{{ payment.username }}</td>
         </ng-container>
         <!-- Overturn / Delete button-->
+
         <ng-container matColumnDef="overturnButton">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let payment">
-            <button mat-button color="primary" (click)="overturn(payment)">
-              {{ transactionId ? "Overturn" : "Delete" }}
-            </button>
+            <div *ngIf="showButton">
+              <button mat-button color="primary" (click)="overturn(payment)">
+                {{ transactionId ? "Overturn" : "Delete" }}
+              </button>
+            </div>
           </td>
         </ng-container>
-        <!-- State switch button-->
-        <div *ngIf="showUpdateButton">
-          <ng-container matColumnDef="switchButton">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td mat-cell *matCellDef="let payment">
-              <button mat-button color="primary" (click)="switchState(payment)">
-                {{ payment.state === "active" ? "Return" : "Activate" }}
-              </button>
-            </td>
-          </ng-container>
-        </div>
+
         <!-- Header row and row definitions -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <!-- (click)= event triggered by a click on the table -->

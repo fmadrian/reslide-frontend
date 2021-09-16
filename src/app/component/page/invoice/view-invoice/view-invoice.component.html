@@ -1,0 +1,36 @@
+<div class="component-wrapper mat-elevation-z8">
+  <ng-template [ngIf]="error === null" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h2>Invoice</h2>
+      </section>
+    </div>
+    <div class="component-content">
+      <div class="update">
+        <mat-divider class="divider"></mat-divider>
+        <button
+          class="button"
+          color="primary"
+          type="button"
+          (click)="update()"
+          mat-raised-button
+        >
+          Update
+        </button>
+        <mat-divider class="divider"></mat-divider>
+      </div>
+      <app-invoice-total [invoice]="invoice"></app-invoice-total>
+      <app-invoice-detail-results
+        [invoiceDetailsInput]="invoice.details"
+        [showButton]="false"
+      ></app-invoice-detail-results>
+      <app-payment-results
+        [paymentResultsInput]="invoice.transaction.payments"
+        [showButton]="false"
+      ></app-payment-results>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ error }}</h1>
+  </ng-template>
+</div>

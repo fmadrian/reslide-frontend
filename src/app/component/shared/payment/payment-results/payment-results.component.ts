@@ -43,10 +43,10 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   paymentSelected: PaymentPayload | null;
   // GUI flag
   isLoading = false;
-  @Input() showUpdateButton: boolean;
   // Input
   @Input() paymentResultsInput: PaymentPayload[] = [];
   @Input() transactionId: number | undefined;
+  @Input() showButton = true;
   // Output
   @Output() paymentResultsOutput = new EventEmitter<PaymentPayload[]>();
   @Output() refreshInvoice = new EventEmitter<void>();
@@ -58,12 +58,7 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   ) {
     this.datasource = new MatTableDataSource();
     this.paymentSelected = null;
-    this.showUpdateButton = false;
-
-    if (this.showUpdateButton) {
-      // Displays the switch state button column
-      this.displayedColumns.push('switchButton');
-    }
+    this.showButton = true;
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.reloadDatasource();
