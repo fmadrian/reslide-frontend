@@ -19,7 +19,7 @@ import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
 import { DateService } from 'src/app/service/date/date.service';
 import { DialogService } from 'src/app/service/dialog/dialog.service';
 import { IndividualService } from 'src/app/service/individual/individual.service';
-import { NumberService } from 'src/app/service/number/number.service';
+import { InvoiceService } from 'src/app/service/invoice/invoice.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
@@ -47,7 +47,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private individualService: IndividualService,
     private router: Router,
-    private numberService: NumberService,
+    private invoiceService: InvoiceService,
     private dialogService: DialogService,
     private dateService: DateService
   ) {
@@ -62,7 +62,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       clientAutocomplete: ['', Validators.required],
       notes: [''],
     });
-    this.getInvoiceAproximate();
+    this.getInvoicePreview();
 
     // Chain 2 or more methods applied to same observable with pipe
     // 1st function: switchMap will switch from one observable to the other.
@@ -94,7 +94,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.resetForm();
     } else {
       // If we receive a value (update), it has to pass into the other child components.
-      this.getInvoiceAproximate();
+      this.getInvoicePreview();
     }
   }
   /**
@@ -135,7 +135,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     // If we use push function, the array is not changing therefore, the child components won't be able to detect new values.
     // We have to spread the array and add the new value.
     this.invoice.details = [...this.invoice.details, detail];
-    this.getInvoiceAproximate();
+    this.getInvoicePreview();
   }
   /**
    * Only used when creating an invoice.
@@ -144,7 +144,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
    * */
   receiveDetails(details: InvoiceDetailPayload[]) {
     this.invoice.details = [...details];
-    this.getInvoiceAproximate();
+    this.getInvoicePreview();
   }
   /**
    * Only used when creating an invoice.
@@ -155,7 +155,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       ...this.invoice.transaction.payments,
       payment,
     ];
-    this.getInvoiceAproximate();
+    this.getInvoicePreview();
   }
   /**
    * Only used when creating an invoice.
@@ -164,7 +164,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
    * */
   receivePayments(payments: PaymentPayload[]) {
     this.invoice.transaction.payments = [...payments];
-    this.getInvoiceAproximate();
+    this.getInvoicePreview();
   }
 
   resetForm() {
@@ -175,34 +175,11 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     this.invoiceForm.get('notes')?.setValue(this.invoice.transaction.notes);
   }
   resetInvoice() {
-    let result: InvoicePayload;
     // If we are updating an invoice, we reload the values received.
     if (!this.invoiceInput) {
-      result = {
-        clientCode: '',
-        clientName: '',
-        details: [],
-        transaction: {
-          username: '',
-          date: this.dateService.getISOString(new Date()),
-          notes: '',
-          payments: [],
-        },
-        status: '',
-        owed: 0,
-        paid: 0,
-        subtotal: 0,
-        tax: 0,
-        total: 0,
-        discount: 0,
-      };
+      // No input, no client
       this.changeClient(null);
     } else {
-      result = {
-        ...this.invoiceInput,
-        details: [...this.invoiceInput.details],
-        transaction: { ...this.invoiceInput.transaction },
-      };
       // Build the client from the information received from the invoice
       const client: IndividualPayload = {
         name: this.invoiceInput.clientName,
@@ -214,7 +191,7 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.changeClient(client);
     }
     this.apiError = null;
-    return result;
+    return this.invoiceService.resetInvoice(this.invoiceInput, this.client);
   }
   /**
    * Submits an invoice to its parent component.
@@ -237,52 +214,12 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.invoiceOutput.next(this.invoice);
     }
   }
-  /**
-   * Only used when creating an invoice.
-   * When we are updating, the informations gets reloaded every time it changes.
-   * Gets an aproximate of the invoice with its payments to show on screen.
-   */
-  getInvoiceAproximate() {
-    if (!this.invoice.id) {
-      let subtotal = this.invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.subtotal))
-        .reduce(this.numberService.add, 0);
-
-      let tax = this.invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.tax))
-        .reduce(this.numberService.add, 0);
-
-      let discount = this.invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.discount))
-        .reduce(this.numberService.add, 0);
-
-      let total = this.invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.total))
-        .reduce(this.numberService.add, 0);
-
-      let paid = this.invoice.transaction.payments
-        .map((payment) => this.numberService.numberFilter(payment.paid))
-        .reduce(this.numberService.add, 0);
-      this.invoice = {
-        clientCode: this.client ? this.client.code : '',
-        clientName: this.client ? this.client.name : '',
-        owed: total - paid,
-        paid,
-        subtotal,
-        tax,
-        total,
-        discount,
-        details: this.invoice.details,
-        status: '',
-        transaction: {
-          date: this.dateService.getISOString(
-            this.invoiceForm.get('date')?.value
-          ),
-          notes: this.invoiceForm.get('notes')?.value,
-          payments: this.invoice.transaction.payments,
-          username: '',
-        },
-      };
-    }
+  getInvoicePreview() {
+    this.invoice = this.invoiceService.getInvoicePreview(
+      this.invoice,
+      this.client,
+      this.invoiceForm.get('date')?.value,
+      this.invoiceForm.get('notes')?.value
+    );
   }
 }
