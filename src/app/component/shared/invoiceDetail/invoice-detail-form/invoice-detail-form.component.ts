@@ -12,7 +12,6 @@ import { InvoiceDetailService } from 'src/app/service/invoiceDetail/invoice-deta
 import { ProductService } from 'src/app/service/product/product.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
-import { DiscountFormComponent } from '../../discount/discount-form/discount-form.component';
 import { ProductResultsComponent } from '../../product/product-results/product-results.component';
 
 @Component({
