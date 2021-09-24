@@ -63,6 +63,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   @Input() showUpdateButton: boolean;
   // Dialog
   dialogRef: MatDialogRef<InvoiceResultsComponent> | null;
+  // App routes (we need to do this, so we can use them in the html section of the component.)
+  AppRoutes = AppRoutes;
   constructor(
     public injector: Injector,
     private router: Router,
@@ -153,16 +155,6 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  update(invoice: InvoicePayload) {
-    if (invoice?.id !== null && invoice?.id !== undefined) {
-      this.router.navigateByUrl(AppRoutes.invoice.update_id(invoice.id));
-    }
-  }
-  view(invoice: InvoicePayload) {
-    if (invoice.id !== null && invoice.id !== undefined) {
-      this.router.navigateByUrl(AppRoutes.invoice.view_id(invoice.id));
-    }
-  }
   closeDialog(type: InvoicePayload | null = null) {
     if (this.dialogRef !== null) {
       // Closes the dialog and sends the invoice selected to whoever called the dialog.
@@ -181,13 +173,13 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     }
   }
   getDate(date: string) {
-    return this.dateService.getDate(date);
+    return this.dateService.getLocaleString(date);
   }
   openDialog(name: string) {
     let dialog = this.dialogService.open(name);
     if (dialog !== null) {
       dialog.subscribe((data) => {
-        // this.changeClient(data);
+        this.changeClient(data);
       });
     }
   }

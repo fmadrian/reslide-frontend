@@ -36,7 +36,7 @@
       </div>
       <!-- Start date-->
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Choose a datetime</mat-label>
+        <mat-label>From (date and time):</mat-label>
         <input
           matInput
           readonly
@@ -51,7 +51,7 @@
       </mat-form-field>
       <!-- End date -->
       <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Choose a date and time</mat-label>
+        <mat-label>Until (date and time):</mat-label>
         <input
           matInput
           readonly
@@ -146,9 +146,15 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let invoice">
             <div *ngIf="showUpdateButton; else notUpdating">
-              <button mat-button color="primary" (click)="update(invoice)">
+              <a
+                mat-button
+                color="primary"
+                [routerLink]="[
+                  '/'.concat(AppRoutes.invoice.update_id(invoice.id))
+                ]"
+              >
                 Update
-              </button>
+              </a>
             </div>
             <ng-template #notUpdating>
               <button mat-button color="primary" (click)="closeDialog(invoice)">
@@ -161,14 +167,15 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let invoice">
             <div *ngIf="showUpdateButton">
-              <button
-                type="button"
+              <a
                 mat-button
                 color="primary"
-                (click)="view(invoice)"
+                [routerLink]="[
+                  '/'.concat(AppRoutes.invoice.view_id(invoice.id))
+                ]"
               >
                 View
-              </button>
+              </a>
             </div>
           </td>
         </ng-container>
