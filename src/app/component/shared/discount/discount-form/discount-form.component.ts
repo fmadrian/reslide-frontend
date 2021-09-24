@@ -22,10 +22,10 @@ import {
 })
 export class DiscountFormComponent implements OnInit {
   discountForm: FormGroup;
-  //@Output() discountOutput = new EventEmitter<DiscountPayload>();
-  // @Input() discountInput: DiscountPayload | undefined;
   // Dialog
   dialogRef: MatDialogRef<DiscountFormComponent> | null;
+  // Result returned by the dialog
+  result: DiscountPayload | null = null;
   // Inject data into the dialog using the @Inject directive
   constructor(
     private formBuilder: FormBuilder,
@@ -52,18 +52,20 @@ export class DiscountFormComponent implements OnInit {
   resetForm() {
     this.discountForm.reset();
   }
-  closeDialog() {
-    let result: DiscountPayload | null = null;
+  submit() {
     if (this.dialogRef !== null) {
       if (this.discountForm.valid) {
-        result = {
+        this.result = {
           percentage: this.discountForm.get('percentage')?.value,
           reason: this.discountForm.get('reason')?.value,
           notes: this.discountForm.get('notes')?.value,
         };
+        this.closeDialog();
       }
-      // Closes the dialog and sends the individual selected to whoever called the dialog.
-      this.dialogRef?.close(result);
     }
+  }
+  closeDialog() {
+    // Closes the dialog and sends the individual selected to whoever called the dialog.
+    this.dialogRef?.close(this.result);
   }
 }

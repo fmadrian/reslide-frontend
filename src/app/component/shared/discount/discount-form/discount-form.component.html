@@ -1,32 +1,31 @@
-<form [formGroup]="discountForm">
-  <div class="mat-elevation-z8">
+<form [formGroup]="discountForm" (ngSubmit)="submit()">
+  <div class="mat-elevation-z8 discount">
+    <section class="mat-typography">
+      <h2 class="title">Discount</h2>
+    </section>
+    <mat-divider class="divider"></mat-divider>
     <!-- Percentage -->
-    <mat-form-field class="form-field" appearance="fill">
+    <mat-form-field class="field" appearance="fill">
       <mat-label>Percentage</mat-label>
       <input [formControlName]="'percentage'" type="number" matInput />
     </mat-form-field>
     <!-- Reason -->
-    <mat-form-field class="form-field" appearance="fill">
+    <mat-form-field class="field" appearance="fill">
       <mat-label>Reason</mat-label>
       <input [formControlName]="'reason'" matInput />
     </mat-form-field>
-    <mat-form-field class="form-field" appearance="fill">
+    <mat-form-field class="field" appearance="fill">
       <mat-label>Notes</mat-label>
       <textarea [formControlName]="'notes'" matInput> </textarea>
     </mat-form-field>
     <div>
-      <mat-divider class="form-divider"></mat-divider>
-      <div class="form-button">
-        <button
-          type="button"
-          (click)="closeDialog()"
-          mat-flat-button
-          color="primary"
-        >
+      <mat-divider class="divider"></mat-divider>
+      <div class="field">
+        <button type="submit" mat-flat-button color="primary">
           Save discount
         </button>
       </div>
-      <div class="form-button">
+      <div class="field">
         <button
           type="button"
           (click)="resetForm()"
@@ -36,7 +35,6 @@
           Reset form
         </button>
       </div>
-      <mat-divider class="form-divider"></mat-divider>
     </div>
   </div>
 </form>
