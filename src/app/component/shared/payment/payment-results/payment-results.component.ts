@@ -98,6 +98,6 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   }
 
   getDate(date: string) {
-    return this.dateService.getDate(date);
+    return this.dateService.getLocaleString(date);
   }
 }
