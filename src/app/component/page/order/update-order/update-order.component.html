@@ -1,1 +1,20 @@
-<p>update-order works!</p>
+<div class="component-wrapper mat-elevation-z8">
+  <ng-template [ngIf]="error === null" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h2>Update order</h2>
+      </section>
+    </div>
+    <div class="component-content">
+      <app-order-form
+        (orderOutput)="update($event)"
+        (refreshOrder)="getOrder()"
+        [orderInput]="orderInput"
+        [apiError]="apiError"
+      ></app-order-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ error }}</h1>
+  </ng-template>
+</div>

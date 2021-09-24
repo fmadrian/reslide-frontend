@@ -1,0 +1,16 @@
+$bottomMargin: 20px;
+$topMargin: 10px;
+$width: 100%;
+.update {
+  width: $width;
+  .button {
+    width: $width;
+    margin-bottom: $bottomMargin;
+    margin-top: $topMargin;
+  }
+  .divider {
+    width: $width;
+    margin-bottom: $bottomMargin;
+    margin-top: $topMargin;
+  }
+}

@@ -12,6 +12,8 @@ const baseRoutes = {
   payment: `${serverRoute}/payment`,
   invoiceDetail: `${serverRoute}/invoice/detail`,
   invoice: `${serverRoute}/invoice`,
+  order: `${serverRoute}/order`,
+  orderDetail: `${serverRoute}/order/detail`,
 };
 
 export const ApiRoutes = {
@@ -71,6 +73,7 @@ export const ApiRoutes = {
     create: `${baseRoutes.invoiceDetail}/create`,
     delete: (detailId: number, invoiceId: number) =>
       `${baseRoutes.invoiceDetail}/delete/${invoiceId}/${detailId}`,
+    switchState: `${baseRoutes.invoiceDetail}/update/status`,
   },
   invoice: {
     search: `${baseRoutes.invoice}/search`,
@@ -78,6 +81,21 @@ export const ApiRoutes = {
     get: (id: number) => `${baseRoutes.invoice}/get/${id}`,
     create: `${baseRoutes.invoice}/create`,
     update: `${baseRoutes.invoice}/update`,
+  },
+  order: {
+    search: `${baseRoutes.order}/search`,
+    searchByClient: `${baseRoutes.order}/search/client`,
+    get: (id: number) => `${baseRoutes.order}/get/${id}`,
+    create: `${baseRoutes.order}/create`,
+    update: `${baseRoutes.order}/update`,
+    deliverAllProducts: `${baseRoutes.order}/deliver`,
+  },
+  orderDetail: {
+    validate: `${baseRoutes.orderDetail}/validate`,
+    create: `${baseRoutes.orderDetail}/create`,
+    delete: (orderId: number, detailId: number) =>
+      `${baseRoutes.orderDetail}/delete/${orderId}/${detailId}`,
+    switchState: `${baseRoutes.orderDetail}/update/status`,
   },
   payment: {
     create: `${baseRoutes.payment}/create`,

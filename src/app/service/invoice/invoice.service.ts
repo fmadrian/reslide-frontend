@@ -100,10 +100,7 @@ export class InvoiceService {
     }
     return invoice;
   }
-  resetInvoice(
-    invoiceInput: InvoicePayload | null,
-    client: IndividualPayload | null
-  ) {
+  resetInvoice(invoiceInput: InvoicePayload | null) {
     let result: InvoicePayload;
     // If we are updating an invoice, we reload the values received.
     if (!invoiceInput) {

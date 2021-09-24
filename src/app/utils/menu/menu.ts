@@ -43,4 +43,8 @@ export const SidenavMenu = [
     createSubItem('Create new invoice', AppRoutes.invoice.create),
     createSubItem('Search for a invoice', AppRoutes.invoice.search),
   ]),
+  createMainItem('Orders', [
+    createSubItem('Create new order', AppRoutes.order.create),
+    createSubItem('Search for a order', AppRoutes.order.search),
+  ]),
 ];

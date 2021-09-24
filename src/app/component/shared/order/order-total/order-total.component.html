@@ -1,1 +1,20 @@
-<p>order-total works!</p>
+<div class="mat-elevation-z8 summary">
+  <section class="mat-typography">
+    <h2>Total:</h2>
+    <p>
+      {{ "Date: " + getDate(order?.transaction?.date) }}
+    </p>
+    <p>
+      {{ "Provider: " + getOrderProvider() }}
+    </p>
+    <p>
+      {{ "Expected delivery date: " + getDate(order?.expectedDeliveryDate) }}
+    </p>
+    <p>
+      {{ "Actual delivery date: " + getDate(order?.actualDeliveryDate) }}
+    </p>
+    <p>{{ order ? "Total: " + order?.total : "Total: 0" }}</p>
+    <p>{{ order ? "Paid: " + order?.paid : "Paid: 0" }}</p>
+    <p>{{ order ? "Owed: " + order?.owed : "Owed: 0" }}</p>
+  </section>
+</div>

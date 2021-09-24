@@ -1,1 +1,11 @@
-<p>create-order works!</p>
+<div class="component-wrapper mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h2>Create an order</h2>
+    </section>
+  </div>
+  <div class="component-content">
+    <app-order-form [apiError]="apiError" (orderOutput)="createOrder($event)">
+    </app-order-form>
+  </div>
+</div>

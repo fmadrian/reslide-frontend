@@ -15,9 +15,12 @@ export class DateService {
     return '';
   }
   /**
-   * Gets date from ISO string.
+   * Gets date from ISO isoDate (string).
    */
-  getDate(isoString: string) {
-    return new Date(isoString).toLocaleString();
+  getDate(isoDate: string) {
+    return new Date(isoDate);
+  }
+  getLocaleString(isoDate: string) {
+    return new Date(isoDate).toLocaleString();
   }
 }

@@ -1,1 +1,224 @@
-<p>order-form works!</p>
+<mat-divider class="form-divider"></mat-divider>
+<form [formGroup]="orderForm" (ngSubmit)="submit()">
+  <mat-tab-group class="information">
+    <mat-tab label="Order information">
+      <section class="mat-typography">
+        <h2>Order information</h2>
+      </section>
+      <!-- Provider (code) or search field -->
+      <!-- Search button -->
+      <div class="search" *ngIf="orderInput === null">
+        <!-- Autocomplete bar -->
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Provider code or name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'providerAutocomplete'"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let provider of providers$ | async"
+              [value]="order.providerCode + ' ' + order.providerName"
+              (click)="changeProvider(provider)"
+            >
+              {{ provider.code + "  " + provider.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="openDialog('provider')"
+        >
+          Search a provider
+        </button>
+      </div>
+      <!-- Date -->
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Choose a datetime</mat-label>
+        <input
+          matInput
+          readonly
+          (dateChange)="getOrderPreview()"
+          [matDatepicker]="picker"
+          [formControlName]="'date'"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker type="datetime" #picker></mat-datepicker>
+      </mat-form-field>
+      <!-- Expected delivery date -->
+      <div class="search">
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Choose an expected delivery date</mat-label>
+          <input
+            matInput
+            readonly
+            (dateChange)="getOrderPreview()"
+            [matDatepicker]="expectedPicker"
+            [formControlName]="'expectedDeliveryDate'"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="expectedPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker type="datetime" #expectedPicker></mat-datepicker>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="clearDate('expectedDeliveryDate')"
+        >
+          Clear date
+        </button>
+      </div>
+      <!-- Actual delivery date -->
+      <div class="search">
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Choose an actual delivery date</mat-label>
+          <input
+            matInput
+            readonly
+            (dateChange)="getOrderPreview()"
+            [matDatepicker]="actualPicker"
+            [formControlName]="'actualDeliveryDate'"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="actualPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker type="datetime" #actualPicker></mat-datepicker>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="clearDate('actualDeliveryDate')"
+        >
+          Clear date
+        </button>
+      </div>
+
+      <!-- Notes -->
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Notes</mat-label>
+        <textarea [formControlName]="'notes'" matInput></textarea>
+      </mat-form-field>
+      <mat-divider class="form-divider"></mat-divider>
+      <div *ngIf="order.id">
+        <!-- Status -->
+        <h3 class="radio-horizontal-label">
+          Order status:
+          <mat-radio-group
+            [formControlName]="'status'"
+            (change)="switchStatus($event)"
+            color="primary"
+          >
+            <mat-radio-button class="radio-horizontal-button" value="ACTIVE"
+              >Active</mat-radio-button
+            >
+            <mat-radio-button class="radio-horizontal-button" value="INACTIVE"
+              >Inactive</mat-radio-button
+            >
+          </mat-radio-group>
+        </h3>
+        <!-- Deliver all products in the order-->
+        <button
+          type="button"
+          class="form-field"
+          (click)="deliverAllProducts()"
+          mat-flat-button
+          color="primary"
+        >
+          Deliver all products
+        </button>
+      </div>
+      <mat-divider class="form-divider"></mat-divider>
+    </mat-tab>
+    <!-- Order details tab -->
+    <mat-tab label="Order detail">
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add order detail </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- Add a new detail component-->
+        <app-order-detail-form
+          (orderDetailOutput)="receiveDetail($event)"
+          [orderId]="order.id ? order.id : null"
+          (refreshOrder)="getRefreshOrder()"
+        ></app-order-detail-form>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> See order details </mat-panel-title>
+        </mat-expansion-panel-header>
+        <!-- See details in the order component-->
+        <app-order-detail-results
+          [orderDetailsInput]="order.details"
+          [orderId]="order.id ? order.id : null"
+          (orderDetailsOutput)="receiveDetails($event)"
+          (refreshOrder)="getRefreshOrder()"
+        ></app-order-detail-results>
+      </mat-expansion-panel>
+    </mat-tab>
+
+    <!-- Payments tab -->
+    <mat-tab label="Payments">
+      <!--Add new payment section -->
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add new payment </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-payment-form
+          (paymentFormOutput)="receivePayment($event)"
+          [transactionId]="order.transaction.id"
+          (refreshOrder)="getRefreshOrder()"
+        ></app-payment-form>
+      </mat-expansion-panel>
+      <!--See payments section -->
+      <mat-expansion-panel class="subtab">
+        <mat-expansion-panel-header>
+          <mat-panel-title> See payments </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-payment-results
+          [paymentResultsInput]="order.transaction.payments"
+          (paymentResultsOutput)="receivePayments($event)"
+          [transactionId]="order.transaction.id"
+          (refreshOrder)="getRefreshOrder()"
+        ></app-payment-results>
+      </mat-expansion-panel>
+    </mat-tab>
+    <mat-tab label="Save">
+      <!-- Save buttons -->
+      <div>
+        <mat-divider class="form-divider"></mat-divider>
+        <div class="form-button">
+          <button type="submit" mat-flat-button color="primary">Save</button>
+        </div>
+        <div class="form-button">
+          <button
+            type="button"
+            mat-flat-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset form
+          </button>
+        </div>
+        <mat-divider class="form-divider"></mat-divider>
+        <!-- Display errors -->
+        <section class="mat-typography error">
+          <p>{{ apiError ? apiError : "" }}</p>
+        </section>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <app-order-total [order]="order"></app-order-total>
+</form>

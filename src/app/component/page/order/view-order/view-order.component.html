@@ -1,1 +1,36 @@
-<p>view-order works!</p>
+<div class="component-wrapper mat-elevation-z8">
+  <ng-template [ngIf]="error === null" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h2>Order</h2>
+      </section>
+    </div>
+    <div class="component-content">
+      <div class="update">
+        <mat-divider class="divider"></mat-divider>
+        <button
+          class="button"
+          color="primary"
+          type="button"
+          (click)="update()"
+          mat-raised-button
+        >
+          Update
+        </button>
+        <mat-divider class="divider"></mat-divider>
+      </div>
+      <app-order-total [order]="order"></app-order-total>
+      <app-order-detail-results
+        [orderDetailsInput]="order.details"
+        [showButton]="false"
+      ></app-order-detail-results>
+      <app-payment-results
+        [paymentResultsInput]="order.transaction.payments"
+        [showButton]="false"
+      ></app-payment-results>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ error }}</h1>
+  </ng-template>
+</div>

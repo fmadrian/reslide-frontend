@@ -1,1 +1,203 @@
-<p>order-results works!</p>
+<div class="content results-container">
+  <div class="search-form mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Search a order</h2>
+    </section>
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="search">
+        <!-- Autocomplete bar -->
+        <mat-form-field class="field form-field" appearance="fill">
+          <mat-label>Provider code or name</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="'providerAutocomplete'"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let provider of providers$ | async"
+              [value]="provider.code + ' ' + provider.name"
+              (click)="changeProvider(provider)"
+            >
+              {{ provider.code + "  " + provider.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button
+          type="button"
+          class="button"
+          mat-button
+          color="primary"
+          (click)="openDialog('provider')"
+        >
+          Search a provider
+        </button>
+      </div>
+      <div class="search-date">
+        <section class="mat-typography">
+          <h4 class="name">Order date:</h4>
+        </section>
+        <!-- Start date-->
+        <mat-form-field class="from form-field" appearance="fill">
+          <mat-label>From (date and time):</mat-label>
+          <input
+            matInput
+            readonly
+            [matDatepicker]="startpicker"
+            [formControlName]="'start'"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startpicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker type="datetime" #startpicker></mat-datepicker>
+        </mat-form-field>
+        <!-- End date -->
+        <mat-form-field class="until form-field" appearance="fill">
+          <mat-label>Until (date and time):</mat-label>
+          <input
+            matInput
+            readonly
+            [matDatepicker]="endpicker"
+            [formControlName]="'end'"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endpicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker type="datetime" #endpicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button type="button" type="submit" mat-raised-button color="primary">
+        Search
+      </button>
+    </form>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Results</h2>
+    </section>
+    <div [hidden]="isLoading">
+      <!-- Sortable table -->
+      <!-- 'contacts' is a variable defined in the ts file-->
+      <!-- mat-elevation-z8 is an angular material css class-->
+      <table
+        mat-table
+        matSort
+        [dataSource]="datasource"
+        class="mat-elevation-z8"
+      >
+        <!-- Id column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let order">{{ order.id }}</td>
+        </ng-container>
+        <!-- Date column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let order">
+            {{ getDate(order.transaction.date) }}
+          </td>
+        </ng-container>
+        <!-- Provider code column -->
+        <ng-container matColumnDef="providerCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Provider code
+          </th>
+          <td mat-cell *matCellDef="let order">{{ order.providerCode }}</td>
+        </ng-container>
+        <!-- Provider name column -->
+        <ng-container matColumnDef="providerName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Provider name
+          </th>
+          <td mat-cell *matCellDef="let order">{{ order.providerName }}</td>
+        </ng-container>
+        <!-- Subtotal column -->
+        <ng-container matColumnDef="subtotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Subtotal</th>
+          <td mat-cell *matCellDef="let order">{{ order.subtotal }}</td>
+        </ng-container>
+        <!-- tax column -->
+        <ng-container matColumnDef="tax">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tax</th>
+          <td mat-cell *matCellDef="let order">{{ order.tax }}</td>
+        </ng-container>
+        <!-- discount column -->
+        <ng-container matColumnDef="discount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount</th>
+          <td mat-cell *matCellDef="let order">{{ order.discount }}</td>
+        </ng-container>
+        <!-- total column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+          <td mat-cell *matCellDef="let order">{{ order.total }}</td>
+        </ng-container>
+        <!-- paid column -->
+        <ng-container matColumnDef="paid">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+          <td mat-cell *matCellDef="let order">{{ order.paid }}</td>
+        </ng-container>
+        <!-- owed column -->
+        <ng-container matColumnDef="owed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Owed</th>
+          <td mat-cell *matCellDef="let order">{{ order.owed }}</td>
+        </ng-container>
+        <!-- username column -->
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Made by</th>
+          <td mat-cell *matCellDef="let order">
+            {{ order.transaction.username }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="updateButton">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let order">
+            <div *ngIf="showUpdateButton; else notUpdating">
+              <a
+                mat-button
+                color="primary"
+                [routerLink]="['/'.concat(AppRoutes.order.update_id(order.id))]"
+              >
+                Update
+              </a>
+            </div>
+            <ng-template #notUpdating>
+              <button mat-button color="primary" (click)="closeDialog(order)">
+                Select
+              </button>
+            </ng-template>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="viewButton">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let order">
+            <div *ngIf="showUpdateButton">
+              <a
+                mat-button
+                color="primary"
+                [routerLink]="['/'.concat(AppRoutes.order.view_id(order.id))]"
+              >
+                View
+              </a>
+            </div>
+          </td>
+        </ng-container>
+        <!-- Header row and row definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- (click)= event triggered by a click on the table -->
+        <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
+        <tr
+          mat-row
+          (click)="selectOrder(row)"
+          [class.clicked-row]="row === orderSelected"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+    </div>
+    <div [hidden]="!isLoading" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+</div>
