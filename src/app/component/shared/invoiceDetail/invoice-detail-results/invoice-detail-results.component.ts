@@ -11,7 +11,6 @@ import {
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { InvoiceDetailPayload } from 'src/app/payload/invoiceDetail/invoice-detail.payload';
 import { InvoiceDetailService } from 'src/app/service/invoiceDetail/invoice-detail.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
@@ -37,8 +36,6 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
   datasource: MatTableDataSource<InvoiceDetailPayload>;
   // Sort
   @ViewChild(MatSort) sort: MatSort | null = null;
-  // Selected row
-  detailSelected: InvoiceDetailPayload | null;
   // GUI flag
   isLoading = false;
   // Input
@@ -54,7 +51,6 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
     private snackbarService: SnackbarService
   ) {
     this.datasource = new MatTableDataSource();
-    this.detailSelected = null;
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.reloadDatasource();
@@ -62,7 +58,6 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.reloadDatasource();
   }
-  selectDetail(detail: InvoiceDetailPayload) {}
   delete(detail: InvoiceDetailPayload) {
     // If we are updating an invoice, and we want to delete a line, we must do it by doing an API to delete
     // the line, then asking the parent component to refresh the invoice.

@@ -63,7 +63,6 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let detail">
             <div *ngIf="showButton">
-              >
               <button
                 type="button"
                 mat-button
@@ -79,12 +78,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <!-- (click)= event triggered by a click on the table -->
         <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
-        <tr
-          mat-row
-          (click)="selectDetail(row)"
-          [class.clicked-row]="row === detailSelected"
-          *matRowDef="let row; columns: displayedColumns"
-        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
     <div [hidden]="!isLoading" class="spinner">
