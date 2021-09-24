@@ -20,7 +20,7 @@ export class InvoiceTotalComponent implements OnInit {
       this.invoice.transaction.date &&
       this.invoice.transaction.date !== ''
     ) {
-      return this.dateService.getDate(this.invoice.transaction.date);
+      return this.dateService.getLocaleString(this.invoice.transaction.date);
     }
     return '';
   }
