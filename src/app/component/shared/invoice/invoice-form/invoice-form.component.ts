@@ -171,7 +171,9 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     // Resets the invoice and the form values.
     this.invoiceForm.reset();
     this.invoice = this.resetInvoice();
-    this.invoiceForm.get('date')?.setValue(this.invoice.transaction.date);
+    this.invoiceForm
+      .get('date')
+      ?.setValue(this.dateService.getDate(this.invoice.transaction.date));
     this.invoiceForm.get('notes')?.setValue(this.invoice.transaction.notes);
   }
   resetInvoice() {
@@ -191,26 +193,29 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.changeClient(client);
     }
     this.apiError = null;
-    return this.invoiceService.resetInvoice(this.invoiceInput, this.client);
+    return this.invoiceService.resetInvoice(this.invoiceInput);
   }
   /**
    * Submits an invoice to its parent component.
    */
   submit() {
-    // If we are creating, we send it to the parent component.
     if (
       this.invoiceForm.valid &&
       this.invoice.details.length > 0 &&
       this.invoice &&
       this.client
     ) {
-      this.invoice.transaction.date = this.invoiceForm.get('date')?.value;
-      this.invoice.transaction.notes = this.invoiceForm.get('notes')?.value;
-
+      // If we are updating the invoice, we change the date and notes of the existent invoice.
       if (this.invoice.id) {
-        this.invoice.transaction.date = this.invoiceForm.get('date')?.value;
+        this.invoice.transaction.date = this.dateService.getISOString(
+          this.invoiceForm.get('date')?.value
+        );
         this.invoice.transaction.notes = this.invoiceForm.get('notes')?.value;
+      } else {
+        // When are creating an invoice, we get update the last preview of the invoice.
+        this.getInvoicePreview();
       }
+      // We send it to the parent component
       this.invoiceOutput.next(this.invoice);
     }
   }
