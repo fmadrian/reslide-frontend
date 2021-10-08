@@ -14,6 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
 import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { OrderPayload } from 'src/app/payload/order/order.payload';
 import { DateService } from 'src/app/service/date/date.service';
@@ -36,9 +37,6 @@ export class OrderResultsComponent implements OnInit {
     'date',
     'providerCode',
     'providerName',
-    'subtotal',
-    'tax',
-    'discount',
     'total',
     'paid',
     'owed',
@@ -49,6 +47,10 @@ export class OrderResultsComponent implements OnInit {
   // Autocomplete bar
   providers$: undefined | Observable<IndividualPayload[]>;
   provider: IndividualPayload | null = null;
+  // Date ranges
+  orderDate: DateRange = { start: new Date(), end: new Date() };
+  estimatedDate: DateRange = { start: new Date(), end: new Date() };
+  actualDate: DateRange = { start: new Date(), end: new Date() };
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<OrderPayload>;
   // Sort
@@ -87,16 +89,10 @@ export class OrderResultsComponent implements OnInit {
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       providerAutocomplete: [''],
-      start: [new Date(), Validators.required],
-      end: [new Date(), Validators.required],
     });
     // Get the dates and convert them to ISO string to use them in the API call.
-    const start = this.dateService.getISOString(
-      this.searchForm.get('start')?.value
-    );
-    const end = this.dateService.getISOString(
-      this.searchForm.get('end')?.value
-    );
+    const start = this.dateService.getISOString(this.orderDate.start);
+    const end = this.dateService.getISOString(this.orderDate.end);
     this.orderService.search(start, end).subscribe(
       (data) => {
         this.loadDataSource(data);
@@ -135,12 +131,8 @@ export class OrderResultsComponent implements OnInit {
   search() {
     // Get code from the provider selected or send an empty string
     const code = this.provider ? this.provider.code : '';
-    const start = this.dateService.getISOString(
-      this.searchForm.get('start')?.value
-    );
-    const end = this.dateService.getISOString(
-      this.searchForm.get('end')?.value
-    );
+    const start = this.dateService.getISOString(this.orderDate.start);
+    const end = this.dateService.getISOString(this.orderDate.end);
     this.isLoading = true;
     this.orderService.search(start, end, code).subscribe(
       (data) => {
@@ -190,6 +182,22 @@ export class OrderResultsComponent implements OnInit {
       dialog.subscribe((data) => {
         this.changeProvider(data);
       });
+    }
+  }
+
+  receiveDate(dateRange: DateRange, date: string) {
+    if (date === 'order') {
+      this.orderDate = {
+        ...dateRange,
+      };
+    } else if (date === 'estimated') {
+      this.estimatedDate = {
+        ...dateRange,
+      };
+    } else if (date === 'actual') {
+      this.actualDate = {
+        ...dateRange,
+      };
     }
   }
 }

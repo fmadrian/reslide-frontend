@@ -34,41 +34,21 @@
           Search a provider
         </button>
       </div>
-      <div class="search-date">
-        <section class="mat-typography">
-          <h4 class="name">Order date:</h4>
-        </section>
-        <!-- Start date-->
-        <mat-form-field class="from form-field" appearance="fill">
-          <mat-label>From (date and time):</mat-label>
-          <input
-            matInput
-            readonly
-            [matDatepicker]="startpicker"
-            [formControlName]="'start'"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="startpicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker type="datetime" #startpicker></mat-datepicker>
-        </mat-form-field>
-        <!-- End date -->
-        <mat-form-field class="until form-field" appearance="fill">
-          <mat-label>Until (date and time):</mat-label>
-          <input
-            matInput
-            readonly
-            [matDatepicker]="endpicker"
-            [formControlName]="'end'"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="endpicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker type="datetime" #endpicker></mat-datepicker>
-        </mat-form-field>
-      </div>
+      <app-date-range
+        [title]="'Order date:'"
+        (dateOutput)="receiveDate($event, 'order')"
+      >
+      </app-date-range>
+      <!--<app-date-range
+        [title]="'Estimated delivery date:'"
+        (dateOutput)="receiveDate($event, 'estimated')"
+      >
+      </app-date-range>
+      <app-date-range
+        [title]="'Actual delivery date::'"
+        (dateOutput)="receiveDate($event, 'actual')"
+      >
+      </app-date-range>-->
       <button type="button" type="submit" mat-raised-button color="primary">
         Search
       </button>
