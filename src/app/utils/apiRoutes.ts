@@ -22,6 +22,7 @@ export const ApiRoutes = {
     login: `${baseRoutes.auth}/login`,
     refreshToken: `${baseRoutes.auth}/refresh/token`,
     delete: `${baseRoutes.auth}/delete`,
+    logout: `${baseRoutes.auth}/logout`,
   },
   individual: {
     search: `${baseRoutes.individual}/search`,

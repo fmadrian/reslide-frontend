@@ -6,7 +6,7 @@ import { LoginRequest } from '../payload/auth/login/login.request';
 import { ApiRoutes } from '../utils/apiRoutes';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginResponse } from '../payload/auth/login/login.response';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +31,10 @@ export class AuthService {
           this.localStorage.store('username', data.username);
           this.localStorage.store('refreshToken', data.refreshToken);
           this.localStorage.store('expiresAt', data.expiresAt);
+
+          this.username.next(data.username);
+          this.loggedIn.next(true);
+
           return true;
         })
       );
@@ -39,22 +43,31 @@ export class AuthService {
     const logoutPayload = {
       refreshToken: this.getRefreshToken(),
     };
-    this.httpClient
-      .post(ApiRoutes.auth.delete, logoutPayload, { responseType: 'text' })
-      .subscribe(
-        (data) => {
-          this.localStorage.clear('authenticationToken');
-          this.localStorage.clear('username');
-          this.localStorage.clear('refreshToken');
-          this.localStorage.clear('expiresAt');
-          // Trigger the event emitters and pass the information to other components.
-          // this.loggedIn.emit(false);
-          // this.username.emit('');
-        },
-        (error) => {
-          throwError(error);
-        }
-      );
+    this.httpClient.post(ApiRoutes.auth.logout, logoutPayload).subscribe(
+      (data) => {
+        this.localStorage.clear('authenticationToken');
+        this.localStorage.clear('username');
+        this.localStorage.clear('refreshToken');
+        this.localStorage.clear('expiresAt');
+        // Trigger the event emitters and pass the information to other components.
+        this.username.next('');
+        this.loggedIn.next(false);
+      },
+      (error) => {
+        throwError(error);
+      }
+    );
+
+    // ISSUE: LOCAL STORAGE GETS CLEAN AFTER THE navigateByUrl() IS CALLED.
+    // THEREFORE, THE FIRST REDIRECTS AFTER LOGGING OUT DON'T WORK PROPERLY
+    // WHEN THE GUARD TRIES TO VALIDATE THE NEW ROUTE, THE JWT TOKEN STILL EXISTS (USER STILL LOGGED IN).
+    // AFTER THAT THE STORAGE GETS CLEANED AND EVERYTHING WORKS PROPERLY.
+
+    // TEMPORARY SOLUTION 1: CLEAN THE STORAGE BEFORE RETURNING THE RESULT.
+    this.localStorage.clear('authenticationToken');
+    this.localStorage.clear('refreshToken');
+    this.localStorage.clear('username');
+    this.localStorage.clear('expiresAt');
     return true;
   }
 
@@ -86,7 +99,15 @@ export class AuthService {
   getRefreshToken() {
     return this.localStorage.retrieve('refreshToken');
   }
+  getUsername() {
+    const username = this.localStorage.retrieve('username');
+    if (username) {
+      return username;
+    }
+    return '';
+    // return username !== null ? username : '';
+  }
   isLoggedIn() {
-    return false;
+    return this.getJwtToken() !== null;
   }
 }

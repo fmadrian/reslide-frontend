@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
@@ -11,6 +11,9 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
 })
 export class NavbarComponent implements OnInit {
   @Input() isSidenavOpen = new BehaviorSubject<boolean>(false);
+  @Input() username = '';
+  @Input() isLoggedIn = false;
+
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {}
@@ -19,8 +22,12 @@ export class NavbarComponent implements OnInit {
     this.isSidenavOpen.next(!this.isSidenavOpen.value); // IMPORTANT: Use next instead of init to submit new values.
   }
   logout() {
-    if (this.authService.logout()) {
-      this.router.navigateByUrl(AppRoutes.login);
-    }
+    of(this.authService.logout())
+      .toPromise()
+      .then((logoutResult) => {
+        if (logoutResult) {
+          this.router.navigateByUrl(AppRoutes.login);
+        }
+      });
   }
 }
