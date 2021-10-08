@@ -79,6 +79,8 @@ import { CreateOrderComponent } from './component/page/order/create-order/create
 import { SearchOrderComponent } from './component/page/order/search-order/search-order.component';
 import { UpdateOrderComponent } from './component/page/order/update-order/update-order.component';
 import { ViewOrderComponent } from './component/page/order/view-order/view-order.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { DateRangeComponent } from './component/shared/date/date-range/date-range.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -128,6 +130,7 @@ import { ViewOrderComponent } from './component/page/order/view-order/view-order
     SearchOrderComponent,
     UpdateOrderComponent,
     ViewOrderComponent,
+    DateRangeComponent,
   ],
   imports: [
     BrowserModule,
@@ -166,6 +169,7 @@ import { ViewOrderComponent } from './component/page/order/view-order/view-order
     MatDialogModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
+    MatTreeModule,
   ],
   providers: [
     // Dependency injections.

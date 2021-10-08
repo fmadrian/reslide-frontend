@@ -20,36 +20,99 @@ import { CreateProductComponent } from './component/page/product/create-product/
 import { SearchProductComponent } from './component/page/product/search-product/search-product.component';
 import { UpdateProductComponent } from './component/page/product/update-product/update-product.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
-import { MeasurementTypeResultsComponent } from './component/shared/measurementType/measurement-type-results/measurement-type-results.component';
-import { ProductBrandResultsComponent } from './component/shared/productBrand/product-brand-results/product-brand-results.component';
 import { ProductTypeResultsComponent } from './component/shared/productType/product-type-results/product-type-results.component';
 import { AppRoutes } from './utils/appRoutes';
 
 const routes: Routes = [
-  { path: AppRoutes.landing, component: LandingComponent },
+  {
+    path: AppRoutes.landing,
+    component: LandingComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: AppRoutes.login,
     component: LoginComponent,
     canActivate: [AuthGuard],
   },
-  { path: AppRoutes.user.create, component: CreateUserComponent },
-  { path: AppRoutes.individual.create, component: CreateIndividualComponent },
-  { path: AppRoutes.individual.update, component: UpdateIndividualComponent },
-  { path: AppRoutes.individual.search, component: SearchIndividualComponent },
-  { path: AppRoutes.product.create, component: CreateProductComponent },
-  { path: AppRoutes.product.search, component: SearchProductComponent },
-  { path: AppRoutes.product.update, component: UpdateProductComponent },
-  { path: AppRoutes.invoice.create, component: CreateInvoiceComponent },
-  { path: AppRoutes.invoice.search, component: SearchInvoiceComponent },
-  { path: AppRoutes.invoice.update, component: UpdateInvoiceComponent },
-  { path: AppRoutes.invoice.view, component: ViewInvoiceComponent },
-  { path: AppRoutes.order.create, component: CreateOrderComponent },
-  { path: AppRoutes.order.search, component: SearchOrderComponent },
-  { path: AppRoutes.order.update, component: UpdateOrderComponent },
-  { path: AppRoutes.order.view, component: ViewOrderComponent },
+  {
+    path: AppRoutes.user.create,
+    component: CreateUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.individual.create,
+    component: CreateIndividualComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.individual.update,
+    component: UpdateIndividualComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.individual.search,
+    component: SearchIndividualComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.product.create,
+    component: CreateProductComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.product.search,
+    component: SearchProductComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.product.update,
+    component: UpdateProductComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.invoice.create,
+    component: CreateInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.invoice.search,
+    component: SearchInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.invoice.update,
+    component: UpdateInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.invoice.view,
+    component: ViewInvoiceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.order.create,
+    component: CreateOrderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.order.search,
+    component: SearchOrderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.order.update,
+    component: UpdateOrderComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.order.view,
+    component: ViewOrderComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: AppRoutes.measurementType.search,
     component: ProductTypeResultsComponent,
+    canActivate: [AuthGuard],
   },
   { path: AppRoutes.error.internal, component: InternalErrorComponent },
   { path: AppRoutes.error.notFound, component: NotFoundComponent }, // 404 always goes at last.
