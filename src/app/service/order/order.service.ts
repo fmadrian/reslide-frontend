@@ -24,13 +24,37 @@ export class OrderService {
   get(id: number) {
     return this.httpClient.get<OrderPayload>(ApiRoutes.order.get(id));
   }
-  search(start: string, end: string, providerCode = '') {
+  switchStatus(payload: OrderPayload) {
+    return this.httpClient.put<any>(ApiRoutes.order.switchStatus, payload);
+  }
+  search(
+    start_date: string,
+    end_date: string,
+    providerCode = '',
+    start_expected_delivery_date: string | null = null,
+    end_expected_delivery_date: string | null = null,
+    start_actual_delivery_date: string | null = null,
+    end_actual_delivery_date: string | null = null
+  ) {
     let params = {};
-    if (providerCode.trim() !== '') {
-      params = { start, end, providerCode };
-    } else {
-      params = { start, end };
+    // Add provider code
+    params = { start_date, end_date, providerCode };
+    // Add delivery dates if they are there.
+    if (start_actual_delivery_date && end_actual_delivery_date) {
+      params = {
+        ...params,
+        start_actual_delivery_date,
+        end_actual_delivery_date,
+      };
     }
+    if (start_expected_delivery_date && end_expected_delivery_date) {
+      params = {
+        ...params,
+        start_expected_delivery_date,
+        end_expected_delivery_date,
+      };
+    }
+    // Do the API call.
     return this.httpClient.get<OrderPayload[]>(ApiRoutes.order.search, {
       params,
     });

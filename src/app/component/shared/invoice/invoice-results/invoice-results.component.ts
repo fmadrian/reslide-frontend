@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
 import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { InvoicePayload } from 'src/app/payload/invoice/invoice.payload';
 import { DateService } from 'src/app/service/date/date.service';
@@ -50,6 +51,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   // Autocomplete bar
   clients$: undefined | Observable<IndividualPayload[]>;
   client: IndividualPayload | null = null;
+  // Date
+  dateRange: DateRange = { start: new Date(), end: new Date() };
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<InvoicePayload>;
   // Sort
@@ -88,16 +91,10 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       clientAutocomplete: [''],
-      start: [new Date(), Validators.required],
-      end: [new Date(), Validators.required],
     });
     // Get the dates and convert them to ISO string to use them in the API call.
-    const start = this.dateService.getISOString(
-      this.searchForm.get('start')?.value
-    );
-    const end = this.dateService.getISOString(
-      this.searchForm.get('end')?.value
-    );
+    const start = this.dateService.getISOString(this.dateRange.start);
+    const end = this.dateService.getISOString(this.dateRange.end);
     this.invoiceService.search(start, end).subscribe(
       (data) => {
         this.loadDataSource(data);
@@ -136,12 +133,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   search() {
     // Get code from the client selected or send an empty string
     const code = this.client ? this.client.code : '';
-    const start = this.dateService.getISOString(
-      this.searchForm.get('start')?.value
-    );
-    const end = this.dateService.getISOString(
-      this.searchForm.get('end')?.value
-    );
+    const start = this.dateService.getISOString(this.dateRange.start);
+    const end = this.dateService.getISOString(this.dateRange.end);
     this.isLoading = true;
     this.invoiceService.search(start, end, code).subscribe(
       (data) => {
@@ -181,6 +174,12 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
       dialog.subscribe((data) => {
         this.changeClient(data);
       });
+    }
+  }
+  // Receives date from the date range component
+  receiveDate(range: DateRange | null) {
+    if (range) {
+      this.dateRange = range;
     }
   }
 }

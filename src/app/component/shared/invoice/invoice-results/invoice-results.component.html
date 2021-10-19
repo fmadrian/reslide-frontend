@@ -34,36 +34,10 @@
           Search a client
         </button>
       </div>
-      <!-- Start date-->
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label>From (date and time):</mat-label>
-        <input
-          matInput
-          readonly
-          [matDatepicker]="startpicker"
-          [formControlName]="'start'"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="startpicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker type="datetime" #startpicker></mat-datepicker>
-      </mat-form-field>
-      <!-- End date -->
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label>Until (date and time):</mat-label>
-        <input
-          matInput
-          readonly
-          [matDatepicker]="endpicker"
-          [formControlName]="'end'"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="endpicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker type="datetime" #endpicker></mat-datepicker>
-      </mat-form-field>
+      <app-date-range
+        [title]="'Invoice date:'"
+        (dateOutput)="receiveDate($event)"
+      ></app-date-range>
       <button type="button" type="submit" mat-raised-button color="primary">
         Search
       </button>

@@ -49,8 +49,8 @@ export class OrderResultsComponent implements OnInit {
   provider: IndividualPayload | null = null;
   // Date ranges
   orderDate: DateRange = { start: new Date(), end: new Date() };
-  estimatedDate: DateRange = { start: new Date(), end: new Date() };
-  actualDate: DateRange = { start: new Date(), end: new Date() };
+  expectedDate: DateRange | null = null;
+  actualDate: DateRange | null = null;
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<OrderPayload>;
   // Sort
@@ -131,20 +131,43 @@ export class OrderResultsComponent implements OnInit {
   search() {
     // Get code from the provider selected or send an empty string
     const code = this.provider ? this.provider.code : '';
-    const start = this.dateService.getISOString(this.orderDate.start);
-    const end = this.dateService.getISOString(this.orderDate.end);
+    const start_date = this.dateService.getISOString(this.orderDate.start);
+    const end_date = this.dateService.getISOString(this.orderDate.end);
+    const start_expected_delivery_date = this.expectedDate
+      ? this.dateService.getISOString(this.expectedDate.start)
+      : null;
+    const end_expected_delivery_date = this.expectedDate
+      ? this.dateService.getISOString(this.expectedDate.end)
+      : null;
+    const start_actual_delivery_date = this.actualDate
+      ? this.dateService.getISOString(this.actualDate.start)
+      : null;
+    const end_actual_delivery_date = this.actualDate
+      ? this.dateService.getISOString(this.actualDate.end)
+      : null;
+
     this.isLoading = true;
-    this.orderService.search(start, end, code).subscribe(
-      (data) => {
-        this.loadDataSource(data);
-      },
-      () => {
-        this.router.navigateByUrl(AppRoutes.error.internal);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
+    this.orderService
+      .search(
+        start_date,
+        end_date,
+        code,
+        start_expected_delivery_date,
+        end_expected_delivery_date,
+        start_actual_delivery_date,
+        end_actual_delivery_date
+      )
+      .subscribe(
+        (data) => {
+          this.loadDataSource(data);
+        },
+        () => {
+          this.router.navigateByUrl(AppRoutes.error.internal);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
   update(order: OrderPayload) {
     if (order?.id !== null && order?.id !== undefined) {
@@ -185,19 +208,18 @@ export class OrderResultsComponent implements OnInit {
     }
   }
 
-  receiveDate(dateRange: DateRange, date: string) {
-    if (date === 'order') {
-      this.orderDate = {
-        ...dateRange,
-      };
-    } else if (date === 'estimated') {
-      this.estimatedDate = {
-        ...dateRange,
-      };
+  receiveDate(range: DateRange | null, date: string) {
+    // The only range that can't receive null ranges is the order date.
+    if (range) {
+      if (date === 'order') {
+        this.orderDate = range;
+      }
+    }
+
+    if (date === 'expected') {
+      this.expectedDate = range;
     } else if (date === 'actual') {
-      this.actualDate = {
-        ...dateRange,
-      };
+      this.actualDate = range;
     }
   }
 }

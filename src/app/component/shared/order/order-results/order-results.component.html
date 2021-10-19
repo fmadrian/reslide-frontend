@@ -39,16 +39,18 @@
         (dateOutput)="receiveDate($event, 'order')"
       >
       </app-date-range>
-      <!--<app-date-range
+      <app-date-range
         [title]="'Estimated delivery date:'"
-        (dateOutput)="receiveDate($event, 'estimated')"
+        (dateOutput)="receiveDate($event, 'expected')"
+        [showToggle]="true"
       >
       </app-date-range>
       <app-date-range
-        [title]="'Actual delivery date::'"
+        [title]="'Actual delivery date:'"
         (dateOutput)="receiveDate($event, 'actual')"
+        [showToggle]="true"
       >
-      </app-date-range>-->
+      </app-date-range>
       <button type="button" type="submit" mat-raised-button color="primary">
         Search
       </button>
