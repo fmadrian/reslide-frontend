@@ -20,6 +20,7 @@ import { DateService } from 'src/app/service/date/date.service';
 import { DialogService } from 'src/app/service/dialog/dialog.service';
 import { IndividualService } from 'src/app/service/individual/individual.service';
 import { InvoiceService } from 'src/app/service/invoice/invoice.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
@@ -49,7 +50,8 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
     private router: Router,
     private invoiceService: InvoiceService,
     private dialogService: DialogService,
-    private dateService: DateService
+    private dateService: DateService,
+    private snackbarService: SnackbarService
   ) {
     this.invoiceForm = this.formBuilder.group({});
     this.clients$ = new Observable<IndividualPayload[]>();
@@ -225,6 +227,17 @@ export class InvoiceFormComponent implements OnInit, OnChanges {
       this.client,
       this.invoiceForm.get('date')?.value,
       this.invoiceForm.get('notes')?.value
+    );
+  }
+  switchStatus() {
+    this.invoiceService.switchStatus(this.invoice).subscribe(
+      (response) => {
+        this.snackbarService.show(response.message);
+        this.router.navigateByUrl(AppRoutes.invoice.search);
+      },
+      (error) => {
+        this.snackbarService.show(error.message);
+      }
     );
   }
 }

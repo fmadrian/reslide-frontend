@@ -112,32 +112,30 @@
       </mat-form-field>
       <mat-divider class="form-divider"></mat-divider>
       <div *ngIf="order.id">
-        <!-- Status -->
-        <h3 class="radio-horizontal-label">
-          Order status:
-          <mat-radio-group
-            [formControlName]="'status'"
-            (change)="switchStatus($event)"
+        <div class="form-button">
+          <!-- Status -->
+          <button
+            mat-flat-button
+            type="button"
+            class="form-button"
+            color="warn"
+            (click)="switchStatus()"
+          >
+            {{ order.status === "ACTIVE" ? "Delete order" : "Restore order" }}
+          </button>
+        </div>
+        <!-- Deliver all products in the order-->
+        <div class="form-button">
+          <button
+            type="button"
+            class="form-button"
+            (click)="deliverAllProducts()"
+            mat-flat-button
             color="primary"
           >
-            <mat-radio-button class="radio-horizontal-button" value="ACTIVE"
-              >Active</mat-radio-button
-            >
-            <mat-radio-button class="radio-horizontal-button" value="INACTIVE"
-              >Inactive</mat-radio-button
-            >
-          </mat-radio-group>
-        </h3>
-        <!-- Deliver all products in the order-->
-        <button
-          type="button"
-          class="form-field"
-          (click)="deliverAllProducts()"
-          mat-flat-button
-          color="primary"
-        >
-          Deliver all products
-        </button>
+            Deliver all products
+          </button>
+        </div>
       </div>
       <mat-divider class="form-divider"></mat-divider>
     </mat-tab>

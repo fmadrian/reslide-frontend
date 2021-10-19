@@ -21,7 +21,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from 'src/app/service/order/order.service';
 import { OrderDetailPayload } from 'src/app/payload/orderDetail/order-detail.payload';
 import { DateService } from 'src/app/service/date/date.service';
-import { MatRadioChange } from '@angular/material/radio';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 
 @Component({
@@ -66,7 +65,6 @@ export class OrderFormComponent implements OnInit, OnChanges {
       actualDeliveryDate: [''],
       providerAutocomplete: ['', Validators.required],
       notes: [''],
-      status: ['', Validators.required],
     });
     this.getOrderPreview();
 
@@ -270,7 +268,15 @@ export class OrderFormComponent implements OnInit, OnChanges {
       );
     }
   }
-  switchStatus(event: MatRadioChange) {
-    this.order.status = event.value;
+  switchStatus() {
+    this.orderService.switchStatus(this.order).subscribe(
+      (response) => {
+        this.snackbarService.show(response.message);
+        this.router.navigateByUrl(AppRoutes.order.search);
+      },
+      (error) => {
+        this.snackbarService.show(error.message);
+      }
+    );
   }
 }

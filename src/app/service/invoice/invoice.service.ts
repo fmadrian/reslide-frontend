@@ -47,6 +47,9 @@ export class InvoiceService {
   update(payload: InvoicePayload) {
     return this.httpClient.put(ApiRoutes.invoice.update, payload);
   }
+  switchStatus(payload: InvoicePayload) {
+    return this.httpClient.put<any>(ApiRoutes.invoice.switchStatus, payload);
+  }
   /**
    * Only used when creating an invoice.
    * When we are updating, the informations gets reloaded every time it changes.

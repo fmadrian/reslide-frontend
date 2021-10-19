@@ -82,6 +82,7 @@ export const ApiRoutes = {
     get: (id: number) => `${baseRoutes.invoice}/get/${id}`,
     create: `${baseRoutes.invoice}/create`,
     update: `${baseRoutes.invoice}/update`,
+    switchStatus: `${baseRoutes.invoice}/update/status`,
   },
   order: {
     search: `${baseRoutes.order}/search`,
@@ -90,6 +91,7 @@ export const ApiRoutes = {
     create: `${baseRoutes.order}/create`,
     update: `${baseRoutes.order}/update`,
     deliverAllProducts: `${baseRoutes.order}/deliver`,
+    switchStatus: `${baseRoutes.order}/update/status`,
   },
   orderDetail: {
     validate: `${baseRoutes.orderDetail}/validate`,

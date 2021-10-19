@@ -56,6 +56,25 @@
         <textarea [formControlName]="'notes'" matInput></textarea>
       </mat-form-field>
       <mat-divider class="form-divider"></mat-divider>
+      <div *ngIf="invoice.id">
+        <div class="form-button">
+          <!-- Status -->
+          <button
+            mat-flat-button
+            type="button"
+            class="form-button"
+            color="warn"
+            (click)="switchStatus()"
+          >
+            {{
+              invoice.status !== "deleted"
+                ? "Delete invoice"
+                : "Restore invoice"
+            }}
+          </button>
+        </div>
+      </div>
+      <mat-divider class="form-divider"></mat-divider>
     </mat-tab>
     <!-- Invoice details tab -->
     <mat-tab label="Invoice detail">
