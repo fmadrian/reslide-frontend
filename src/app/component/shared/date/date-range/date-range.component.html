@@ -1,39 +1,46 @@
 <form [formGroup]="form">
   <div class="search-date">
-    <section class="mat-typography">
-      <h4 class="name">{{ title }}</h4>
-    </section>
-    <!-- Start date-->
-    <mat-form-field class="from form-field" appearance="fill">
-      <mat-label>From (date and time):</mat-label>
-      <input
-        matInput
-        readonly
-        [matDatepicker]="startpicker"
-        [formControlName]="'start'"
-        (dateChange)="sendValue()"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="startpicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker type="datetime" #startpicker></mat-datepicker>
-    </mat-form-field>
-    <!-- End date -->
-    <mat-form-field class="until form-field" appearance="fill">
-      <mat-label>Until (date and time):</mat-label>
-      <input
-        matInput
-        readonly
-        [matDatepicker]="endpicker"
-        [formControlName]="'end'"
-        (dateChange)="sendValue()"
-      />
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="endpicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker type="datetime" #endpicker></mat-datepicker>
-    </mat-form-field>
+    <div *ngIf="showToggle">
+      <button mat-button type="button" (click)="toggle()">
+        {{ (isActive ? "Disable" : "Enable") + " " + title.toLowerCase() }}
+      </button>
+    </div>
+    <div *ngIf="isActive">
+      <section class="mat-typography">
+        <h4>{{ title }}</h4>
+      </section>
+      <!-- Start date-->
+      <mat-form-field class="from form-field" appearance="fill">
+        <mat-label>From (date and time):</mat-label>
+        <input
+          matInput
+          readonly
+          [matDatepicker]="startpicker"
+          [formControlName]="'start'"
+          (dateChange)="sendValue()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startpicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker type="datetime" #startpicker></mat-datepicker>
+      </mat-form-field>
+      <!-- End date -->
+      <mat-form-field class="until form-field" appearance="fill">
+        <mat-label>Until (date and time):</mat-label>
+        <input
+          matInput
+          readonly
+          [matDatepicker]="endpicker"
+          [formControlName]="'end'"
+          (dateChange)="sendValue()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endpicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker type="datetime" #endpicker></mat-datepicker>
+      </mat-form-field>
+    </div>
   </div>
 </form>
