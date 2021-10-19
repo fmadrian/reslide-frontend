@@ -1,25 +1,28 @@
-<ng-container *ngIf="sidenavMenu">
-    <div *ngFor="let mainItem of sidenavMenu">
-        <mat-accordion>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{mainItem.name}}
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list>
-                    <div class="menu-subitem" *ngFor="let subItem of mainItem.subItems">
-                        <mat-list-item>
-                            <a routerLink={{subItem.route}}>
-                                {{subItem.name}}
-                            </a>
-                        </mat-list-item>
-                    </div>
-                </mat-list>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-<!--
+<ng-container *ngIf="TREE_DATA">
+  <div *ngIf="PREVIOUS_MENU.length > 0" (click)="return()">
+    <button style="width: 100%" mat-button color="warn">Return</button>
+    <mat-divider></mat-divider>
+  </div>
+  <div *ngFor="let node of CURRENT_MENU">
+    <ng-template [ngIf]="node.subitems" [ngIfElse]="child">
+      <button
+        style="width: 100%"
+        mat-button
+        type="button"
+        (click)="openItem(node)"
+      >
+        {{ node.name }}
+      </button>
+    </ng-template>
+    <ng-template #child>
+      <a style="width: 100%" mat-button routerLink="{{ node.route }}">
+        {{ node.name }}
+      </a>
+    </ng-template>
+    <mat-divider></mat-divider>
+  </div>
+
+  <!--
 MENU STRUCTURE 
     menu
         - item A
@@ -27,4 +30,4 @@ MENU STRUCTURE
             + subitem 2
             + subitem 3
         - item B
--->
+--></ng-container>

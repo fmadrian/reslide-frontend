@@ -1,19 +1,18 @@
 import { AppRoutes } from '../appRoutes';
 import { MenuItem } from './menuItem';
-import { SubMenuItem } from './subMenuItem';
 
 var createSubItem = (name: string, route: string, description: string = '') => {
-  let subItem: SubMenuItem = {
+  let subitem: MenuItem = {
     name,
     route,
     description,
   };
-  return subItem;
+  return subitem;
 };
-var createMainItem = (name: string, subItems: SubMenuItem[]) => {
+var createMainItem = (name: string, subitems: MenuItem[]) => {
   let item: MenuItem = {
     name,
-    subItems,
+    subitems,
   };
   return item;
 };
