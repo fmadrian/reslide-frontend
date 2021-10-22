@@ -1,6 +1,4 @@
-import { EventEmitter, Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { SidenavService } from 'src/app/service/sidenav/sidenav.service';
 
