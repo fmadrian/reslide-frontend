@@ -68,6 +68,7 @@ export class AuthService {
     this.localStorage.clear('refreshToken');
     this.localStorage.clear('username');
     this.localStorage.clear('expiresAt');
+    this.localStorage.clear('isSidenavOpen');
     return true;
   }
 

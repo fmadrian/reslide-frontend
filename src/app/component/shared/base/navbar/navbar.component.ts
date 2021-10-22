@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
+import { SidenavService } from 'src/app/service/sidenav/sidenav.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
@@ -10,16 +11,19 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  @Input() isSidenavOpen = new BehaviorSubject<boolean>(false);
   @Input() username = '';
   @Input() isLoggedIn = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private sidenavService: SidenavService
+  ) {}
 
   ngOnInit(): void {}
 
   switchSidenav() {
-    this.isSidenavOpen.next(!this.isSidenavOpen.value); // IMPORTANT: Use next instead of init to submit new values.
+    this.sidenavService.switchSidenav();
   }
   logout() {
     of(this.authService.logout())
