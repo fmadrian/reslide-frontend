@@ -81,6 +81,7 @@ import { UpdateOrderComponent } from './component/page/order/update-order/update
 import { ViewOrderComponent } from './component/page/order/view-order/view-order.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { DateRangeComponent } from './component/shared/date/date-range/date-range.component';
+import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,6 +132,7 @@ import { DateRangeComponent } from './component/shared/date/date-range/date-rang
     UpdateOrderComponent,
     ViewOrderComponent,
     DateRangeComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,

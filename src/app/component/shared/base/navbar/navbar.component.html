@@ -11,7 +11,10 @@
     <span>{{ username }}</span>
   </button>
   <mat-menu #menu>
-    <button mat-menu-item>Change user details</button>
+    <!-- <button mat-menu-item>Change user details</button>-->
+    <a mat-menu-item routerLink="{{ AppRoutes.user.update }}"
+      >Change user details</a
+    >
   </mat-menu>
   <button (click)="logout()" mat-icon-button>
     <mat-icon>exit_to_app</mat-icon>

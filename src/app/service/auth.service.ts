@@ -7,6 +7,7 @@ import { ApiRoutes } from '../utils/apiRoutes';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginResponse } from '../payload/auth/login/login.response';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { UserPayload } from '../payload/user/user.payload';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class AuthService {
     private httpClient: HttpClient,
     private localStorage: LocalStorageService
   ) {}
+
   // Observables need to be observed to trigger a request.
   login(loginRequest: LoginRequest) {
     return this.httpClient
@@ -93,7 +95,6 @@ export class AuthService {
         })
       );
   }
-
   getJwtToken(): string {
     return this.localStorage.retrieve('authenticationToken');
   }

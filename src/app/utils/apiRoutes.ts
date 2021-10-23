@@ -19,6 +19,8 @@ const baseRoutes = {
 export const ApiRoutes = {
   auth: {
     createUser: `${baseRoutes.auth}/create/user`,
+    updateUser: `${baseRoutes.auth}/update/user`,
+    getUserInformation: `${baseRoutes.auth}/get/user/`,
     login: `${baseRoutes.auth}/login`,
     refreshToken: `${baseRoutes.auth}/refresh/token`,
     delete: `${baseRoutes.auth}/delete`,

@@ -20,6 +20,7 @@ import { CreateProductComponent } from './component/page/product/create-product/
 import { SearchProductComponent } from './component/page/product/search-product/search-product.component';
 import { UpdateProductComponent } from './component/page/product/update-product/update-product.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
+import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
 import { ProductTypeResultsComponent } from './component/shared/productType/product-type-results/product-type-results.component';
 import { AppRoutes } from './utils/appRoutes';
 
@@ -112,6 +113,11 @@ const routes: Routes = [
   {
     path: AppRoutes.measurementType.search,
     component: ProductTypeResultsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.user.update,
+    component: UpdateUserComponent,
     canActivate: [AuthGuard],
   },
   { path: AppRoutes.error.internal, component: InternalErrorComponent },

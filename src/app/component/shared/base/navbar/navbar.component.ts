@@ -13,7 +13,7 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
 export class NavbarComponent implements OnInit {
   @Input() username = '';
   @Input() isLoggedIn = false;
-
+  AppRoutes = AppRoutes;
   constructor(
     private router: Router,
     private authService: AuthService,
