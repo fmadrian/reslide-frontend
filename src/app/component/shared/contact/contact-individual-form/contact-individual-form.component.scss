@@ -1,32 +1,32 @@
-table{
-    width: 100%;
+table {
+  width: 100%;
 }
-.contact-form{
-    margin-top: 30px;
+.contact-form {
+  margin-top: 30px;
 }
-.form-field{
-    width: 100%;
+.form-field {
+  width: 100%;
 }
-.form-button{
-    width: 100%;
-    margin-bottom: 10px;
+.form-button {
+  width: 100%;
+  margin-bottom: 10px;
 }
-.content{
-    width: 100%;
+.content {
+  width: 100%;
 }
 .mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    cursor: pointer;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
 }
 
 .mat-row:hover .mat-cell {
-    border-color: rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
-  
+
 .clicked-row {
-    border-color: rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.1);
-    font-weight: bold;
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
 }
