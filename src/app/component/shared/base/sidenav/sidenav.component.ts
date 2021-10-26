@@ -8,13 +8,11 @@ import { MenuItem } from 'src/app/utils/menu/menuItem';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
-  TREE_DATA: MenuItem[];
-  CURRENT_MENU: MenuItem[];
+  CURRENT_MENU: MenuItem;
   // Stack where the previous menus visited will be stored.
-  PREVIOUS_MENU: any[];
+  PREVIOUS_MENU: MenuItem[];
   constructor() {
-    this.TREE_DATA = SidenavMenu;
-    this.CURRENT_MENU = this.TREE_DATA;
+    this.CURRENT_MENU = SidenavMenu;
     this.PREVIOUS_MENU = [];
   }
 
@@ -24,14 +22,20 @@ export class SidenavComponent implements OnInit {
     if (item.subitems) {
       // Add the current menu to the stack and change it.
       this.PREVIOUS_MENU.push(this.CURRENT_MENU);
-      this.CURRENT_MENU = item.subitems;
+      this.CURRENT_MENU = item;
     }
   }
 
   return() {
     // Use the last element added to the stack.
     if (this.PREVIOUS_MENU.length > 0) {
-      this.CURRENT_MENU = this.PREVIOUS_MENU.pop();
+      const newItem = this.PREVIOUS_MENU.pop();
+      if (newItem) {
+        this.CURRENT_MENU = newItem;
+      }
     }
+  }
+  getCurrentMenuName() {
+    return this.CURRENT_MENU.name;
   }
 }

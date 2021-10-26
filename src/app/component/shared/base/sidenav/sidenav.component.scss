@@ -15,3 +15,10 @@ a {
   padding-left: $menu-padding;
   padding-right: $menu-padding;
 }
+.subtitle {
+  width: 100%;
+  & .text {
+    font-size: 15px;
+    font-weight: 500;
+  }
+}

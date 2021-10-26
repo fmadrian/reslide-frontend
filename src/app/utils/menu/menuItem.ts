@@ -1,5 +1,3 @@
-import { SubMenuItem } from './subMenuItem';
-
 /**
  * Used to represent menu items.
  */
