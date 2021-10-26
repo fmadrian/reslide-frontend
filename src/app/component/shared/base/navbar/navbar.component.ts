@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { SidenavService } from 'src/app/service/sidenav/sidenav.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
-
+import { APP_STRINGS } from 'src/app/utils/strings';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   @Input() username = '';
   @Input() isLoggedIn = false;
   AppRoutes = AppRoutes;
+  APP_STRINGS = APP_STRINGS;
   constructor(
     private router: Router,
     private authService: AuthService,
