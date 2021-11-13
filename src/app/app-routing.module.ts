@@ -19,6 +19,9 @@ import { ViewOrderComponent } from './component/page/order/view-order/view-order
 import { CreateProductComponent } from './component/page/product/create-product/create-product.component';
 import { SearchProductComponent } from './component/page/product/search-product/search-product.component';
 import { UpdateProductComponent } from './component/page/product/update-product/update-product.component';
+import { CreateProductBrandComponent } from './component/page/productBrand/create-product-brand/create-product-brand.component';
+import { SearchProductBrandComponent } from './component/page/productBrand/search-product-brand/search-product-brand.component';
+import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
 import { ProductTypeResultsComponent } from './component/shared/productType/product-type-results/product-type-results.component';
@@ -118,6 +121,21 @@ const routes: Routes = [
   {
     path: AppRoutes.user.update,
     component: UpdateUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productBrand.create,
+    component: CreateProductBrandComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productBrand.update,
+    component: UpdateProductBrandComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productBrand.search,
+    component: SearchProductBrandComponent,
     canActivate: [AuthGuard],
   },
   { path: AppRoutes.error.internal, component: InternalErrorComponent },

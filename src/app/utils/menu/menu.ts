@@ -62,4 +62,11 @@ export const SidenavMenu = createBaseItem([
     createFinalItem('Create new order', AppRoutes.order.create),
     createFinalItem('Search for a order', AppRoutes.order.search),
   ]),
+  createNotFinalItem('Product brand', [
+    createFinalItem('Create new product brand', AppRoutes.productBrand.create),
+    createFinalItem(
+      'Search for a product brand',
+      AppRoutes.productBrand.search
+    ),
+  ]),
 ]);

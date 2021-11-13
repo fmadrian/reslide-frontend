@@ -82,6 +82,10 @@ import { ViewOrderComponent } from './component/page/order/view-order/view-order
 import { MatTreeModule } from '@angular/material/tree';
 import { DateRangeComponent } from './component/shared/date/date-range/date-range.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
+import { ProductBrandFormComponent } from './component/shared/productBrand/product-brand-form/product-brand-form.component';
+import { CreateProductBrandComponent } from './component/page/productBrand/create-product-brand/create-product-brand.component';
+import { SearchProductBrandComponent } from './component/page/productBrand/search-product-brand/search-product-brand.component';
+import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,6 +137,10 @@ import { UpdateUserComponent } from './component/page/user/update-user/update-us
     ViewOrderComponent,
     DateRangeComponent,
     UpdateUserComponent,
+    ProductBrandFormComponent,
+    CreateProductBrandComponent,
+    SearchProductBrandComponent,
+    UpdateProductBrandComponent,
   ],
   imports: [
     BrowserModule,

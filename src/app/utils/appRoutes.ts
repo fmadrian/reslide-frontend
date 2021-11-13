@@ -5,6 +5,7 @@ const baseRoutes = {
   measurementType: 'measurementType',
   invoice: 'invoice',
   order: 'order',
+  productBrand: 'productBrand',
 };
 export const AppRoutes = {
   login: 'login',
@@ -46,6 +47,12 @@ export const AppRoutes = {
     view_id: (id: number) => `${baseRoutes.order}/${id}`,
     update: `${baseRoutes.order}/update/:id`,
     update_id: (id: number) => `${baseRoutes.order}/update/${id}`, // Includes the id
+  },
+  productBrand: {
+    create: `${baseRoutes.productBrand}/create`,
+    update: `${baseRoutes.productBrand}/update/`,
+    update_id: (id: number) => `${baseRoutes.productBrand}/update/${id}`,
+    search: `${baseRoutes.productBrand}/search`,
   },
   error: {
     notFound: '**',
