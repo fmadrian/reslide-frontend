@@ -8,7 +8,7 @@ export const ApiErrorMessage = (apiError: any) => {
     let type = apiError.errorType;
     let input = '';
     let message = apiError.message;
-    console.log(type);
+
     if (type === 'UsernameExistsException') {
       input = 'username';
     } else if (
