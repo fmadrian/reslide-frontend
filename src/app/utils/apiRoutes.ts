@@ -5,7 +5,7 @@ const baseRoutes = {
   individualType: `${serverRoute}/individual/type`,
   contactType: `${serverRoute}/contact/type`,
   product: `${serverRoute}/product`,
-  measurementType: `${serverRoute}/measurement/type`,
+  measurementType: `${serverRoute}/measurement-type`,
   productType: `${serverRoute}/product/type`,
   productBrand: `${serverRoute}/product/brand`,
   paymentMethod: `${serverRoute}/payment/method`,

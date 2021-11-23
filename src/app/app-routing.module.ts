@@ -24,6 +24,8 @@ import { SearchProductBrandComponent } from './component/page/productBrand/searc
 import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
+import { MeasurementTypeFormComponent } from './component/shared/measurementType/measurement-type-form/measurement-type-form.component';
+import { MeasurementTypeResultsComponent } from './component/shared/measurementType/measurement-type-results/measurement-type-results.component';
 import { ProductTypeResultsComponent } from './component/shared/productType/product-type-results/product-type-results.component';
 import { AppRoutes } from './utils/appRoutes';
 
@@ -115,7 +117,17 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.measurementType.search,
-    component: ProductTypeResultsComponent,
+    component: MeasurementTypeResultsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.measurementType.create,
+    component: MeasurementTypeFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.measurementType.update,
+    component: MeasurementTypeFormComponent,
     canActivate: [AuthGuard],
   },
   {

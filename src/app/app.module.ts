@@ -86,6 +86,10 @@ import { ProductBrandFormComponent } from './component/shared/productBrand/produ
 import { CreateProductBrandComponent } from './component/page/productBrand/create-product-brand/create-product-brand.component';
 import { SearchProductBrandComponent } from './component/page/productBrand/search-product-brand/search-product-brand.component';
 import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
+import { MeasurementTypeFormComponent } from './component/shared/measurementType/measurement-type-form/measurement-type-form.component';
+import { CreateMeasurementTypeComponent } from './component/page/measurementType/create-measurement-type/create-measurement-type.component';
+import { UpdateMeasurementTypeComponent } from './component/page/measurementType/update-measurement-type/update-measurement-type.component';
+import { SearchMeasurementTypeComponent } from './component/page/measurementType/search-measurement-type/search-measurement-type.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,6 +145,10 @@ import { UpdateProductBrandComponent } from './component/page/productBrand/updat
     CreateProductBrandComponent,
     SearchProductBrandComponent,
     UpdateProductBrandComponent,
+    MeasurementTypeFormComponent,
+    CreateMeasurementTypeComponent,
+    UpdateMeasurementTypeComponent,
+    SearchMeasurementTypeComponent,
   ],
   imports: [
     BrowserModule,
