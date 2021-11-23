@@ -1,1 +1,22 @@
-<p>update-product-brand works!</p>
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!retrieveError" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update product brand</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Product brand information</h2>
+      </section>
+      <app-product-brand-form
+        (productBrandOutput)="update($event)"
+        [productBrand]="productBrandInput"
+        [apiError]="apiError"
+      ></app-product-brand-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ retrieveError?.message }}</h1>
+  </ng-template>
+</div>

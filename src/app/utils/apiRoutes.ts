@@ -61,7 +61,7 @@ export const ApiRoutes = {
   },
   productBrand: {
     search: `${baseRoutes.productBrand}/search`,
-    get: `${baseRoutes.productBrand}/get`,
+    get: (id: number) => `${baseRoutes.productBrand}/get/${id}`,
     create: `${baseRoutes.productBrand}/create`,
     update: `${baseRoutes.productBrand}/update`,
   },
@@ -102,6 +102,7 @@ export const ApiRoutes = {
       `${baseRoutes.orderDetail}/delete/${orderId}/${detailId}`,
     switchState: `${baseRoutes.orderDetail}/update/status`,
   },
+
   payment: {
     create: `${baseRoutes.payment}/create`,
     overturn: `${baseRoutes.payment}/overturn`,

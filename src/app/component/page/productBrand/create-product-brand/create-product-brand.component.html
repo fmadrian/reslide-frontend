@@ -1,1 +1,17 @@
-<p>create-product-brand works!</p>
+<div class="content mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h1>Create new product brand</h1>
+    </section>
+  </div>
+  <div class="forms">
+    <section class="mat-typography">
+      <h2>Product brand information</h2>
+    </section>
+    <app-product-brand-form
+      [apiError]="apiError"
+      (productBrandOutput)="create($event)"
+    >
+    </app-product-brand-form>
+  </div>
+</div>

@@ -106,10 +106,10 @@ export class ProductBrandResultsComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  update(individual: ProductBrandPayload) {
-    if (individual?.id !== null && individual?.id !== undefined) {
+  update(productBrand: ProductBrandPayload) {
+    if (productBrand?.id !== null && productBrand?.id !== undefined) {
       this.router.navigateByUrl(
-        AppRoutes.measurementType.update_id(individual.id)
+        AppRoutes.productBrand.update_id(productBrand.id)
       );
     }
   }

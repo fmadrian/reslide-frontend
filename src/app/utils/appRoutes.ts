@@ -5,7 +5,7 @@ const baseRoutes = {
   measurementType: 'measurementType',
   invoice: 'invoice',
   order: 'order',
-  productBrand: 'productBrand',
+  productBrand: 'product/brand',
 };
 export const AppRoutes = {
   login: 'login',
@@ -50,7 +50,7 @@ export const AppRoutes = {
   },
   productBrand: {
     create: `${baseRoutes.productBrand}/create`,
-    update: `${baseRoutes.productBrand}/update/`,
+    update: `${baseRoutes.productBrand}/update/:id`,
     update_id: (id: number) => `${baseRoutes.productBrand}/update/${id}`,
     search: `${baseRoutes.productBrand}/search`,
   },

@@ -1,1 +1,39 @@
-<p>product-brand-form works!</p>
+<div>
+  <form [formGroup]="productBrandForm" (ngSubmit)="submit()">
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Product brand name</mat-label>
+      <input matInput [formControlName]="'name'" type="text" />
+      <mat-error>
+        <div *ngFor="let error of formValidation.errors">
+          <mat-error *ngIf="productBrandForm.get('name')?.hasError(error)">
+            {{ formValidation.getErrorMessage("name", productBrandForm) }}
+          </mat-error>
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput [formControlName]="'notes'"></textarea>
+      <mat-error>
+        <div *ngFor="let error of formValidation.errors">
+          <mat-error *ngIf="productBrandForm.get('notes')?.hasError(error)">
+            {{ formValidation.getErrorMessage("notes", productBrandForm) }}
+          </mat-error>
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-divider class="form-divider"></mat-divider>
+    <section class="mat-typography">
+      {{ apiError ? apiError.message : "" }}
+    </section>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="reset()">
+        Reset form
+      </button>
+    </div>
+  </form>
+</div>
