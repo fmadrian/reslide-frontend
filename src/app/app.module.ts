@@ -90,6 +90,11 @@ import { MeasurementTypeFormComponent } from './component/shared/measurementType
 import { CreateMeasurementTypeComponent } from './component/page/measurementType/create-measurement-type/create-measurement-type.component';
 import { UpdateMeasurementTypeComponent } from './component/page/measurementType/update-measurement-type/update-measurement-type.component';
 import { SearchMeasurementTypeComponent } from './component/page/measurementType/search-measurement-type/search-measurement-type.component';
+import { PaymentMethodFormComponent } from './component/shared/paymentMethod/payment-method-form/payment-method-form.component';
+import { PaymentMethodResultsComponent } from './component/shared/paymentMethod/payment-method-results/payment-method-results.component';
+import { CreatePaymentMethodComponent } from './component/page/paymentMethod/create-payment-method/create-payment-method.component';
+import { SearchPaymentMethodComponent } from './component/page/paymentMethod/search-payment-method/search-payment-method.component';
+import { UpdatePaymentMethodComponent } from './component/page/paymentMethod/update-payment-method/update-payment-method.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -149,6 +154,11 @@ import { SearchMeasurementTypeComponent } from './component/page/measurementType
     CreateMeasurementTypeComponent,
     UpdateMeasurementTypeComponent,
     SearchMeasurementTypeComponent,
+    PaymentMethodFormComponent,
+    PaymentMethodResultsComponent,
+    CreatePaymentMethodComponent,
+    SearchPaymentMethodComponent,
+    UpdatePaymentMethodComponent,
   ],
   imports: [
     BrowserModule,

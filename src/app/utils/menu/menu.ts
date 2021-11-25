@@ -79,4 +79,11 @@ export const SidenavMenu = createBaseItem([
       AppRoutes.measurementType.search
     ),
   ]),
+  createNotFinalItem('Payment methods', [
+    createFinalItem(
+      'Create new payment method',
+      AppRoutes.paymentMethod.create
+    ),
+    createFinalItem('Search a payment method', AppRoutes.paymentMethod.search),
+  ]),
 ]);

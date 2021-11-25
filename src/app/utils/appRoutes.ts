@@ -6,6 +6,7 @@ const baseRoutes = {
   invoice: 'invoice',
   order: 'order',
   productBrand: 'product/brand',
+  paymentMethod: 'payment-method',
 };
 export const AppRoutes = {
   login: 'login',
@@ -53,6 +54,12 @@ export const AppRoutes = {
     update: `${baseRoutes.productBrand}/update/:id`,
     update_id: (id: number) => `${baseRoutes.productBrand}/update/${id}`,
     search: `${baseRoutes.productBrand}/search`,
+  },
+  paymentMethod: {
+    create: `${baseRoutes.paymentMethod}/create`,
+    update: `${baseRoutes.paymentMethod}/update/:id`,
+    update_id: (id: number) => `${baseRoutes.paymentMethod}/update/${id}`,
+    search: `${baseRoutes.paymentMethod}/search`,
   },
   error: {
     notFound: '**',
