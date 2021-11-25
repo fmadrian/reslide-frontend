@@ -49,7 +49,7 @@ export const ApiRoutes = {
   },
   measurementType: {
     search: `${baseRoutes.measurementType}/search`,
-    get: `${baseRoutes.measurementType}/get`,
+    get: (id: number) => `${baseRoutes.measurementType}/get/${id}`,
     create: `${baseRoutes.measurementType}/create`,
     update: `${baseRoutes.measurementType}/update`,
   },

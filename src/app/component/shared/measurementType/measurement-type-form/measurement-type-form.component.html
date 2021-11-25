@@ -1,1 +1,23 @@
-<p>measurement-type-form works!</p>
+<form [formGroup]="measurementTypeForm" (ngSubmit)="submit()">
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="type" matInput [formControlName]="'name'" />
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Notes</mat-label>
+    <textarea matInput [formControlName]="'notes'"></textarea>
+  </mat-form-field>
+  <!-- Save buttons -->
+  <div>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="resetForm()">
+        Reset form
+      </button>
+    </div>
+    <mat-divider class="form-divider"></mat-divider>
+  </div>
+</form>

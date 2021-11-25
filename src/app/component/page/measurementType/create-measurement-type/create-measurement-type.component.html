@@ -1,1 +1,17 @@
-<p>create-measurement-type works!</p>
+<div class="content mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h1>Create new measurement type</h1>
+    </section>
+  </div>
+  <div class="forms">
+    <section class="mat-typography">
+      <h2>Measurement type information</h2>
+    </section>
+    <app-measurement-type-form
+      [apiError]="apiError"
+      (measurementTypeOutput)="create($event)"
+    >
+    </app-measurement-type-form>
+  </div>
+</div>

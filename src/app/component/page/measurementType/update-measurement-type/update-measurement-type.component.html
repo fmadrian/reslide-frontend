@@ -1,1 +1,22 @@
-<p>update-measurement-type works!</p>
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!retrieveError" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update measurement type</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Measurement type information</h2>
+      </section>
+      <app-measurement-type-form
+        (measurementTypeOutput)="update($event)"
+        [measurementType]="measurementTypeInput"
+        [apiError]="apiError"
+      ></app-measurement-type-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ retrieveError?.message }}</h1>
+  </ng-template>
+</div>

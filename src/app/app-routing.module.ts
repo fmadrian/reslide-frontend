@@ -12,6 +12,9 @@ import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/
 import { ViewInvoiceComponent } from './component/page/invoice/view-invoice/view-invoice.component';
 import { LandingComponent } from './component/page/landing/landing.component';
 import { LoginComponent } from './component/page/login/login.component';
+import { CreateMeasurementTypeComponent } from './component/page/measurementType/create-measurement-type/create-measurement-type.component';
+import { SearchMeasurementTypeComponent } from './component/page/measurementType/search-measurement-type/search-measurement-type.component';
+import { UpdateMeasurementTypeComponent } from './component/page/measurementType/update-measurement-type/update-measurement-type.component';
 import { CreateOrderComponent } from './component/page/order/create-order/create-order.component';
 import { SearchOrderComponent } from './component/page/order/search-order/search-order.component';
 import { UpdateOrderComponent } from './component/page/order/update-order/update-order.component';
@@ -24,9 +27,6 @@ import { SearchProductBrandComponent } from './component/page/productBrand/searc
 import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
-import { MeasurementTypeFormComponent } from './component/shared/measurementType/measurement-type-form/measurement-type-form.component';
-import { MeasurementTypeResultsComponent } from './component/shared/measurementType/measurement-type-results/measurement-type-results.component';
-import { ProductTypeResultsComponent } from './component/shared/productType/product-type-results/product-type-results.component';
 import { AppRoutes } from './utils/appRoutes';
 
 const routes: Routes = [
@@ -117,17 +117,17 @@ const routes: Routes = [
   },
   {
     path: AppRoutes.measurementType.search,
-    component: MeasurementTypeResultsComponent,
+    component: SearchMeasurementTypeComponent,
     canActivate: [AuthGuard],
   },
   {
     path: AppRoutes.measurementType.create,
-    component: MeasurementTypeFormComponent,
+    component: CreateMeasurementTypeComponent,
     canActivate: [AuthGuard],
   },
   {
     path: AppRoutes.measurementType.update,
-    component: MeasurementTypeFormComponent,
+    component: UpdateMeasurementTypeComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -69,4 +69,14 @@ export const SidenavMenu = createBaseItem([
       AppRoutes.productBrand.search
     ),
   ]),
+  createNotFinalItem('Measurement type', [
+    createFinalItem(
+      'Create new measurement type',
+      AppRoutes.measurementType.create
+    ),
+    createFinalItem(
+      'Search for a measurement type',
+      AppRoutes.measurementType.search
+    ),
+  ]),
 ]);
