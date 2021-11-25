@@ -42,46 +42,43 @@ export const SidenavMenu = createBaseItem([
   ]),
   createNotFinalItem('Clients / Providers', [
     createFinalItem(
-      'Create new client or provider',
+      'Create a new client or provider',
       AppRoutes.individual.create
     ),
-    createFinalItem(
-      'Search for a client or provider',
-      AppRoutes.individual.search
-    ),
+    createFinalItem('Search a client or provider', AppRoutes.individual.search),
   ]),
   createNotFinalItem('Products', [
-    createFinalItem('Create new product', AppRoutes.product.create),
-    createFinalItem('Search for a product', AppRoutes.product.search),
+    createFinalItem('Create a new product', AppRoutes.product.create),
+    createFinalItem('Search a product', AppRoutes.product.search),
   ]),
   createNotFinalItem('Invoices', [
-    createFinalItem('Create new invoice', AppRoutes.invoice.create),
-    createFinalItem('Search for a invoice', AppRoutes.invoice.search),
+    createFinalItem('Create a new invoice', AppRoutes.invoice.create),
+    createFinalItem('Search a invoice', AppRoutes.invoice.search),
   ]),
   createNotFinalItem('Orders', [
-    createFinalItem('Create new order', AppRoutes.order.create),
-    createFinalItem('Search for a order', AppRoutes.order.search),
+    createFinalItem('Create a new order', AppRoutes.order.create),
+    createFinalItem('Search a order', AppRoutes.order.search),
   ]),
   createNotFinalItem('Product brand', [
-    createFinalItem('Create new product brand', AppRoutes.productBrand.create),
     createFinalItem(
-      'Search for a product brand',
-      AppRoutes.productBrand.search
+      'Create a new product brand',
+      AppRoutes.productBrand.create
     ),
+    createFinalItem('Search a product brand', AppRoutes.productBrand.search),
   ]),
   createNotFinalItem('Measurement type', [
     createFinalItem(
-      'Create new measurement type',
+      'Create a new measurement type',
       AppRoutes.measurementType.create
     ),
     createFinalItem(
-      'Search for a measurement type',
+      'Search a measurement type',
       AppRoutes.measurementType.search
     ),
   ]),
   createNotFinalItem('Payment methods', [
     createFinalItem(
-      'Create new payment method',
+      'Create a new payment method',
       AppRoutes.paymentMethod.create
     ),
     createFinalItem('Search a payment method', AppRoutes.paymentMethod.search),
