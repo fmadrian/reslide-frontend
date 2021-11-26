@@ -1,1 +1,22 @@
-<p>update-payment-method works!</p>
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!retrieveError" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update payment method</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Payment method information</h2>
+      </section>
+      <app-payment-method-form
+        (paymentMethodOutput)="update($event)"
+        [paymentMethod]="paymentMethodInput"
+        [apiError]="apiError"
+      ></app-payment-method-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ retrieveError }}</h1>
+  </ng-template>
+</div>

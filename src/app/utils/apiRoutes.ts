@@ -67,7 +67,7 @@ export const ApiRoutes = {
   },
   paymentMethod: {
     search: `${baseRoutes.paymentMethod}/search`,
-    get: `${baseRoutes.paymentMethod}/get`,
+    get: (id: number) => `${baseRoutes.paymentMethod}/get/${id}`,
     create: `${baseRoutes.paymentMethod}/create`,
     update: `${baseRoutes.paymentMethod}/update`,
   },

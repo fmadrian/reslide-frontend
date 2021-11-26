@@ -17,4 +17,18 @@ export class PaymentMethodService {
       })
       .pipe(share());
   }
+  create(payload: PaymentMethodPayload) {
+    return this.httpClient.post<PaymentMethodPayload>(
+      ApiRoutes.paymentMethod.create,
+      payload
+    );
+  }
+  update(payload: PaymentMethodPayload) {
+    return this.httpClient.put(ApiRoutes.paymentMethod.update, payload);
+  }
+  get(id: number) {
+    return this.httpClient.get<PaymentMethodPayload>(
+      ApiRoutes.paymentMethod.get(id)
+    );
+  }
 }

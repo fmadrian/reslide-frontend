@@ -1,1 +1,17 @@
-<p>create-payment-method works!</p>
+<div class="content mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h1>Create new payment method</h1>
+    </section>
+  </div>
+  <div class="forms">
+    <section class="mat-typography">
+      <h2>Payment method information</h2>
+    </section>
+    <app-payment-method-form
+      [apiError]="apiError"
+      (paymentMethodOutput)="create($event)"
+    >
+    </app-payment-method-form>
+  </div>
+</div>
