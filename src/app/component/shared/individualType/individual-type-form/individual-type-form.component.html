@@ -1,0 +1,45 @@
+<form [formGroup]="individualTypeForm" (ngSubmit)="submit()">
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [formControlName]="'name'" />
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Notes</mat-label>
+    <textarea matInput [formControlName]="'notes'"> </textarea>
+  </mat-form-field>
+  <!-- Display errors -->
+  <section class="mat-typography error">
+    <div *ngIf="apiError">
+      {{ apiError?.message }}
+    </div>
+  </section>
+  <div>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="resetForm()">
+        Reset form
+      </button>
+    </div>
+    <div
+      class="form-button"
+      *ngIf="
+        this.individualTypeInput !== null &&
+        this.individualTypeInput.enabled !== null
+      "
+    >
+      <button
+        type="button"
+        mat-flat-button
+        color="{{
+          this.individualTypeInput.enabled === false ? 'accent' : 'warn'
+        }}"
+        (click)="switchState()"
+      >
+        {{ getRefreshButtonName() }}
+      </button>
+    </div>
+  </div>
+</form>

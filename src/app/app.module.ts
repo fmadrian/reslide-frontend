@@ -95,6 +95,11 @@ import { PaymentMethodResultsComponent } from './component/shared/paymentMethod/
 import { CreatePaymentMethodComponent } from './component/page/paymentMethod/create-payment-method/create-payment-method.component';
 import { SearchPaymentMethodComponent } from './component/page/paymentMethod/search-payment-method/search-payment-method.component';
 import { UpdatePaymentMethodComponent } from './component/page/paymentMethod/update-payment-method/update-payment-method.component';
+import { IndividualTypeFormComponent } from './component/shared/individualType/individual-type-form/individual-type-form.component';
+import { IndividualTypeResultsComponent } from './component/shared/individualType/individual-type-results/individual-type-results.component';
+import { CreateIndividualTypeComponent } from './component/page/individualType/create-individual-type/create-individual-type.component';
+import { SearchIndividualTypeComponent } from './component/page/individualType/search-individual-type/search-individual-type.component';
+import { UpdateIndividualTypeComponent } from './component/page/individualType/update-individual-type/update-individual-type.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -159,6 +164,11 @@ import { UpdatePaymentMethodComponent } from './component/page/paymentMethod/upd
     CreatePaymentMethodComponent,
     SearchPaymentMethodComponent,
     UpdatePaymentMethodComponent,
+    IndividualTypeFormComponent,
+    IndividualTypeResultsComponent,
+    CreateIndividualTypeComponent,
+    SearchIndividualTypeComponent,
+    UpdateIndividualTypeComponent,
   ],
   imports: [
     BrowserModule,

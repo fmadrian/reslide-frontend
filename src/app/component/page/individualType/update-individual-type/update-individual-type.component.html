@@ -1,0 +1,23 @@
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!error" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update individual type</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Individual information</h2>
+      </section>
+      <app-individual-type-form
+        (individualTypeOutput)="updateIndividualType($event)"
+        (refreshIndividualType)="getIndividualType()"
+        [individualTypeInput]="individualTypeInput"
+        [apiError]="apiError"
+      ></app-individual-type-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ error }}</h1>
+  </ng-template>
+</div>

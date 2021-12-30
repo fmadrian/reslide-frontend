@@ -1,6 +1,7 @@
 const baseRoutes = {
   user: 'user',
   individual: 'individual',
+  individualType: 'individual-type',
   product: 'product',
   measurementType: 'measurement-type',
   invoice: 'invoice',
@@ -20,6 +21,12 @@ export const AppRoutes = {
     search: `${baseRoutes.individual}/search`,
     update: `${baseRoutes.individual}/update/:id`, // Used for routing in the app.routing.module.ts
     update_id: (id: number) => `${baseRoutes.individual}/update/${id}`, // Used to include the id in URL
+  },
+  individualType: {
+    create: `${baseRoutes.individualType}/create`,
+    search: `${baseRoutes.individualType}/search`,
+    update: `${baseRoutes.individualType}/update/:id`, // Used for routing in the app.routing.module.ts
+    update_id: (id: number) => `${baseRoutes.individualType}/update/${id}`, // Used to include the id in URL
   },
   measurementType: {
     create: `${baseRoutes.measurementType}/create`,

@@ -6,6 +6,9 @@ import { NotFoundComponent } from './component/page/error/not-found/not-found.co
 import { CreateIndividualComponent } from './component/page/individual/create-individual/create-individual.component';
 import { SearchIndividualComponent } from './component/page/individual/search-individual/search-individual.component';
 import { UpdateIndividualComponent } from './component/page/individual/update-individual/update-individual.component';
+import { CreateIndividualTypeComponent } from './component/page/individualType/create-individual-type/create-individual-type.component';
+import { SearchIndividualTypeComponent } from './component/page/individualType/search-individual-type/search-individual-type.component';
+import { UpdateIndividualTypeComponent } from './component/page/individualType/update-individual-type/update-individual-type.component';
 import { CreateInvoiceComponent } from './component/page/invoice/create-invoice/create-invoice.component';
 import { SearchInvoiceComponent } from './component/page/invoice/search-invoice/search-invoice.component';
 import { UpdateInvoiceComponent } from './component/page/invoice/update-invoice/update-invoice.component';
@@ -168,6 +171,22 @@ const routes: Routes = [
     component: SearchPaymentMethodComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: AppRoutes.individualType.create,
+    component: CreateIndividualTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.individualType.update,
+    component: UpdateIndividualTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.individualType.search,
+    component: SearchIndividualTypeComponent,
+    canActivate: [AuthGuard],
+  },
+
   { path: AppRoutes.error.internal, component: InternalErrorComponent },
   { path: AppRoutes.error.notFound, component: NotFoundComponent }, // 404 always goes at last.
 ];

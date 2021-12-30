@@ -36,6 +36,8 @@ export const ApiRoutes = {
     getAll: `${baseRoutes.individualType}/getAll`,
     create: `${baseRoutes.individualType}/create`,
     update: `${baseRoutes.individualType}/update`,
+    switchStatus: `${baseRoutes.individualType}/switch`,
+    get: (id: number) => `${baseRoutes.individualType}/get/${id}`,
   },
   contactType: {
     search: `${baseRoutes.contactType}/search`,

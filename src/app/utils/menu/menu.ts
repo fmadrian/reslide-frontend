@@ -33,6 +33,7 @@ var createBaseItem = (subitems: MenuItem[]) => {
  * Object used to structure the sidebar menu.
  */
 export const SidenavMenu = createBaseItem([
+  createFinalItem('Main page', AppRoutes.landing),
   createNotFinalItem('Users', [
     createFinalItem(
       'Create new user',
@@ -82,5 +83,15 @@ export const SidenavMenu = createBaseItem([
       AppRoutes.paymentMethod.create
     ),
     createFinalItem('Search a payment method', AppRoutes.paymentMethod.search),
+  ]),
+  createNotFinalItem('Individual type', [
+    createFinalItem(
+      'Create a new individual type',
+      AppRoutes.individualType.create
+    ),
+    createFinalItem(
+      'Search an individual type',
+      AppRoutes.individualType.search
+    ),
   ]),
 ]);
