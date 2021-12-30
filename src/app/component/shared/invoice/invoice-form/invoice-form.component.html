@@ -63,7 +63,7 @@
             mat-flat-button
             type="button"
             class="form-button"
-            color="warn"
+            color="{{ invoice.status !== 'deleted' ? 'warn' : 'accent' }}"
             (click)="switchStatus()"
           >
             {{

@@ -118,7 +118,7 @@
             mat-flat-button
             type="button"
             class="form-button"
-            color="warn"
+            color="{{ order.status === 'ACTIVE' ? 'warn' : 'accent' }}"
             (click)="switchStatus()"
           >
             {{ order.status === "ACTIVE" ? "Delete order" : "Restore order" }}
