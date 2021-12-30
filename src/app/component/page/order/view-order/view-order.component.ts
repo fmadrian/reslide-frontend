@@ -45,7 +45,7 @@ export class ViewOrderComponent implements OnInit {
           this.error = null;
         },
         (error) => {
-          this.error = error.error.message;
+          this.error = error;
         }
       );
     }
