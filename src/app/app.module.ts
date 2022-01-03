@@ -100,6 +100,8 @@ import { IndividualTypeResultsComponent } from './component/shared/individualTyp
 import { CreateIndividualTypeComponent } from './component/page/individualType/create-individual-type/create-individual-type.component';
 import { SearchIndividualTypeComponent } from './component/page/individualType/search-individual-type/search-individual-type.component';
 import { UpdateIndividualTypeComponent } from './component/page/individualType/update-individual-type/update-individual-type.component';
+import { NgxPrintModule } from 'ngx-print';
+import { PrintHeaderComponent } from './component/shared/print/print-header/print-header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -169,6 +171,7 @@ import { UpdateIndividualTypeComponent } from './component/page/individualType/u
     CreateIndividualTypeComponent,
     SearchIndividualTypeComponent,
     UpdateIndividualTypeComponent,
+    PrintHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -182,6 +185,8 @@ import { UpdateIndividualTypeComponent } from './component/page/individualType/u
     // Matheo datepicker
     MatDatepickerModule,
     MatNativeDateModule,
+    // NGX Print
+    NgxPrintModule,
     // Angular material
     BrowserAnimationsModule,
     // Angular material components
