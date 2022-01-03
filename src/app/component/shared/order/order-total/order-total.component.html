@@ -1,6 +1,18 @@
 <div class="mat-elevation-z8 summary">
   <section class="mat-typography">
-    <h2>Total:</h2>
+    <!-- Only shows the order ID when are updating or viewing it.-->
+    <p *ngIf="order && order.id">
+      {{ "Order ID: " + (order ? order?.id : "0") }}
+    </p>
+    <p *ngIf="invoice && invoice.transaction.fullname">
+      {{
+        "Cashier: " +
+          invoice.transaction.fullname +
+          "(" +
+          invoice.transaction.username +
+          ")"
+      }}
+    </p>
     <p>
       {{ "Date: " + getDate(order?.transaction?.date) }}
     </p>

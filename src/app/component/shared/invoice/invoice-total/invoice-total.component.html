@@ -1,6 +1,16 @@
 <div class="mat-elevation-z8 summary">
   <section class="mat-typography">
-    <h2>Total:</h2>
+    <!-- Only shows the invoice ID when are updating or viewing it.-->
+    <p *ngIf="invoice && invoice.id">
+      {{ "Invoice ID: " + (invoice ? invoice?.id : "0") }}
+    </p>
+    <p *ngIf="invoice && invoice.transaction.fullname">
+      {{ "Cashier: " + invoice.transaction.fullname }}
+      <!-- Only shows the username in the screen -->
+      <span class="print-hide">
+        {{ "(" + invoice.transaction.username + ")" }}
+      </span>
+    </p>
     <p>
       {{ "Date: " + getInvoiceDate() }}
     </p>

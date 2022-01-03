@@ -5,5 +5,6 @@ export interface TransactionPayload {
   date: string;
   notes: string;
   username: string;
+  fullname?: string; // Full name of the user who made the transaction.
   payments: PaymentPayload[];
 }
