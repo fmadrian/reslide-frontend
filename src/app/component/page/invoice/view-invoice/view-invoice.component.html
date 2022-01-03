@@ -17,17 +17,33 @@
         >
           Update
         </button>
+        <button
+          mat-raised-button
+          class="button"
+          color="primary"
+          type="button"
+          printSectionId="print-section"
+          styleSheetFile="assets/scss/print-styles.scss"
+          ngxPrint
+        >
+          Print
+        </button>
         <mat-divider class="divider"></mat-divider>
       </div>
-      <app-invoice-total [invoice]="invoice"></app-invoice-total>
-      <app-invoice-detail-results
-        [invoiceDetailsInput]="invoice.details"
-        [showButton]="false"
-      ></app-invoice-detail-results>
-      <app-payment-results
-        [paymentResultsInput]="invoice.transaction.payments"
-        [showButton]="false"
-      ></app-payment-results>
+      <div id="print-section">
+        <app-print-basic-information
+          [type]="'invoice'"
+        ></app-print-basic-information>
+        <app-invoice-total [invoice]="invoice"></app-invoice-total>
+        <app-invoice-detail-results
+          [invoiceDetailsInput]="invoice.details"
+          [showButton]="false"
+        ></app-invoice-detail-results>
+        <app-payment-results
+          [paymentResultsInput]="invoice.transaction.payments"
+          [showButton]="false"
+        ></app-payment-results>
+      </div>
     </div>
   </ng-template>
   <ng-template #hasError>
