@@ -1,0 +1,35 @@
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+
+@Component({
+  selector: 'app-print-basic-information',
+  templateUrl: './print-basic-information.component.html',
+  styleUrls: ['./print-basic-information.component.scss'],
+})
+export class PrintBasicInformationComponent implements OnInit, OnChanges {
+  @Input() headerType = '';
+  title = '';
+  logoSize = {
+    width: 100,
+    height: 100,
+  };
+  constructor() {}
+
+  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.changeHeaderTitle();
+  }
+  changeHeaderTitle() {
+    if (this.headerType === 'order') {
+      this.title = 'Order';
+    } else if (this.headerType === 'invoice') {
+      this.title = 'Invoice';
+    }
+    this.title = `${this.title} receipt`;
+  }
+}

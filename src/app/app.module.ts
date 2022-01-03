@@ -101,7 +101,7 @@ import { CreateIndividualTypeComponent } from './component/page/individualType/c
 import { SearchIndividualTypeComponent } from './component/page/individualType/search-individual-type/search-individual-type.component';
 import { UpdateIndividualTypeComponent } from './component/page/individualType/update-individual-type/update-individual-type.component';
 import { NgxPrintModule } from 'ngx-print';
-import { PrintHeaderComponent } from './component/shared/print/print-header/print-header.component';
+import { PrintBasicInformationComponent } from './component/shared/print/print-basic-information/print-basic-information.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -171,7 +171,7 @@ import { PrintHeaderComponent } from './component/shared/print/print-header/prin
     CreateIndividualTypeComponent,
     SearchIndividualTypeComponent,
     UpdateIndividualTypeComponent,
-    PrintHeaderComponent,
+    PrintBasicInformationComponent,
   ],
   imports: [
     BrowserModule,
