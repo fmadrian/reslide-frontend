@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { InvoicePayload } from 'src/app/payload/invoice/invoice.payload';
 import { DateService } from 'src/app/service/date/date.service';
 
