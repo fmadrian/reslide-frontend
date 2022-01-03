@@ -12,7 +12,7 @@ import {
   styleUrls: ['./print-basic-information.component.scss'],
 })
 export class PrintBasicInformationComponent implements OnInit, OnChanges {
-  @Input() headerType = '';
+  @Input() type = '';
   title = '';
   logoSize = {
     width: 100,
@@ -25,9 +25,9 @@ export class PrintBasicInformationComponent implements OnInit, OnChanges {
     this.changeHeaderTitle();
   }
   changeHeaderTitle() {
-    if (this.headerType === 'order') {
+    if (this.type === 'order') {
       this.title = 'Order';
-    } else if (this.headerType === 'invoice') {
+    } else if (this.type === 'invoice') {
       this.title = 'Invoice';
     }
     this.title = `${this.title} receipt`;
