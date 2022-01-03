@@ -1,0 +1,33 @@
+/**
+  CSS style sheet to be used when we print an invoice or an order.
+*/
+th {
+  font-weight: bold;
+}
+td {
+  padding: 0.1em;
+}
+.print-hide {
+  display: none;
+}
+table {
+  width: 100%;
+}
+p {
+  font-size: 15px;
+  padding: 0px;
+  margin: 0px;
+}
+.header {
+  display: flex;
+  margin-bottom: 25px;
+}
+.header-logo {
+  width: 10%;
+}
+.header-item {
+  width: 40%;
+  h1 {
+    text-align: center;
+  }
+}
