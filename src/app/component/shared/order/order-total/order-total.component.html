@@ -4,12 +4,12 @@
     <p *ngIf="order && order.id">
       {{ "Order ID: " + (order ? order?.id : "0") }}
     </p>
-    <p *ngIf="invoice && invoice.transaction.fullname">
+    <p *ngIf="order && order.transaction.fullname">
       {{
         "Cashier: " +
-          invoice.transaction.fullname +
+          order.transaction.fullname +
           "(" +
-          invoice.transaction.username +
+          order.transaction.username +
           ")"
       }}
     </p>
