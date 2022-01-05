@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
@@ -52,7 +52,7 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   clients$: undefined | Observable<IndividualPayload[]>;
   client: IndividualPayload | null = null;
   // Date
-  dateRange: DateRange = { start: new Date(), end: new Date() };
+  @Input() dateRange: DateRange = { start: new Date(), end: new Date() };
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<InvoicePayload>;
   // Sort
@@ -93,8 +93,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
       clientAutocomplete: [''],
     });
     // Get the dates and convert them to ISO string to use them in the API call.
-    const start = this.dateService.getISOString(this.dateRange.start);
-    const end = this.dateService.getISOString(this.dateRange.end);
+    let start = this.dateService.getISOString(this.dateRange.start);
+    let end = this.dateService.getISOString(this.dateRange.end);
     this.invoiceService.search(start, end).subscribe(
       (data) => {
         this.loadDataSource(data);
@@ -139,6 +139,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     this.invoiceService.search(start, end, code).subscribe(
       (data) => {
         this.loadDataSource(data);
+        // Updates the URL with the dates introduced.
+        this.router.navigate([], { queryParams: { start, end } });
       },
       () => {
         this.router.navigateByUrl(AppRoutes.error.internal);

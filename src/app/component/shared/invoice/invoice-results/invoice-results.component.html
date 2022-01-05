@@ -36,6 +36,7 @@
       </div>
       <app-date-range
         [title]="'Invoice date:'"
+        [dateInput]="dateRange"
         (dateOutput)="receiveDate($event)"
       ></app-date-range>
       <button type="button" type="submit" mat-raised-button color="primary">
