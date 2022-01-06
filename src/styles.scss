@@ -64,7 +64,7 @@ $margin: 10px;
   .form-field {
     width: 100%;
   }
-  button {
+  button:not(.icon-button) {
     width: 100%;
     margin-bottom: 25px;
   }
@@ -156,4 +156,9 @@ $margin: 10px;
   border-color: rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.1);
   font-weight: bold;
+}
+
+// Used to hide elements on the GUI that we need when we print.
+.hide {
+  display: none;
 }
