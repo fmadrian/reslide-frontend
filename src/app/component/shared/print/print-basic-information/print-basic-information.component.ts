@@ -13,7 +13,7 @@ import {
 })
 export class PrintBasicInformationComponent implements OnInit, OnChanges {
   @Input() type = '';
-  title = '';
+  @Input() title = '';
   logoSize = {
     width: 100,
     height: 100,
@@ -26,10 +26,9 @@ export class PrintBasicInformationComponent implements OnInit, OnChanges {
   }
   changeHeaderTitle() {
     if (this.type === 'order') {
-      this.title = 'Order';
+      this.title = 'Order receipt';
     } else if (this.type === 'invoice') {
-      this.title = 'Invoice';
+      this.title = 'Invoice receipt';
     }
-    this.title = `${this.title} receipt`;
   }
 }
