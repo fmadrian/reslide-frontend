@@ -1,1 +1,14 @@
-<p>landing!</p>
+<div class="content">
+  <mat-card>
+    <mat-card-title>
+      <a
+        class="link"
+        [routerLink]="['invoice/search']"
+        [queryParams]="{start, end}"
+        >Sales of the day</a
+      >
+    </mat-card-title>
+  </mat-card>
+  <app-product-results-quantity></app-product-results-quantity>
+  <app-order-results-estimated-date></app-order-results-estimated-date>
+</div>

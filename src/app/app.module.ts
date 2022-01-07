@@ -102,6 +102,8 @@ import { SearchIndividualTypeComponent } from './component/page/individualType/s
 import { UpdateIndividualTypeComponent } from './component/page/individualType/update-individual-type/update-individual-type.component';
 import { NgxPrintModule } from 'ngx-print';
 import { PrintBasicInformationComponent } from './component/shared/print/print-basic-information/print-basic-information.component';
+import { ProductResultsQuantityComponent } from './component/shared/product/product-results-quantity/product-results-quantity.component';
+import { OrderResultsEstimatedDateComponent } from './component/shared/order/order-results-estimated-date/order-results-estimated-date.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -172,6 +174,8 @@ import { PrintBasicInformationComponent } from './component/shared/print/print-b
     SearchIndividualTypeComponent,
     UpdateIndividualTypeComponent,
     PrintBasicInformationComponent,
+    ProductResultsQuantityComponent,
+    OrderResultsEstimatedDateComponent,
   ],
   imports: [
     BrowserModule,
