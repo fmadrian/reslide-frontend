@@ -46,4 +46,12 @@ export class ProductService {
   update(payload: ProductPayload) {
     return this.httpClient.put(ApiRoutes.product.update, payload);
   }
+  searchLessOrEqual(quantity: number) {
+    return this.httpClient.get<ProductPayload[]>(
+      ApiRoutes.product.searchLessOrEqual,
+      {
+        params: { quantity },
+      }
+    );
+  }
 }
