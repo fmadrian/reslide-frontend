@@ -65,16 +65,11 @@ export class OrderService {
       payload
     );
   }
-  search2(
-    start: string,
-    end: string,
-    providerCode: string,
-    expectedStart = '',
-    expectedEnd = '',
-    actualStart = '',
-    actualEnd = ''
-  ) {
-    return this.httpClient.get<OrderPayload[]>(ApiRoutes.order.search);
+  searchAfterEstimatedDate(estimatedDeliveryDate: string) {
+    return this.httpClient.get<OrderPayload[]>(
+      ApiRoutes.order.searchAfterEstimatedDate,
+      { params: { estimatedDeliveryDate } }
+    );
   }
 
   resetOrder(orderInput: OrderPayload | null) {
