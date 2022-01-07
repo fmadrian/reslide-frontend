@@ -29,6 +29,7 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
   styleUrls: ['./order-results.component.scss'],
 })
 export class OrderResultsComponent implements OnInit {
+  title = 'Orders';
   // Search form
   searchForm: FormGroup;
   // order table

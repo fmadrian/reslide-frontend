@@ -46,12 +46,32 @@
   </div>
   <div class="table-container mat-elevation-z8">
     <section class="mat-typography">
-      <h2>Results</h2>
+      <h2>
+        {{ title }}
+        <button
+          class="icon-button"
+          mat-icon-button
+          type="button"
+          printSectionId="print-invoices-section"
+          styleSheetFile="assets/scss/print-styles.scss"
+          ngxPrint
+        >
+          <mat-icon>print</mat-icon>
+        </button>
+      </h2>
     </section>
-    <div [hidden]="isLoading">
+    <div id="print-invoices-section" [hidden]="isLoading">
+      <app-print-basic-information
+        [title]="
+          title +
+          ' (' +
+          this.dateRange.start.toLocaleString() +
+          ' - ' +
+          this.dateRange.end.toLocaleString() +
+          ')'
+        "
+      ></app-print-basic-information>
       <!-- Sortable table -->
-      <!-- 'contacts' is a variable defined in the ts file-->
-      <!-- mat-elevation-z8 is an angular material css class-->
       <table
         mat-table
         matSort
@@ -60,8 +80,17 @@
       >
         <!-- Id column -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-          <td mat-cell *matCellDef="let invoice">{{ invoice.id }}</td>
+          <th
+            class="print-hide"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Id
+          </th>
+          <td class="print-hide" mat-cell *matCellDef="let invoice">
+            {{ invoice.id }}
+          </td>
         </ng-container>
         <!-- Date column -->
         <ng-container matColumnDef="date">
@@ -112,14 +141,26 @@
         </ng-container>
         <!-- username column -->
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Made by</th>
-          <td mat-cell *matCellDef="let invoice">
+          <th
+            class="print-hide"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            Made by
+          </th>
+          <td class="print-hide" mat-cell *matCellDef="let invoice">
             {{ invoice.transaction.username }}
           </td>
         </ng-container>
         <ng-container matColumnDef="updateButton">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td mat-cell *matCellDef="let invoice">
+          <th
+            class="print-hide"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          ></th>
+          <td class="print-hide" mat-cell *matCellDef="let invoice">
             <div *ngIf="showUpdateButton; else notUpdating">
               <a
                 mat-button
@@ -139,8 +180,13 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="viewButton">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td mat-cell *matCellDef="let invoice">
+          <th
+            class="print-hide"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          ></th>
+          <td class="print-hide" mat-cell *matCellDef="let invoice">
             <div *ngIf="showUpdateButton">
               <a
                 mat-button

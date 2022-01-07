@@ -30,6 +30,7 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
   styleUrls: ['./invoice-results.component.scss'],
 })
 export class InvoiceResultsComponent implements OnInit, AfterViewInit {
+  title = 'Invoices';
   // Search form
   searchForm: FormGroup;
   // invoice table
