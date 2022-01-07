@@ -48,6 +48,7 @@ export const ApiRoutes = {
     update: `${baseRoutes.product}/update`,
     create: `${baseRoutes.product}/create`,
     get: `${baseRoutes.product}/get`,
+    searchLessOrEqual: `${baseRoutes.product}/search-less-or-equal`,
   },
   measurementType: {
     search: `${baseRoutes.measurementType}/search`,
@@ -96,6 +97,7 @@ export const ApiRoutes = {
     update: `${baseRoutes.order}/update`,
     deliverAllProducts: `${baseRoutes.order}/deliver`,
     switchStatus: `${baseRoutes.order}/update/status`,
+    searchAfterEstimatedDate: `${baseRoutes.order}/search/after-estimated-delivery-date`,
   },
   orderDetail: {
     validate: `${baseRoutes.orderDetail}/validate`,
