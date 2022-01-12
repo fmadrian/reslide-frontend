@@ -54,11 +54,11 @@ export const SidenavMenu = createBaseItem([
   ]),
   createNotFinalItem('Invoices', [
     createFinalItem('Create a new invoice', AppRoutes.invoice.create),
-    createFinalItem('Search a invoice', AppRoutes.invoice.search),
+    createFinalItem('Search an invoice', AppRoutes.invoice.search),
   ]),
   createNotFinalItem('Orders', [
     createFinalItem('Create a new order', AppRoutes.order.create),
-    createFinalItem('Search a order', AppRoutes.order.search),
+    createFinalItem('Search an order', AppRoutes.order.search),
   ]),
   createNotFinalItem('Product brand', [
     createFinalItem(
