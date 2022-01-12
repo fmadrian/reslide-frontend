@@ -3,9 +3,19 @@
     <mat-card-title>
       <a
         class="link"
-        [routerLink]="['invoice/search']"
+        [routerLink]="[AppRoutes.invoice.search]"
         [queryParams]="{start, end}"
         >Sales of the day</a
+      >
+    </mat-card-title>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>
+      <a
+        class="link"
+        [routerLink]="[AppRoutes.payment.search]"
+        [queryParams]="{start, end}"
+        >Payments of the day</a
       >
     </mat-card-title>
   </mat-card>

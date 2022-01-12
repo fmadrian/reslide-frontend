@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
 import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
 import { ApiRoutes } from 'src/app/utils/apiRoutes';
 
@@ -14,5 +15,13 @@ export class PaymentService {
   }
   overturn(payload: PaymentPayload) {
     return this.httpClient.put(ApiRoutes.payment.overturn, payload);
+  }
+  searchByDate(type: string, start: string, end: string) {
+    return this.httpClient.get<PaymentPayload[]>(
+      ApiRoutes.payment.searchByDate,
+      {
+        params: { type, start, end },
+      }
+    );
   }
 }

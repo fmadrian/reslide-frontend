@@ -94,4 +94,7 @@ export const SidenavMenu = createBaseItem([
       AppRoutes.individualType.search
     ),
   ]),
+  createNotFinalItem('Payments', [
+    createFinalItem('Search a payment', AppRoutes.payment.search),
+  ]),
 ]);

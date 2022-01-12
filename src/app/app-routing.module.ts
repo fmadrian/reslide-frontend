@@ -22,6 +22,7 @@ import { CreateOrderComponent } from './component/page/order/create-order/create
 import { SearchOrderComponent } from './component/page/order/search-order/search-order.component';
 import { UpdateOrderComponent } from './component/page/order/update-order/update-order.component';
 import { ViewOrderComponent } from './component/page/order/view-order/view-order.component';
+import { SearchPaymentComponent } from './component/page/payment/search-payment/search-payment.component';
 import { CreatePaymentMethodComponent } from './component/page/paymentMethod/create-payment-method/create-payment-method.component';
 import { SearchPaymentMethodComponent } from './component/page/paymentMethod/search-payment-method/search-payment-method.component';
 import { UpdatePaymentMethodComponent } from './component/page/paymentMethod/update-payment-method/update-payment-method.component';
@@ -186,7 +187,11 @@ const routes: Routes = [
     component: SearchIndividualTypeComponent,
     canActivate: [AuthGuard],
   },
-
+  {
+    path: AppRoutes.payment.search,
+    component: SearchPaymentComponent,
+    canActivate: [AuthGuard],
+  },
   { path: AppRoutes.error.internal, component: InternalErrorComponent },
   { path: AppRoutes.error.notFound, component: NotFoundComponent }, // 404 always goes at last.
 ];
