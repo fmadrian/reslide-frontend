@@ -8,6 +8,7 @@ const baseRoutes = {
   order: 'order',
   productBrand: 'product/brand',
   paymentMethod: 'payment-method',
+  payment: 'payment',
 };
 export const AppRoutes = {
   login: 'login',
@@ -67,6 +68,9 @@ export const AppRoutes = {
     update: `${baseRoutes.paymentMethod}/update/:id`,
     update_id: (id: number) => `${baseRoutes.paymentMethod}/update/${id}`,
     search: `${baseRoutes.paymentMethod}/search`,
+  },
+  payment: {
+    search: `${baseRoutes.payment}/search`,
   },
   error: {
     notFound: '**',

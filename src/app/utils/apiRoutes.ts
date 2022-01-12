@@ -110,5 +110,6 @@ export const ApiRoutes = {
   payment: {
     create: `${baseRoutes.payment}/create`,
     overturn: `${baseRoutes.payment}/overturn`,
+    searchByDate: `${baseRoutes.payment}/search/by-date`,
   },
 };

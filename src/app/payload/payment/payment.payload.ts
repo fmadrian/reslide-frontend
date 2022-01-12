@@ -9,4 +9,6 @@ export interface PaymentPayload {
   status?: string;
   transactionId?: number;
   username?: string;
+  orderId?: number;
+  invoiceId?: number;
 }

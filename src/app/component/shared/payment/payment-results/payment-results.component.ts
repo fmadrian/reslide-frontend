@@ -16,6 +16,7 @@ import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
 import { DateService } from 'src/app/service/date/date.service';
 import { PaymentService } from 'src/app/service/payment/payment.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
   selector: 'app-payment-results',
@@ -25,6 +26,7 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 export class PaymentResultsComponent implements OnInit, OnChanges {
   // Individual table
   displayedColumns = [
+    'externalId', // ID of the invoice / order that is related to the transaction that this payment belongs to.
     'date',
     'notes',
     'owedAfter',
@@ -47,11 +49,14 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   @Input() paymentResultsInput: PaymentPayload[] = [];
   @Input() transactionId: number | undefined;
   @Input() showButton = true;
+  @Input() title = 'Payments';
+  @Input() printTitle = ''; // String used to represent the date range of a search
+  @Input() showPrintButton = false; // Indicates if we're trying to access the component from the search payments page.
   // Output
   @Output() paymentResultsOutput = new EventEmitter<PaymentPayload[]>();
   @Output() refreshInvoice = new EventEmitter<void>();
+  AppRoutes = AppRoutes;
   constructor(
-    private router: Router,
     private paymentService: PaymentService,
     private snackbarService: SnackbarService,
     private dateService: DateService

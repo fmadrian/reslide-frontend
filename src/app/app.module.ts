@@ -104,6 +104,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { PrintBasicInformationComponent } from './component/shared/print/print-basic-information/print-basic-information.component';
 import { ProductResultsQuantityComponent } from './component/shared/product/product-results-quantity/product-results-quantity.component';
 import { OrderResultsEstimatedDateComponent } from './component/shared/order/order-results-estimated-date/order-results-estimated-date.component';
+import { SearchPaymentComponent } from './component/page/payment/search-payment/search-payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -176,6 +177,7 @@ import { OrderResultsEstimatedDateComponent } from './component/shared/order/ord
     PrintBasicInformationComponent,
     ProductResultsQuantityComponent,
     OrderResultsEstimatedDateComponent,
+    SearchPaymentComponent,
   ],
   imports: [
     BrowserModule,

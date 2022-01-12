@@ -1,0 +1,41 @@
+<div>
+  <div class="search-form mat-elevation-z8">
+    <section class="mat-typography">
+      <h2>Search a payment</h2>
+    </section>
+    <form [formGroup]="form" (ngSubmit)="search()">
+      <app-date-range
+        [title]="'Payment date:'"
+        [dateInput]="dateRange"
+        (dateOutput)="receiveDate($event)"
+      >
+      </app-date-range>
+      <mat-radio-group [formControlName]="'type'">
+        <mat-label class="radio-horizontal-label">Transaction type:</mat-label>
+        <mat-radio-button
+          class="radio-horizontal-button"
+          color="primary"
+          value="invoice"
+          >Invoices</mat-radio-button
+        >
+        <mat-radio-button
+          class="radio-horizontal-button"
+          color="primary"
+          value="order"
+          >Orders</mat-radio-button
+        >
+      </mat-radio-group>
+      <button class="button" color="primary" mat-flat-button>Search</button>
+    </form>
+  </div>
+  <div [hidden]="!isLoading" class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<div [hidden]="isLoading">
+  <app-payment-results
+    [showPrintButton]="true"
+    [paymentResultsInput]="payments"
+    [printTitle]="title"
+  ></app-payment-results>
+</div>
