@@ -13,7 +13,7 @@ import { AppRoutes } from 'src/app/utils/appRoutes';
 })
 export class ProductResultsQuantityComponent implements OnInit, AfterViewInit {
   AppRoutes = AppRoutes;
-  title = 'Products low in quantity';
+  title = 'Products low on stock';
   isLoading = false;
   isOpen = false;
   error = '';
