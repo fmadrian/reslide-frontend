@@ -119,7 +119,12 @@ export class TokenInterceptor implements HttpInterceptor {
   // Function that receives an http error and returns an error message.
   private handleHttpError(error: HttpErrorResponse) {
     let errorMsg = '';
-    if (error.error instanceof ErrorEvent) {
+    if (error.status === 0) {
+      // Usually displayed when the server is down (503 Service Unavailable)
+      errorMsg = `The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.`;
+    } else if (error.status === 500) {
+      errorMsg = `Internal server error.`;
+    } else if (error.error instanceof ErrorEvent) {
       // Client side error.
       errorMsg = `Error: ${error.error.message}`;
     } else {
