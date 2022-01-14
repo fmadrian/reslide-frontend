@@ -36,7 +36,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
    */
   @Output() productOutput = new EventEmitter<ProductPayload>();
   product: ProductPayload;
-  // Selected values
+  // Selected values from other (search) forms
   selectedValues = {
     productBrand: { name: '' },
     productType: { type: '' },
@@ -54,11 +54,11 @@ export class ProductFormComponent implements OnInit, OnChanges {
     this.productForm = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      quantity: [0, [Validators.required, Validators.min(0.01)]],
-      price: [0, [Validators.required, Validators.min(0.01)]],
+      quantity: [0, [Validators.required, Validators.min(0)]],
+      price: [0, [Validators.required, Validators.min(0)]],
       notes: [''],
       taxExempt: ['false', Validators.required],
-      productStatus: ['active'],
+      productStatus: ['active', Validators.required],
     });
     this.resetForm();
   }
@@ -81,7 +81,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
         type: this.selectedValues.productType.type,
         measurementType: this.selectedValues.measurementType.name,
         brand: this.selectedValues.productBrand.name,
-        productStatus: this.productForm.get('productStatus')?.value.toString(),
+        productStatus: this.productForm.get('productStatus')?.value,
       };
       this.productOutput.next({ ...this.product });
     }
@@ -106,7 +106,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
       productType: { type: this.product.type },
     };
   }
-  resetProduct() {
+  resetProduct(): ProductPayload {
     if (this.productInput === null) {
       return {
         brand: '',
@@ -118,7 +118,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
         quantityAvailable: 0,
         taxExempt: false,
         type: '',
-        status: 'active',
+        productStatus: 'active',
       };
     } else {
       return {
@@ -130,8 +130,8 @@ export class ProductFormComponent implements OnInit, OnChanges {
   // Dialog
   openDialog(dialog: string): void {
     let dimensions = {
-      width: '600px',
-      height: '400px',
+      width: '65%',
+      height: '80%',
     };
     if (dialog === 'measurementType') {
       // Measurement type dialog.
