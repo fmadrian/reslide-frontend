@@ -36,7 +36,7 @@ export class IndividualResultsComponent implements OnInit {
   // Output
   @Output() componentOutput = new EventEmitter<IndividualPayload[]>();
   // GUI flag
-  isLoading = true;
+  isLoading = false;
   @Input() showUpdateButton: boolean;
   // Dialog
   dialogRef: MatDialogRef<IndividualResultsComponent> | null;
@@ -58,17 +58,6 @@ export class IndividualResultsComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       query: [''],
     });
-    this.individualService.search().subscribe(
-      (data) => {
-        this.loadDataSource(data);
-      },
-      () => {
-        this.router.navigateByUrl(AppRoutes.error.internal);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
   }
   loadDataSource(data: IndividualPayload[]) {
     this.datasource = new MatTableDataSource(data);
