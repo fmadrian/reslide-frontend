@@ -6,7 +6,8 @@ import { LoginRequest } from '../payload/auth/login/login.request';
 import { ApiRoutes } from '../utils/apiRoutes';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginResponse } from '../payload/auth/login/login.response';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, interval, Observable, of, throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { UserPayload } from '../payload/user/user.payload';
 
 @Injectable({
@@ -45,33 +46,24 @@ export class AuthService {
     const logoutPayload = {
       refreshToken: this.getRefreshToken(),
     };
-    this.httpClient.post(ApiRoutes.auth.logout, logoutPayload).subscribe(
-      (data) => {
+    // Chain 2 observables.
+    // 1st observable: POST request. 2nd observable: The one defined as anonymous function inside the switchMap
+    // Logout, then clear the storage.
+    return this.httpClient.post(ApiRoutes.auth.logout, logoutPayload).pipe(
+      switchMap(() => {
+        // When a response is received, it cleans the storage
         this.localStorage.clear('authenticationToken');
-        this.localStorage.clear('username');
         this.localStorage.clear('refreshToken');
+        this.localStorage.clear('username');
         this.localStorage.clear('expiresAt');
+        this.localStorage.clear('isSidenavOpen');
+
         // Trigger the event emitters and pass the information to other components.
         this.username.next('');
         this.loggedIn.next(false);
-      },
-      (error) => {
-        throwError(error);
-      }
+        return of(true); // Returns an Observable<boolean>
+      })
     );
-
-    // ISSUE: LOCAL STORAGE GETS CLEAN AFTER THE navigateByUrl() IS CALLED.
-    // THEREFORE, THE FIRST REDIRECTS AFTER LOGGING OUT DON'T WORK PROPERLY
-    // WHEN THE GUARD TRIES TO VALIDATE THE NEW ROUTE, THE JWT TOKEN STILL EXISTS (USER STILL LOGGED IN).
-    // AFTER THAT THE STORAGE GETS CLEANED AND EVERYTHING WORKS PROPERLY.
-
-    // TEMPORARY SOLUTION 1: CLEAN THE STORAGE BEFORE RETURNING THE RESULT.
-    this.localStorage.clear('authenticationToken');
-    this.localStorage.clear('refreshToken');
-    this.localStorage.clear('username');
-    this.localStorage.clear('expiresAt');
-    this.localStorage.clear('isSidenavOpen');
-    return true;
   }
 
   refreshToken() {

@@ -27,12 +27,15 @@ export class NavbarComponent implements OnInit {
     this.sidenavService.switchSidenav();
   }
   logout() {
-    of(this.authService.logout())
-      .toPromise()
-      .then((logoutResult) => {
-        if (logoutResult) {
+    this.authService.logout().subscribe(
+      (data) => {
+        if (data) {
           this.router.navigateByUrl(AppRoutes.login);
         }
-      });
+      },
+      (error) => {
+        this.router.navigateByUrl(AppRoutes.error.internal);
+      }
+    );
   }
 }
