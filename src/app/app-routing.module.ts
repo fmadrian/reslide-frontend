@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { CreateContactTypeComponent } from './component/page/contactType/create-contact-type/create-contact-type.component';
+import { SearchContactTypeComponent } from './component/page/contactType/search-contact-type/search-contact-type.component';
+import { UpdateContactTypeComponent } from './component/page/contactType/update-contact-type/update-contact-type.component';
 import { InternalErrorComponent } from './component/page/error/internal-error/internal-error.component';
 import { NotFoundComponent } from './component/page/error/not-found/not-found.component';
 import { CreateIndividualComponent } from './component/page/individual/create-individual/create-individual.component';
@@ -185,6 +188,21 @@ const routes: Routes = [
   {
     path: AppRoutes.individualType.search,
     component: SearchIndividualTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.contactType.create,
+    component: CreateContactTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.contactType.update,
+    component: UpdateContactTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.contactType.search,
+    component: SearchContactTypeComponent,
     canActivate: [AuthGuard],
   },
   {

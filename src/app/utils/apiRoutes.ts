@@ -42,6 +42,9 @@ export const ApiRoutes = {
   contactType: {
     search: `${baseRoutes.contactType}/search`,
     create: `${baseRoutes.contactType}/create`,
+    update: `${baseRoutes.contactType}/update`,
+    switchStatus: `${baseRoutes.contactType}/switchStatus`,
+    get: (id: number) => `${baseRoutes.contactType}/get/${id}`,
   },
   product: {
     search: `${baseRoutes.product}/search`,
@@ -67,6 +70,7 @@ export const ApiRoutes = {
     get: (id: number) => `${baseRoutes.productBrand}/get/${id}`,
     create: `${baseRoutes.productBrand}/create`,
     update: `${baseRoutes.productBrand}/update`,
+    deactivate: `${baseRoutes.productBrand}/deactivate`,
   },
   paymentMethod: {
     search: `${baseRoutes.paymentMethod}/search`,

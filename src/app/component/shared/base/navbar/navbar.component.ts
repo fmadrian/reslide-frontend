@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { SidenavService } from 'src/app/service/sidenav/sidenav.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';

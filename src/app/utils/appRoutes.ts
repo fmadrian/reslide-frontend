@@ -5,6 +5,7 @@ const baseRoutes = {
   product: 'product',
   measurementType: 'measurement-type',
   invoice: 'invoice',
+  contactType: 'contact-type',
   order: 'order',
   productBrand: 'product/brand',
   paymentMethod: 'payment-method',
@@ -68,6 +69,12 @@ export const AppRoutes = {
     update: `${baseRoutes.paymentMethod}/update/:id`,
     update_id: (id: number) => `${baseRoutes.paymentMethod}/update/${id}`,
     search: `${baseRoutes.paymentMethod}/search`,
+  },
+  contactType: {
+    create: `${baseRoutes.contactType}/create`,
+    update: `${baseRoutes.contactType}/update/:id`,
+    update_id: (id: number) => `${baseRoutes.contactType}/update/${id}`,
+    search: `${baseRoutes.contactType}/search`,
   },
   payment: {
     search: `${baseRoutes.payment}/search`,

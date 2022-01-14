@@ -1,0 +1,48 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Type</mat-label>
+    <input matInput type="text" [formControlName]="'type'" />
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Notes</mat-label>
+    <textarea matInput [formControlName]="'notes'"> </textarea>
+  </mat-form-field>
+  <!-- Display errors -->
+  <section class="mat-typography error">
+    <div *ngIf="apiError">
+      {{ apiError?.message }}
+    </div>
+  </section>
+  <div>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="resetForm()">
+        Reset form
+      </button>
+    </div>
+    <div
+      class="form-button"
+      *ngIf="
+        this.contactType &&
+        this.contactType.id &&
+        this.contactType.enabled !== undefined
+      "
+    >
+      <button
+        type="button"
+        mat-flat-button
+        color="{{
+          this.contactType && this.contactType.enabled === true
+            ? 'accent'
+            : 'warn'
+        }}"
+        (click)="switchStatus()"
+      >
+        {{ this.contactType.enabled === true ? "Deactivate" : "Activate" }}
+      </button>
+    </div>
+  </div>
+</form>

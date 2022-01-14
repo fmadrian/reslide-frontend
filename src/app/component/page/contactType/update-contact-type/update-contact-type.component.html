@@ -1,0 +1,24 @@
+<div class="content mat-elevation-z8">
+  <ng-template [ngIf]="!error" [ngIfElse]="hasError">
+    <div class="title">
+      <section class="mat-typography">
+        <h1>Update contact type</h1>
+      </section>
+    </div>
+    <div class="forms">
+      <section class="mat-typography">
+        <h2>Contact type information</h2>
+      </section>
+      <app-contact-type-form
+        [contactType]="contactType"
+        [apiError]="apiError"
+        (contactTypeOutput)="update($event)"
+        (refreshOutput)="refresh()"
+      >
+      </app-contact-type-form>
+    </div>
+  </ng-template>
+  <ng-template #hasError>
+    <h1 class="error">{{ error }}</h1>
+  </ng-template>
+</div>

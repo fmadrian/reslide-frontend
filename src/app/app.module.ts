@@ -105,6 +105,11 @@ import { PrintBasicInformationComponent } from './component/shared/print/print-b
 import { ProductResultsQuantityComponent } from './component/shared/product/product-results-quantity/product-results-quantity.component';
 import { OrderResultsEstimatedDateComponent } from './component/shared/order/order-results-estimated-date/order-results-estimated-date.component';
 import { SearchPaymentComponent } from './component/page/payment/search-payment/search-payment.component';
+import { CreateContactTypeComponent } from './component/page/contactType/create-contact-type/create-contact-type.component';
+import { SearchContactTypeComponent } from './component/page/contactType/search-contact-type/search-contact-type.component';
+import { UpdateContactTypeComponent } from './component/page/contactType/update-contact-type/update-contact-type.component';
+import { ContactTypeResultsComponent } from './component/shared/contactType/contact-type-results/contact-type-results.component';
+import { ContactTypeFormComponent } from './component/shared/contactType/contact-type-form/contact-type-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,6 +183,11 @@ import { SearchPaymentComponent } from './component/page/payment/search-payment/
     ProductResultsQuantityComponent,
     OrderResultsEstimatedDateComponent,
     SearchPaymentComponent,
+    CreateContactTypeComponent,
+    SearchContactTypeComponent,
+    UpdateContactTypeComponent,
+    ContactTypeResultsComponent,
+    ContactTypeFormComponent,
   ],
   imports: [
     BrowserModule,

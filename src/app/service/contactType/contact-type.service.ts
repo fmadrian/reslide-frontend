@@ -4,20 +4,38 @@ import { ContactTypePayload } from 'src/app/payload/contactType/contact-type.pay
 import { ApiRoutes } from 'src/app/utils/apiRoutes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContactTypeService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient : HttpClient) { }
-
-  getAll(){
-    return this.httpClient.get<ContactTypePayload[]>(ApiRoutes.contactType.search);
+  getAll() {
+    return this.httpClient.get<ContactTypePayload[]>(
+      ApiRoutes.contactType.search
+    );
   }
-  search(type : string){
+  search(type: string) {
     let requestParams = new HttpParams().set('type', type);
-    return this.httpClient.get<ContactTypePayload[]>(ApiRoutes.contactType.search, {params: requestParams});
+    return this.httpClient.get<ContactTypePayload[]>(
+      ApiRoutes.contactType.search,
+      { params: requestParams }
+    );
   }
-  create(payload: ContactTypePayload){
-    return this.httpClient.post(ApiRoutes.contactType.create, payload);
+  create(payload: ContactTypePayload) {
+    return this.httpClient.post<ContactTypePayload>(
+      ApiRoutes.contactType.create,
+      payload
+    );
+  }
+  update(payload: ContactTypePayload) {
+    return this.httpClient.put(ApiRoutes.contactType.update, payload);
+  }
+  switchStatus(payload: ContactTypePayload) {
+    return this.httpClient.put(ApiRoutes.contactType.switchStatus, payload);
+  }
+  get(id: number) {
+    return this.httpClient.get<ContactTypePayload>(
+      ApiRoutes.contactType.get(id)
+    );
   }
 }

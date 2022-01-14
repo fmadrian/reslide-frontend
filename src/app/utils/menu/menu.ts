@@ -97,4 +97,8 @@ export const SidenavMenu = createBaseItem([
   createNotFinalItem('Payments', [
     createFinalItem('Search a payment', AppRoutes.payment.search),
   ]),
+  createNotFinalItem('Contact type', [
+    createFinalItem('Create a new contact type', AppRoutes.contactType.create),
+    createFinalItem('Search a contact type', AppRoutes.contactType.search),
+  ]),
 ]);

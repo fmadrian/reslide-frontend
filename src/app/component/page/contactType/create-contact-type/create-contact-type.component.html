@@ -1,0 +1,17 @@
+<div class="content mat-elevation-z8">
+  <div class="title">
+    <section class="mat-typography">
+      <h1>Create new contact type</h1>
+    </section>
+  </div>
+  <div class="forms">
+    <section class="mat-typography">
+      <h2>Contact type information</h2>
+    </section>
+    <app-contact-type-form
+      [apiError]="apiError"
+      (contactTypeOutput)="create($event)"
+    >
+    </app-contact-type-form>
+  </div>
+</div>
