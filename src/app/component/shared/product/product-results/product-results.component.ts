@@ -56,7 +56,7 @@ export class ProductResultsComponent implements OnInit, AfterViewInit {
   };
   // GUI flags
   @Input() showUpdateButton = false;
-  isLoading = true;
+  isLoading = false;
 
   constructor(
     public injector: Injector,
@@ -81,19 +81,6 @@ export class ProductResultsComponent implements OnInit, AfterViewInit {
       code: [''],
       status: ['active'],
     });
-    // This a hot observable, therefore it's only called once and the result is 'shared'.
-    this.productService.search().subscribe(
-      (data) => {
-        this.loadDataSource(data);
-      },
-      () => {
-        this.closeDialog();
-        this.router.navigateByUrl(AppRoutes.error.internal);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
   }
   loadDataSource(data: ProductPayload[]) {
     this.datasource = new MatTableDataSource(data);
@@ -148,8 +135,8 @@ export class ProductResultsComponent implements OnInit, AfterViewInit {
   // Dialog
   openDialog(dialog: string): void {
     let dimensions = {
-      width: '600px',
-      height: '400px',
+      width: '65%',
+      height: '80%',
     };
     if (dialog === 'brand') {
       const dialogRef = this.dialog.open(
