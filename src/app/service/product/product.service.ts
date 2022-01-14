@@ -10,7 +10,10 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   create(payload: ProductPayload) {
-    return this.httpClient.post(ApiRoutes.product.create, payload);
+    return this.httpClient.post<ProductPayload>(
+      ApiRoutes.product.create,
+      payload
+    );
   }
   search(name = '', code = '', brand = '', type = '', status = '') {
     let query = {};

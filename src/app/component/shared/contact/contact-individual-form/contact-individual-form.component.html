@@ -69,7 +69,7 @@
             <form [formGroup]="contactForm" (ngSubmit)="saveContact()">
               <!-- type -->
               <mat-form-field class="form-field" appearance="fill">
-                <mat-label>Individual type</mat-label>
+                <mat-label>Contact type</mat-label>
                 <mat-select [formControlName]="'type'">
                   <mat-option
                     *ngFor="let cType of this.contactTypes"
