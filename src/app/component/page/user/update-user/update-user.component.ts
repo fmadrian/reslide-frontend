@@ -40,7 +40,7 @@ export class UpdateUserComponent implements OnInit {
         this.snackbarService.show(data.message);
       },
       (error) => {
-        this.snackbarService.show(error.message);
+        this.snackbarService.show(error);
         this.apiError = ApiErrorMessage(error);
       }
     );

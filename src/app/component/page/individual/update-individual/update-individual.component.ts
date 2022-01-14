@@ -30,7 +30,7 @@ export class UpdateIndividualComponent implements OnInit {
         this.individualInput = data;
       },
       (error) => {
-        this.error = error.error.message;
+        this.error = error;
       }
     );
   }
@@ -41,8 +41,8 @@ export class UpdateIndividualComponent implements OnInit {
         this.apiError = null;
       },
       (error) => {
-        this.apiError = ApiErrorMessage(error.error); // We pass it to the child component
-        this.snackbarService.show(error.error.message);
+        this.apiError = ApiErrorMessage(error); // We pass it to the child component
+        this.snackbarService.show(error);
       }
     );
   }

@@ -23,12 +23,12 @@ export class CreateIndividualComponent implements OnInit {
   createIndividual(individual: IndividualPayload) {
     this.individualService.create(individual).subscribe(
       (data) => {
-        this.snackbarService.show('Individual updated');
+        this.snackbarService.show('Individual created');
         this.apiError = null;
       },
       (error) => {
-        this.apiError = ApiErrorMessage(error.error); // We pass it to the child component
-        this.snackbarService.show(error.error.message);
+        this.apiError = ApiErrorMessage(error); // We pass it to the child component
+        this.snackbarService.show(error);
       }
     );
   }

@@ -33,8 +33,8 @@ export class CreateProductBrandComponent implements OnInit {
         }
       },
       (error) => {
-        this.apiError = ApiErrorMessage(error.error);
-        this.snackbarService.show(error.error.message);
+        this.apiError = ApiErrorMessage(error);
+        this.snackbarService.show(error);
       }
     );
   }
