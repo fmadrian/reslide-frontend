@@ -21,17 +21,19 @@
     </mat-card-title>
     <mat-card-content>
       <div class="results-container" [hidden]="!isOpen">
-        <form [formGroup]="form" (ngSubmit)="search()">
-          <div>
-            <mat-form-field class="form-field" appearance="fill">
-              <mat-label>Minimum quantity:</mat-label>
-              <input type="number" [formControlName]="'quantity'" matInput />
-            </mat-form-field>
-            <button mat-flat-button color="primary">Search</button>
+        <div style="padding-left: 40px">
+          <form [formGroup]="form" (ngSubmit)="search()">
+            <div>
+              <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Minimum quantity:</mat-label>
+                <input type="number" [formControlName]="'quantity'" matInput />
+              </mat-form-field>
+              <button mat-flat-button color="primary">Search</button>
 
-            <mat-divider></mat-divider>
-          </div>
-        </form>
+              <mat-divider></mat-divider>
+            </div>
+          </form>
+        </div>
         <div class="table-container" [hidden]="isLoading">
           <div id="print-products-section">
             <app-print-basic-information

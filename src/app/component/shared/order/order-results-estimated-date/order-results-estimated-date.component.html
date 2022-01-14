@@ -21,27 +21,29 @@
     </mat-card-title>
     <mat-card-content>
       <div class="results-container" [hidden]="!isOpen">
-        <form [formGroup]="form" (ngSubmit)="search()">
-          <div>
-            <!-- Start date-->
-            <mat-form-field class="from form-field" appearance="fill">
-              <mat-label>After (date and time):</mat-label>
-              <input
-                matInput
-                readonly
-                [matDatepicker]="startpicker"
-                [formControlName]="'estimatedDeliveryDate'"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="startpicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker type="datetime" #startpicker></mat-datepicker>
-            </mat-form-field>
-            <button mat-flat-button color="primary">Search</button>
-            <mat-divider></mat-divider>
-          </div>
-        </form>
+        <div style="padding-left: 40px">
+          <form [formGroup]="form" (ngSubmit)="search()">
+            <div>
+              <!-- Start date-->
+              <mat-form-field class="from form-field" appearance="fill">
+                <mat-label>After (date and time):</mat-label>
+                <input
+                  matInput
+                  readonly
+                  [matDatepicker]="startpicker"
+                  [formControlName]="'estimatedDeliveryDate'"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startpicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker type="datetime" #startpicker></mat-datepicker>
+              </mat-form-field>
+              <button mat-flat-button color="primary">Search</button>
+              <mat-divider></mat-divider>
+            </div>
+          </form>
+        </div>
         <div class="table-container" [hidden]="isLoading">
           <!-- Sortable table -->
           <div id="print-orders-section">
