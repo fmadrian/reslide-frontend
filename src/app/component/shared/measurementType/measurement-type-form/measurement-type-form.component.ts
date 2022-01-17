@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MeasurementTypePayload } from 'src/app/payload/measurementType/measurement-type.payload';
+import { MeasurementTypeService } from 'src/app/service/measurementType/measurement-type.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { ApiError } from 'src/app/utils/apiErrorMessages';
 
 @Component({
@@ -21,7 +23,12 @@ export class MeasurementTypeFormComponent implements OnInit, OnChanges {
   @Input() measurementType: MeasurementTypePayload | null;
   @Input() apiError: ApiError | null;
   @Output() measurementTypeOutput = new EventEmitter<MeasurementTypePayload>();
-  constructor(private formBuilder: FormBuilder) {
+  @Output() refreshOutput = new EventEmitter<void>();
+  constructor(
+    private formBuilder: FormBuilder,
+    private measurementTypeService: MeasurementTypeService,
+    private snackbarService: SnackbarService
+  ) {
     this.measurementType = null;
     this.apiError = null;
     this.measurementTypeForm = this.formBuilder.group({});
@@ -58,5 +65,18 @@ export class MeasurementTypeFormComponent implements OnInit, OnChanges {
   resetForm() {
     this.measurementTypeForm.reset();
     this.loadData();
+  }
+  switchStatus() {
+    if (this.measurementType) {
+      this.measurementTypeService.switchStatus(this.measurementType).subscribe(
+        () => {
+          this.snackbarService.show('Status changed.');
+          this.refreshOutput.next();
+        },
+        (error) => {
+          this.snackbarService.show(error);
+        }
+      );
+    }
   }
 }

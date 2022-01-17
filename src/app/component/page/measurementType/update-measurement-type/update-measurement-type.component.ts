@@ -14,6 +14,7 @@ export class UpdateMeasurementTypeComponent implements OnInit {
   apiError: ApiError | null = null;
   retrieveError: ApiError | null = null;
   measurementTypeInput: MeasurementTypePayload | null = null;
+  id = 0;
   constructor(
     private measurementTypeService: MeasurementTypeService,
     private snackbarService: SnackbarService,
@@ -21,15 +22,8 @@ export class UpdateMeasurementTypeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params.id;
-    this.measurementTypeService.get(id).subscribe(
-      (data) => {
-        this.measurementTypeInput = data;
-      },
-      (error) => {
-        this.retrieveError = ApiErrorMessage(error);
-      }
-    );
+    this.id = this.activatedRoute.snapshot.params.id;
+    this.get();
   }
   update(measurementType: MeasurementTypePayload) {
     this.measurementTypeService.update(measurementType).subscribe(
@@ -40,6 +34,20 @@ export class UpdateMeasurementTypeComponent implements OnInit {
       (error) => {
         this.apiError = ApiErrorMessage(error);
         this.snackbarService.show(error);
+      }
+    );
+  }
+  refresh() {
+    this.get();
+  }
+  get() {
+    this.measurementTypeService.get(this.id).subscribe(
+      (data) => {
+        this.measurementTypeInput = data;
+        this.retrieveError = null;
+      },
+      (error) => {
+        this.retrieveError = ApiErrorMessage(error);
       }
     );
   }

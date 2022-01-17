@@ -34,4 +34,7 @@ export class MeasurementTypeService {
       ApiRoutes.measurementType.get(id)
     );
   }
+  switchStatus(payload: MeasurementTypePayload) {
+    return this.httpClient.put(ApiRoutes.measurementType.switchStatus, payload);
+  }
 }

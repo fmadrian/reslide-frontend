@@ -18,6 +18,26 @@
         Reset form
       </button>
     </div>
-    <mat-divider class="form-divider"></mat-divider>
+    <div
+      class="form-button"
+      *ngIf="
+        this.measurementType &&
+        this.measurementType.id &&
+        this.measurementType.enabled !== undefined
+      "
+    >
+      <button
+        type="button"
+        mat-flat-button
+        color="{{
+          this.measurementType && this.measurementType.enabled === true
+            ? 'accent'
+            : 'warn'
+        }}"
+        (click)="switchStatus()"
+      >
+        {{ this.measurementType.enabled === true ? "Deactivate" : "Activate" }}
+      </button>
+    </div>
   </div>
 </form>

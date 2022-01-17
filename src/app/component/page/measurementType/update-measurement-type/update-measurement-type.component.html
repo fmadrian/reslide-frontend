@@ -11,6 +11,7 @@
       </section>
       <app-measurement-type-form
         (measurementTypeOutput)="update($event)"
+        (refreshOutput)="refresh()"
         [measurementType]="measurementTypeInput"
         [apiError]="apiError"
       ></app-measurement-type-form>
