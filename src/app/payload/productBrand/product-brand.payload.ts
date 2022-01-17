@@ -1,5 +1,6 @@
-export interface ProductBrandPayload{
-    id?: number;
-    name: string;
-    notes: string;
+export interface ProductBrandPayload {
+  id?: number;
+  name: string;
+  notes: string;
+  enabled?: boolean;
 }

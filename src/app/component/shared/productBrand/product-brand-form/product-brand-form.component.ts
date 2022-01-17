@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductBrandPayload } from 'src/app/payload/productBrand/product-brand.payload';
+import { ProductBrandService } from 'src/app/service/productBrand/product-brand.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { ApiError } from 'src/app/utils/apiErrorMessages';
 import { FormValidation } from 'src/app/utils/formValidation';
 
@@ -25,9 +27,14 @@ export class ProductBrandFormComponent implements OnInit, OnChanges {
   @Input() apiError: ApiError | null;
   // Form output
   @Output() productBrandOutput = new EventEmitter<ProductBrandPayload>();
+  @Output() refreshOutput = new EventEmitter<void>();
   // Form validation
   formValidation = FormValidation;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private productBrandService: ProductBrandService,
+    private snackbarService: SnackbarService
+  ) {
     this.productBrandForm = this.formBuilder.group({});
     this.productBrand = null;
     this.apiError = null;
@@ -70,5 +77,19 @@ export class ProductBrandFormComponent implements OnInit, OnChanges {
       this.productBrandForm.reset();
     }
     this.apiError = null;
+  }
+
+  switchStatus() {
+    if (this.productBrand) {
+      this.productBrandService.switchStatus(this.productBrand).subscribe(
+        () => {
+          this.snackbarService.show('Status changed.');
+          this.refreshOutput.next();
+        },
+        (error) => {
+          this.snackbarService.show(error);
+        }
+      );
+    }
   }
 }

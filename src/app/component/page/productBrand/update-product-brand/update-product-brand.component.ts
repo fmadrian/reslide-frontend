@@ -14,6 +14,7 @@ export class UpdateProductBrandComponent implements OnInit {
   apiError: ApiError | null = null;
   retrieveError: ApiError | null = null;
   productBrandInput: ProductBrandPayload | null = null;
+  id = 0;
   constructor(
     private productBrandService: ProductBrandService,
     private activateRoute: ActivatedRoute,
@@ -23,17 +24,8 @@ export class UpdateProductBrandComponent implements OnInit {
 
   ngOnInit(): void {
     // Get the id from the params
-    const id = this.activateRoute.snapshot.params.id;
-    this.productBrandService.get(id).subscribe(
-      (data) => {
-        this.productBrandInput = data;
-        this.retrieveError = null;
-      },
-      (error) => {
-        this.productBrandInput = null;
-        this.retrieveError = ApiErrorMessage(error);
-      }
-    );
+    this.id = this.activateRoute.snapshot.params.id;
+    this.get();
   }
 
   update(productBrand: ProductBrandPayload) {
@@ -47,5 +39,20 @@ export class UpdateProductBrandComponent implements OnInit {
         this.snackbarService.show(error);
       }
     );
+  }
+  get() {
+    this.productBrandService.get(this.id).subscribe(
+      (data) => {
+        this.productBrandInput = data;
+        this.retrieveError = null;
+      },
+      (error) => {
+        this.productBrandInput = null;
+        this.retrieveError = ApiErrorMessage(error);
+      }
+    );
+  }
+  refresh() {
+    this.get();
   }
 }

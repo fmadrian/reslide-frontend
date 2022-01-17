@@ -11,6 +11,7 @@
       </section>
       <app-product-brand-form
         (productBrandOutput)="update($event)"
+        (refreshOutput)="refresh()"
         [productBrand]="productBrandInput"
         [apiError]="apiError"
       ></app-product-brand-form>

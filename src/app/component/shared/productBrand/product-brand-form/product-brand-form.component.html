@@ -34,5 +34,26 @@
         Reset form
       </button>
     </div>
+    <div
+      class="form-button"
+      *ngIf="
+        this.productBrand &&
+        this.productBrand.id &&
+        this.productBrand.enabled !== undefined
+      "
+    >
+      <button
+        type="button"
+        mat-flat-button
+        color="{{
+          this.productBrand && this.productBrand.enabled === true
+            ? 'accent'
+            : 'warn'
+        }}"
+        (click)="switchStatus()"
+      >
+        {{ this.productBrand.enabled === true ? "Deactivate" : "Activate" }}
+      </button>
+    </div>
   </form>
 </div>

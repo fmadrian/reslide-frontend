@@ -28,4 +28,7 @@ export class ProductBrandService {
       ApiRoutes.productBrand.get(id)
     );
   }
+  switchStatus(payload: ProductBrandPayload) {
+    return this.httpClient.put(ApiRoutes.productBrand.switchStatus, payload);
+  }
 }

@@ -58,6 +58,7 @@ export const ApiRoutes = {
     get: (id: number) => `${baseRoutes.measurementType}/get/${id}`,
     create: `${baseRoutes.measurementType}/create`,
     update: `${baseRoutes.measurementType}/update`,
+    switchStatus: `${baseRoutes.measurementType}/switchStatus`,
   },
   productType: {
     search: `${baseRoutes.productType}/search`,
@@ -70,7 +71,7 @@ export const ApiRoutes = {
     get: (id: number) => `${baseRoutes.productBrand}/get/${id}`,
     create: `${baseRoutes.productBrand}/create`,
     update: `${baseRoutes.productBrand}/update`,
-    deactivate: `${baseRoutes.productBrand}/deactivate`,
+    switchStatus: `${baseRoutes.productBrand}/switchStatus`,
   },
   paymentMethod: {
     search: `${baseRoutes.paymentMethod}/search`,
