@@ -53,14 +53,13 @@ export class InvoiceDetailFormComponent implements OnInit {
       notes: [''],
       productAutocomplete: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0)]],
-      disableDiscountPrompt: [false, Validators.required],
     });
     this.products$ = this.invoiceDetailsForm
       .get('productAutocomplete')
       ?.valueChanges.pipe(
         switchMap(() => {
           let query = this.invoiceDetailsForm.get('productAutocomplete')?.value;
-          return this.productService.search('', query);
+          return this.productService.search('', query, '', '', 'active');
         }),
         catchError(() => {
           this.router.navigateByUrl(AppRoutes.error.internal); // Redirects the user.
