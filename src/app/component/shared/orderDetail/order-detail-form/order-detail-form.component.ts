@@ -53,7 +53,6 @@ export class OrderDetailFormComponent implements OnInit {
       productAutocomplete: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0)]],
       priceByUnit: [0, [Validators.required, Validators.min(0)]],
-      disableDiscountPrompt: [false, Validators.required],
     });
     this.products$ = this.orderDetailsForm
       .get('productAutocomplete')
