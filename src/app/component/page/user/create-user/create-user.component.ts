@@ -18,7 +18,8 @@ export class CreateUserComponent implements OnInit {
   apiError: ApiError | null = null;
   constructor(
     private userService: UserService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -27,6 +28,9 @@ export class CreateUserComponent implements OnInit {
       (data) => {
         this.snackbarService.show('User created');
         this.apiError = null;
+        if (data.id) {
+          this.router.navigateByUrl(AppRoutes.user.updateUser_id(data.id));
+        }
       },
       (error) => {
         this.apiError = ApiErrorMessage(error);
