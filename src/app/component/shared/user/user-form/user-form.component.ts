@@ -14,6 +14,8 @@ import { ContactPayload } from 'src/app/payload/contact/contact.payload';
 import { IndividualTypePayload } from 'src/app/payload/individualType/individual-type.payload';
 import { UserPayload } from 'src/app/payload/user/user.payload';
 import { IndividualTypeService } from 'src/app/service/individualType/individual-type.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { UserService } from 'src/app/service/user/user.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 import { FormValidation } from 'src/app/utils/formValidation';
 
@@ -26,11 +28,14 @@ export class UserFormComponent implements OnInit, OnChanges {
   // Form.
   userForm: FormGroup;
   hidePassword = true;
+  hideCurrentPassword = true;
   formValidation = FormValidation;
   // Values sent to the child component.
   @Input() userInput: UserPayload | null; // If we are modifying a user, we pass the user
   @Input() apiError: any = null;
+  @Input() updateCurrentUser = false;
   @Output() userOutput = new EventEmitter<UserPayload>();
+  @Output() refreshOutput = new EventEmitter<void>();
   userData: UserPayload;
   // Select data
   individualTypes: string[] = [];
@@ -38,7 +43,9 @@ export class UserFormComponent implements OnInit, OnChanges {
   constructor(
     private formBuilder: FormBuilder,
     private individualTypeService: IndividualTypeService,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
+    private snackbarService: SnackbarService
   ) {
     this.userForm = this.formBuilder.group({});
     this.userInput = null;
@@ -48,8 +55,7 @@ export class UserFormComponent implements OnInit, OnChanges {
     this.loadUser();
   }
   ngOnInit(): void {
-    // Inserts the default values in the form.
-    this.userForm = this.formBuilder.group({
+    let controls: any = {
       username: [
         this.userData.username,
         [
@@ -66,7 +72,17 @@ export class UserFormComponent implements OnInit, OnChanges {
       name: [this.userData.individual.name, Validators.required],
       code: [this.userData.individual.code, Validators.required],
       notes: [this.userData.individual.notes],
-    });
+    };
+    // If we're updating the user that is currently logged in, we need to confirm its password.
+    if (this.updateCurrentUser) {
+      controls = {
+        ...controls,
+        currentPassword: [, Validators.required],
+      };
+    }
+    // Inserts the default values in the form.
+    this.userForm = this.formBuilder.group(controls);
+
     // Loads the individual types into the select component.
     this.individualTypeService.getAll().subscribe(
       (data) => {
@@ -99,7 +115,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   submit() {
     if (this.userForm.valid) {
       // Takes the existent information about the user and replaces the fields with the output on the form.
-      this.userOutput.next({
+      let user: UserPayload = {
         ...this.userData,
         username: this.userForm.get('username')?.value,
         password: this.userForm.get('password')?.value,
@@ -110,7 +126,16 @@ export class UserFormComponent implements OnInit, OnChanges {
           code: this.userForm.get('code')?.value,
           notes: this.userForm.get('notes')?.value,
         },
-      });
+      };
+      // If we're updating the user that is currently logged in, we have to add the current password.
+      if (this.updateCurrentUser) {
+        user = {
+          ...user,
+          currentPassword: this.userForm.get('currentPassword')?.value,
+        };
+      }
+      // We pass the user to the parent component.
+      this.userOutput.next(user);
     }
   }
   receiveContactsOutput(contacts: ContactPayload[]) {
@@ -167,5 +192,34 @@ export class UserFormComponent implements OnInit, OnChanges {
         contacts: [],
       },
     };
+  }
+  switchUser(field: string) {
+    if (this.userInput) {
+      if (field === 'role') {
+        // Switch role.
+        this.userService.switchRole(this.userInput).subscribe(
+          () => {
+            this.snackbarService.show('Status changed');
+            this.refreshOutput.next();
+          },
+          (error) => {
+            this.apiError = error;
+            this.snackbarService.show(error);
+          }
+        );
+      } else if (field === 'status') {
+        // Switch status.
+        this.userService.switchStatus(this.userInput).subscribe(
+          () => {
+            this.snackbarService.show('Role changed');
+            this.refreshOutput.next();
+          },
+          (error) => {
+            this.apiError = error;
+            this.snackbarService.show(error);
+          }
+        );
+      }
+    }
   }
 }

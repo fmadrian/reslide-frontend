@@ -36,6 +36,8 @@ import { CreateProductBrandComponent } from './component/page/productBrand/creat
 import { SearchProductBrandComponent } from './component/page/productBrand/search-product-brand/search-product-brand.component';
 import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
+import { SearchUserComponent } from './component/page/user/search-user/search-user.component';
+import { UpdateCurrentUserComponent } from './component/page/user/update-current-user/update-current-user.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
 import { AppRoutes } from './utils/appRoutes';
 
@@ -141,8 +143,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: AppRoutes.user.update,
+    path: AppRoutes.user.updateCurrentUser,
+    component: UpdateCurrentUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.user.updateUser,
     component: UpdateUserComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.user.search,
+    component: SearchUserComponent,
     canActivate: [AuthGuard],
   },
   {

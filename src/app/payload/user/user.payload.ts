@@ -1,7 +1,11 @@
-import { IndividualPayload } from "../individual/individual.payload";
+import { IndividualPayload } from '../individual/individual.payload';
 
-export interface UserPayload{
-    username: string,
-    password: string,
-    individual : IndividualPayload
+export interface UserPayload {
+  id?: number;
+  username: string;
+  password: string;
+  individual: IndividualPayload;
+  currentPassword?: string;
+  role?: string;
+  enabled?: boolean;
 }

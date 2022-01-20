@@ -10,8 +10,8 @@
         <h2>Individual information</h2>
       </section>
       <app-user-form
-        (userOutput)="updateUser($event)"
-        (refreshOutput)="getUser()"
+        (userOutput)="updateCurrentUser($event)"
+        [updateCurrentUser]="true"
         [userInput]="user"
         [apiError]="apiError"
       ></app-user-form>

@@ -110,6 +110,9 @@ import { SearchContactTypeComponent } from './component/page/contactType/search-
 import { UpdateContactTypeComponent } from './component/page/contactType/update-contact-type/update-contact-type.component';
 import { ContactTypeResultsComponent } from './component/shared/contactType/contact-type-results/contact-type-results.component';
 import { ContactTypeFormComponent } from './component/shared/contactType/contact-type-form/contact-type-form.component';
+import { UpdateCurrentUserComponent } from './component/page/user/update-current-user/update-current-user.component';
+import { SearchUserComponent } from './component/page/user/search-user/search-user.component';
+import { UserResultsComponent } from './component/shared/user/user-results/user-results.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -188,6 +191,9 @@ import { ContactTypeFormComponent } from './component/shared/contactType/contact
     UpdateContactTypeComponent,
     ContactTypeResultsComponent,
     ContactTypeFormComponent,
+    UpdateCurrentUserComponent,
+    SearchUserComponent,
+    UserResultsComponent,
   ],
   imports: [
     BrowserModule,
