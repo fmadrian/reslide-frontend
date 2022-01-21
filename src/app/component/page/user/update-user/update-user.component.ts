@@ -44,6 +44,7 @@ export class UpdateUserComponent implements OnInit {
     this.userService.updateUser(this.id, user).subscribe(
       (data) => {
         this.snackbarService.show(data.message);
+        this.apiError = null;
       },
       (error) => {
         this.snackbarService.show(error);

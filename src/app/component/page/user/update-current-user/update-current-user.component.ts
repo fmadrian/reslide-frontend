@@ -37,6 +37,7 @@ export class UpdateCurrentUserComponent implements OnInit {
     this.userService.updateCurrentUser(user).subscribe(
       (data) => {
         this.snackbarService.show(data.message);
+        this.apiError = null;
       },
       (error) => {
         this.snackbarService.show(error);
