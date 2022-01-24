@@ -1,6 +1,7 @@
 const serverRoute = 'http://localhost:8080/api';
 const baseRoutes = {
   auth: `${serverRoute}/auth`,
+  user: `${serverRoute}/user`,
   individual: `${serverRoute}/individual`,
   individualType: `${serverRoute}/individual/type`,
   contactType: `${serverRoute}/contact/type`,
@@ -18,9 +19,6 @@ const baseRoutes = {
 
 export const ApiRoutes = {
   auth: {
-    createUser: `${baseRoutes.auth}/create/user`,
-    updateUser: `${baseRoutes.auth}/update/user`,
-    getUserInformation: `${baseRoutes.auth}/get/user/`,
     login: `${baseRoutes.auth}/login`,
     refreshToken: `${baseRoutes.auth}/refresh/token`,
     delete: `${baseRoutes.auth}/delete`,
@@ -112,7 +110,16 @@ export const ApiRoutes = {
       `${baseRoutes.orderDetail}/delete/${orderId}/${detailId}`,
     switchState: `${baseRoutes.orderDetail}/update/status`,
   },
-
+  user: {
+    create: `${baseRoutes.user}/create`,
+    updateCurrentUser: `${baseRoutes.user}/update`,
+    updateUser: (id: number) => `${baseRoutes.user}/update/${id}`,
+    getUserInformation: `${baseRoutes.user}/get`,
+    getUser: (id: number) => `${baseRoutes.user}/get/${id}`,
+    search: `${baseRoutes.user}/search`,
+    switchStatus: `${baseRoutes.user}/switchStatus`,
+    switchRole: `${baseRoutes.user}/switchRole`,
+  },
   payment: {
     create: `${baseRoutes.payment}/create`,
     overturn: `${baseRoutes.payment}/overturn`,

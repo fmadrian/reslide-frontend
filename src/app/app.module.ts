@@ -115,6 +115,9 @@ import { ProductTypeFormComponent } from './component/shared/productType/product
 import { CreateProductTypeComponent } from './component/page/productType/create-product-type/create-product-type.component';
 import { SearchProductTypeComponent } from './component/page/productType/search-product-type/search-product-type.component';
 import { UpdateProductTypeComponent } from './component/page/productType/update-product-type/update-product-type.component';
+import { UpdateCurrentUserComponent } from './component/page/user/update-current-user/update-current-user.component';
+import { SearchUserComponent } from './component/page/user/search-user/search-user.component';
+import { UserResultsComponent } from './component/shared/user/user-results/user-results.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -197,6 +200,9 @@ import { UpdateProductTypeComponent } from './component/page/productType/update-
     SearchProductTypeComponent,
     UpdateProductTypeComponent,
     ProductTypeFormComponent,
+    UpdateCurrentUserComponent,
+    SearchUserComponent,
+    UserResultsComponent,
   ],
   imports: [
     BrowserModule,

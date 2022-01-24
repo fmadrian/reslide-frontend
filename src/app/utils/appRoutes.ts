@@ -17,7 +17,10 @@ export const AppRoutes = {
   landing: '',
   user: {
     create: `${baseRoutes.user}/create`,
-    update: `${baseRoutes.user}/update`,
+    updateCurrentUser: `${baseRoutes.user}/update`,
+    updateUser: `${baseRoutes.user}/update/:id`,
+    updateUser_id: (id: number) => `${baseRoutes.user}/update/${id}`,
+    search: `${baseRoutes.user}/search`,
   },
   individual: {
     create: `${baseRoutes.individual}/create`,

@@ -40,6 +40,7 @@ export const SidenavMenu = createBaseItem([
       AppRoutes.user.create,
       'Creates a new user'
     ),
+    createFinalItem('Search a user', AppRoutes.user.search),
   ]),
   createNotFinalItem('Clients / Providers', [
     createFinalItem(
