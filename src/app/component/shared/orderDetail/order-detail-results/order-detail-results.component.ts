@@ -28,10 +28,10 @@ export class OrderDetailResultsComponent implements OnInit {
     'priceByUnit',
     'quantity',
     'total',
-    'notes',
+    'status',
     'deleteButton',
     'switchButton',
-    'status',
+    'notes',
   ];
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<OrderDetailPayload>;
