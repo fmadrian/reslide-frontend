@@ -16,11 +16,11 @@ export class PaymentService {
   overturn(payload: PaymentPayload) {
     return this.httpClient.put(ApiRoutes.payment.overturn, payload);
   }
-  searchByDate(type: string, start: string, end: string) {
+  searchByDate(type: string, status: string, start: string, end: string) {
     return this.httpClient.get<PaymentPayload[]>(
       ApiRoutes.payment.searchByDate,
       {
-        params: { type, start, end },
+        params: { type, status, start, end },
       }
     );
   }

@@ -10,6 +10,7 @@
         (dateOutput)="receiveDate($event)"
       >
       </app-date-range>
+
       <mat-radio-group [formControlName]="'type'">
         <mat-label class="radio-horizontal-label">Transaction type:</mat-label>
         <mat-radio-button
@@ -25,6 +26,23 @@
           >Orders</mat-radio-button
         >
       </mat-radio-group>
+      <br />
+      <mat-radio-group [formControlName]="'status'">
+        <mat-label class="radio-horizontal-label">Status:</mat-label>
+        <mat-radio-button
+          class="radio-horizontal-button"
+          color="primary"
+          value="active"
+          >Active</mat-radio-button
+        >
+        <mat-radio-button
+          class="radio-horizontal-button"
+          color="primary"
+          value="overturned"
+          >Overturned</mat-radio-button
+        >
+      </mat-radio-group>
+
       <button class="button" color="primary" mat-flat-button>Search</button>
     </form>
   </div>

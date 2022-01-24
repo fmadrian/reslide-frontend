@@ -30,6 +30,7 @@ export class SearchPaymentComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       type: ['invoice', Validators.required],
+      status: ['active', Validators.required],
     });
     this.route.queryParams.subscribe((params) => {
       if (params.start && params.end) {
@@ -53,12 +54,13 @@ export class SearchPaymentComponent implements OnInit {
     this.isLoading = true;
 
     const type = this.form.get('type')?.value;
+    const status = this.form.get('status')?.value;
     const start = this.dateService.getISOString(this.dateRange.start);
     const end = this.dateService.getISOString(this.dateRange.end);
     this.title = `${
       type === 'order' ? 'Order payments' : 'Invoice payments'
     } (${this.dateRange.start.toLocaleString()} - ${this.dateRange.end.toLocaleString()})`;
-    this.paymentService.searchByDate(type, start, end).subscribe(
+    this.paymentService.searchByDate(type, status, start, end).subscribe(
       (data) => {
         this.payments = data;
       },
