@@ -8,6 +8,7 @@ const baseRoutes = {
   contactType: 'contact-type',
   order: 'order',
   productBrand: 'product/brand',
+  productType: 'product/type',
   paymentMethod: 'payment-method',
   payment: 'payment',
 };
@@ -41,6 +42,12 @@ export const AppRoutes = {
     search: `${baseRoutes.product}/search`,
     update: `${baseRoutes.product}/update/:id`,
     update_id: (id: number) => `${baseRoutes.product}/update/${id}`, // Includes the id
+  },
+  productType: {
+    create: `${baseRoutes.productType}/create`,
+    search: `${baseRoutes.productType}/search`,
+    update: `${baseRoutes.productType}/update/:id`,
+    update_id: (id: number) => `${baseRoutes.productType}/update/${id}`, // Includes the id
   },
   invoice: {
     create: `${baseRoutes.invoice}/create`,

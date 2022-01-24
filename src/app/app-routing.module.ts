@@ -37,6 +37,9 @@ import { SearchProductBrandComponent } from './component/page/productBrand/searc
 import { UpdateProductBrandComponent } from './component/page/productBrand/update-product-brand/update-product-brand.component';
 import { CreateUserComponent } from './component/page/user/create-user/create-user.component';
 import { UpdateUserComponent } from './component/page/user/update-user/update-user.component';
+import { CreateProductTypeComponent } from './component/page/productType/create-product-type/create-product-type.component';
+import { SearchProductTypeComponent } from './component/page/productType/search-product-type/search-product-type.component';
+import { UpdateProductTypeComponent } from './component/page/productType/update-product-type/update-product-type.component';
 import { AppRoutes } from './utils/appRoutes';
 
 const routes: Routes = [
@@ -208,6 +211,21 @@ const routes: Routes = [
   {
     path: AppRoutes.payment.search,
     component: SearchPaymentComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productType.create,
+    component: CreateProductTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productType.update,
+    component: UpdateProductTypeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: AppRoutes.productType.search,
+    component: SearchProductTypeComponent,
     canActivate: [AuthGuard],
   },
   { path: AppRoutes.error.internal, component: InternalErrorComponent },

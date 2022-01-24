@@ -62,9 +62,10 @@ export const ApiRoutes = {
   },
   productType: {
     search: `${baseRoutes.productType}/search`,
-    get: `${baseRoutes.productType}/get`,
     create: `${baseRoutes.productType}/create`,
     update: `${baseRoutes.productType}/update`,
+    switchStatus: `${baseRoutes.productType}/switchStatus`,
+    get: (id: number) => `${baseRoutes.productType}/get/${id}`,
   },
   productBrand: {
     search: `${baseRoutes.productBrand}/search`,

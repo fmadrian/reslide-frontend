@@ -110,6 +110,11 @@ import { SearchContactTypeComponent } from './component/page/contactType/search-
 import { UpdateContactTypeComponent } from './component/page/contactType/update-contact-type/update-contact-type.component';
 import { ContactTypeResultsComponent } from './component/shared/contactType/contact-type-results/contact-type-results.component';
 import { ContactTypeFormComponent } from './component/shared/contactType/contact-type-form/contact-type-form.component';
+
+import { ProductTypeFormComponent } from './component/shared/productType/product-type-form/product-type-form.component';
+import { CreateProductTypeComponent } from './component/page/productType/create-product-type/create-product-type.component';
+import { SearchProductTypeComponent } from './component/page/productType/search-product-type/search-product-type.component';
+import { UpdateProductTypeComponent } from './component/page/productType/update-product-type/update-product-type.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -188,6 +193,10 @@ import { ContactTypeFormComponent } from './component/shared/contactType/contact
     UpdateContactTypeComponent,
     ContactTypeResultsComponent,
     ContactTypeFormComponent,
+    CreateProductTypeComponent,
+    SearchProductTypeComponent,
+    UpdateProductTypeComponent,
+    ProductTypeFormComponent,
   ],
   imports: [
     BrowserModule,

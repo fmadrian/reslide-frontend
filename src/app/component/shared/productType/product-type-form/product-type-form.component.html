@@ -1,0 +1,59 @@
+<div>
+  <form [formGroup]="productTypeForm" (ngSubmit)="submit()">
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Product type</mat-label>
+      <input matInput [formControlName]="'type'" type="text" />
+      <mat-error>
+        <div *ngFor="let error of formValidation.errors">
+          <mat-error *ngIf="productTypeForm.get('type')?.hasError(error)">
+            {{ formValidation.getErrorMessage("type", productTypeForm) }}
+          </mat-error>
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput [formControlName]="'notes'"></textarea>
+      <mat-error>
+        <div *ngFor="let error of formValidation.errors">
+          <mat-error *ngIf="productTypeForm.get('notes')?.hasError(error)">
+            {{ formValidation.getErrorMessage("notes", productTypeForm) }}
+          </mat-error>
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <section class="mat-typography error">
+      {{ apiError ? apiError.message : "" }}
+    </section>
+    <mat-divider class="form-divider"></mat-divider>
+    <div class="form-button">
+      <button type="submit" mat-flat-button color="primary">Save</button>
+    </div>
+    <div class="form-button">
+      <button type="button" mat-flat-button color="warn" (click)="reset()">
+        Reset form
+      </button>
+    </div>
+    <div
+      class="form-button"
+      *ngIf="
+        this.productType &&
+        this.productType.id &&
+        this.productType.enabled !== undefined
+      "
+    >
+      <button
+        type="button"
+        mat-flat-button
+        color="{{
+          this.productType && this.productType.enabled === true
+            ? 'accent'
+            : 'warn'
+        }}"
+        (click)="switchStatus()"
+      >
+        {{ this.productType.enabled === true ? "Deactivate" : "Activate" }}
+      </button>
+    </div>
+  </form>
+</div>

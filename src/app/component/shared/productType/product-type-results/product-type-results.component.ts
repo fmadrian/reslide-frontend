@@ -103,9 +103,7 @@ export class ProductTypeResultsComponent implements OnInit, AfterViewInit {
   }
   update(individual: ProductTypePayload) {
     if (individual?.id !== null && individual?.id !== undefined) {
-      this.router.navigateByUrl(
-        AppRoutes.measurementType.update_id(individual.id)
-      );
+      this.router.navigateByUrl(AppRoutes.productType.update_id(individual.id));
     }
   }
 
