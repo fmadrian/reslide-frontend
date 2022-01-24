@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { ProductBrandPayload } from 'src/app/payload/productBrand/product-brand.payload';
 import { UserPayload } from 'src/app/payload/user/user.payload';
 import { AuthService } from 'src/app/service/auth.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { UserService } from 'src/app/service/user/user.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 import { IndividualResultsComponent } from '../../individual/individual-results/individual-results.component';
@@ -46,7 +47,8 @@ export class UserResultsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private snackbarService: SnackbarService
   ) {
     this.searchForm = this.formBuilder.group({});
     this.datasource = new MatTableDataSource();
@@ -76,6 +78,7 @@ export class UserResultsComponent implements OnInit, AfterViewInit {
         this.loadDataSource();
       },
       (error) => {
+        this.snackbarService.show(error);
         this.router.navigateByUrl(AppRoutes.error.internal);
       },
       () => {
