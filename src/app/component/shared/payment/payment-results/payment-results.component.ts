@@ -28,14 +28,14 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   displayedColumns = [
     'externalId', // ID of the invoice / order that is related to the transaction that this payment belongs to.
     'date',
-    'notes',
-    'owedAfter',
-    'owedBefore',
-    'paid',
     'paymentMethod',
+    //'owedAfter',
+    //'owedBefore',
+    'paid',
     'status',
     'username',
     'overturnButton',
+    'notes',
   ];
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<PaymentPayload>;
@@ -54,7 +54,7 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   @Input() showPrintButton = false; // Indicates if we're trying to access the component from the search payments page.
   // Output
   @Output() paymentResultsOutput = new EventEmitter<PaymentPayload[]>();
-  @Output() refreshInvoice = new EventEmitter<void>();
+  @Output() refreshTransaction = new EventEmitter<void>();
   AppRoutes = AppRoutes;
   constructor(
     private paymentService: PaymentService,
@@ -75,13 +75,14 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   overturn(payment: PaymentPayload) {
     if (this.transactionId) {
       // Adds the transaction id and then, overturns the payment.
+      // Tells the parent component to refresh.
       payment = { ...payment, transactionId: this.transactionId };
       this.paymentService.overturn(payment).subscribe(
         () => {
-          this.refreshInvoice.next();
+          this.refreshTransaction.next();
         },
         (error) => {
-          this.snackbarService.show(error.message);
+          this.snackbarService.show(error);
         }
       );
     } else {

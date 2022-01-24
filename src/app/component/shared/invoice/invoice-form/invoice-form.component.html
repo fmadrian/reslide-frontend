@@ -114,7 +114,7 @@
         <app-payment-form
           (paymentFormOutput)="receivePayment($event)"
           [transactionId]="invoice.transaction.id"
-          (refreshInvoice)="getRefreshInvoice()"
+          (refreshTransaction)="getRefreshInvoice()"
         ></app-payment-form>
       </mat-expansion-panel>
       <!--See payments section -->
@@ -126,7 +126,7 @@
           [paymentResultsInput]="invoice.transaction.payments"
           (paymentResultsOutput)="receivePayments($event)"
           [transactionId]="invoice.transaction.id"
-          (refreshInvoice)="getRefreshInvoice()"
+          (refreshTransaction)="getRefreshInvoice()"
         ></app-payment-results>
       </mat-expansion-panel>
     </mat-tab>

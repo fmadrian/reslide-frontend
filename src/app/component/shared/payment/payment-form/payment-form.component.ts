@@ -37,7 +37,7 @@ export class PaymentFormComponent implements OnInit {
   @Input() transactionId: number | undefined;
   // Output
   @Output() paymentFormOutput = new EventEmitter<PaymentPayload>();
-  @Output() refreshInvoice = new EventEmitter<void>();
+  @Output() refreshTransaction = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -88,7 +88,7 @@ export class PaymentFormComponent implements OnInit {
         payment = { ...payment, transactionId: this.transactionId };
         this.paymentService.create(payment).subscribe(
           () => {
-            this.refreshInvoice.next();
+            this.refreshTransaction.next();
           },
           (error) => {
             this.snackbarService.show(error);

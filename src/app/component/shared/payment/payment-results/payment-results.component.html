@@ -88,7 +88,12 @@
           ></th>
           <td class="print-hide" mat-cell *matCellDef="let payment">
             <div *ngIf="showButton && !showPrintButton">
-              <button mat-button color="primary" (click)="overturn(payment)">
+              <button
+                type="button"
+                mat-button
+                color="primary"
+                (click)="overturn(payment)"
+              >
                 {{ transactionId ? "Overturn" : "Delete" }}
               </button>
             </div>

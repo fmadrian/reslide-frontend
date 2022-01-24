@@ -21,7 +21,7 @@ export class DialogService {
 
   open(name: string, data: any = undefined) {
     let component: ComponentType<unknown> | undefined;
-    if (name === 'client') {
+    if (name === 'client' || name === 'provider') {
       component = IndividualResultsComponent;
     } else if (name === 'discount') {
       component = DiscountFormComponent;

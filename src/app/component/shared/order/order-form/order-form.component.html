@@ -177,7 +177,7 @@
         <app-payment-form
           (paymentFormOutput)="receivePayment($event)"
           [transactionId]="order.transaction.id"
-          (refreshOrder)="getRefreshOrder()"
+          (refreshTransaction)="getRefreshOrder()"
         ></app-payment-form>
       </mat-expansion-panel>
       <!--See payments section -->
@@ -189,7 +189,7 @@
           [paymentResultsInput]="order.transaction.payments"
           (paymentResultsOutput)="receivePayments($event)"
           [transactionId]="order.transaction.id"
-          (refreshOrder)="getRefreshOrder()"
+          (refreshTransaction)="getRefreshOrder()"
         ></app-payment-results>
       </mat-expansion-panel>
     </mat-tab>

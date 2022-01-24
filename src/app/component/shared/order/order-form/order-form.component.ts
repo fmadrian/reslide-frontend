@@ -175,14 +175,16 @@ export class OrderFormComponent implements OnInit, OnChanges {
     // Resets the order and the form values.
     this.orderForm.reset();
     this.order = this.resetOrder();
-    this.orderForm.get('date')?.setValue(this.order.transaction.date);
+    this.orderForm
+      .get('date')
+      ?.setValue(this.dateService.getDate(this.order.transaction.date));
     this.orderForm.get('status')?.setValue(this.order.status);
     // Reset the dates.
     const expectedDeliveryDate = this.order.expectedDeliveryDate
-      ? this.order.expectedDeliveryDate
+      ? this.dateService.getDate(this.order.expectedDeliveryDate)
       : null;
     const actualDeliveryDate = this.order.actualDeliveryDate
-      ? this.order.actualDeliveryDate
+      ? this.dateService.getDate(this.order.actualDeliveryDate)
       : null;
     this.orderForm.get('expectedDeliveryDate')?.setValue(expectedDeliveryDate);
     this.orderForm.get('actualDeliveryDate')?.setValue(actualDeliveryDate);
