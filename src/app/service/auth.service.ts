@@ -57,6 +57,7 @@ export class AuthService {
         this.localStorage.clear('username');
         this.localStorage.clear('expiresAt');
         this.localStorage.clear('isSidenavOpen');
+        this.localStorage.clear('minimumQuantity');
 
         // Trigger the event emitters and pass the information to other components.
         this.username.next('');

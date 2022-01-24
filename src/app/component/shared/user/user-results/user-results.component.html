@@ -6,11 +6,16 @@
     <form [formGroup]="searchForm" (ngSubmit)="search()">
       <div class="search">
         <!-- Autocomplete bar -->
-        <mat-form-field class="field form-field" appearance="fill">
+        <mat-form-field class="form-field" appearance="fill">
           <mat-label>Username</mat-label>
           <input type="text" matInput [formControlName]="'username'" />
         </mat-form-field>
-        <button type="button" type="submit" mat-raised-button color="primary">
+        <button
+          class="search-field"
+          type="submit"
+          mat-raised-button
+          color="primary"
+        >
           Search
         </button>
       </div>
