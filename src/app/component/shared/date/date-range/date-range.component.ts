@@ -39,7 +39,7 @@ export class DateRangeComponent implements OnInit, OnChanges {
     }
     // Only changes the values on the first change.
     // Used to set a default date.
-    if (changes.dateInput.firstChange) {
+    if (changes && changes.dateInput && changes.dateInput.firstChange) {
       this.form.get('start')?.setValue(this.dateInput.start);
       this.form.get('end')?.setValue(this.dateInput.end);
     }
