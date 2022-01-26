@@ -56,14 +56,6 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     let controls: any = {
-      username: [
-        this.userData.username,
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(15),
-        ],
-      ],
       password: [
         this.userData.password,
         [Validators.required, Validators.minLength(6)],
@@ -78,6 +70,18 @@ export class UserFormComponent implements OnInit, OnChanges {
       controls = {
         ...controls,
         currentPassword: [, Validators.required],
+      };
+    } else {
+      controls = {
+        ...controls,
+        username: [
+          this.userData.username,
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(15),
+          ],
+        ],
       };
     }
     // Inserts the default values in the form.
