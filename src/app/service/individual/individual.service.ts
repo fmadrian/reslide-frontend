@@ -13,7 +13,10 @@ export class IndividualService {
   constructor(private httpClient: HttpClient) {}
 
   create(payload: IndividualPayload) {
-    return this.httpClient.post(ApiRoutes.individual.create, payload);
+    return this.httpClient.post<IndividualPayload>(
+      ApiRoutes.individual.create,
+      payload
+    );
   }
   update(payload: IndividualPayload) {
     return this.httpClient.put(ApiRoutes.individual.update, payload);

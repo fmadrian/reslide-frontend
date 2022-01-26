@@ -5,6 +5,7 @@ import { IndividualPayload } from 'src/app/payload/individual/individual.payload
 import { IndividualService } from 'src/app/service/individual/individual.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { ApiError, ApiErrorMessage } from 'src/app/utils/apiErrorMessages';
+import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
   selector: 'app-create-individual',
@@ -25,6 +26,9 @@ export class CreateIndividualComponent implements OnInit {
       (data) => {
         this.snackbarService.show('Individual created');
         this.apiError = null;
+        if (data.id) {
+          this.router.navigateByUrl(AppRoutes.individual.update_id(data.id));
+        }
       },
       (error) => {
         this.apiError = ApiErrorMessage(error); // We pass it to the child component
