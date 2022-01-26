@@ -27,7 +27,7 @@ export class ContactTypeResultsComponent implements OnInit, AfterViewInit {
   // Input
   @Input() showUpdateButton = false;
   // Table and sort
-  displayedColumns = ['id', 'type', 'button'];
+  displayedColumns = ['type', 'button'];
   datasource: MatTableDataSource<ContactTypePayload>; // We have to define, that it'll receive contact types.
   contactTypes: ContactTypePayload[] = [];
   @ViewChild(MatSort) sort: MatSort | null = null;
