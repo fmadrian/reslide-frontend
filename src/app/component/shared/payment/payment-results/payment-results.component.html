@@ -60,14 +60,7 @@
         </ng-container>
         <!-- Status -->
         <ng-container matColumnDef="status">
-          <th
-            class="print-hide"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-          >
-            Status
-          </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
           <td mat-cell *matCellDef="let payment">
             {{ payment.status }}
           </td>
