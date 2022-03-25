@@ -1,27 +1,58 @@
-# ReslideFrontend
+# reslide-frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+## Description
 
-## Development server
+Reslide is a web point of sale that allows clients to manage information about: users, clients, products, invoices, orders, payments, product brands, measurement types, payment methods, individual types, contact types, and product types.
+This repository contains the application's frontend files necessary to deploy it.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+App demo: [https://m6q1cn5p.herokuapp.com/](https://m6q1cn5p.herokuapp.com/)
 
-## Code scaffolding
+**NOTE: Demo might be in maintenance mode in order to save up usage quota.**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Backend code: [https://www.github.com/fsv2860/reslide-backend](https://www.github.com/fsv2860/reslide-backend)
 
-## Build
+## Deployment
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### General requirements
 
-## Running unit tests
+1. Install [nodejs](https://nodejs.org/) v14.17.0.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Packages requirements
 
-## Running end-to-end tests
+2. To install the packages required, run the following command:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+npm install
+```
 
-## Further help
+### Connecting to the API
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+3. Go to the file **apiRoutes.ts** located in **src/app/utils/**.
+4. Change the variable **serverRoute** to match the server url and port where your API has been deployed.
+
+### Local deployment
+
+5. To deploy locally run the following command:
+
+```
+ng serve
+```
+
+### Final steps
+
+6. Make sure the API is accessible as it is needed to use the web app.
+7. The frontend is ready to use.
+
+## Built with
+
+[nodejs v14.17.0](https://nodejs.org/)
+
+[Angular](https://angular.io/)
+
+[Angular Material](https://material.angular.io/)
+
+[ngx-webstorage](https://www.npmjs.com/package/ngx-webstorage)
+
+[ngx-print](https://www.npmjs.com/package/ngx-print)
+
+[matheo-datepicker](https://www.npmjs.com/package/@matheo/datepicker)
