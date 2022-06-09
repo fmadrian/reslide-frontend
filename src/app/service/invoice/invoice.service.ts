@@ -62,25 +62,23 @@ export class InvoiceService {
     notes: string
   ) {
     if (!invoice.id) {
-      let subtotal = invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.subtotal))
-        .reduce(this.numberService.add, 0);
+      // Get totals.
+      const subtotal = this.numberService.addAll(
+        invoice.details.map((detail) => detail.subtotal)
+      );
+      const tax = this.numberService.addAll(
+        invoice.details.map((detail) => detail.tax)
+      );
+      const discount = this.numberService.addAll(
+        invoice.details.map((detail) => detail.discount)
+      );
+      const total = this.numberService.addAll(
+        invoice.details.map((detail) => detail.total)
+      );
+      const paid = this.numberService.addAll(
+        invoice.transaction.payments.map((payment) => payment.paid)
+      );
 
-      let tax = invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.tax))
-        .reduce(this.numberService.add, 0);
-
-      let discount = invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.discount))
-        .reduce(this.numberService.add, 0);
-
-      let total = invoice.details
-        .map((detail) => this.numberService.numberFilter(detail.total))
-        .reduce(this.numberService.add, 0);
-
-      let paid = invoice.transaction.payments
-        .map((payment) => this.numberService.numberFilter(payment.paid))
-        .reduce(this.numberService.add, 0);
       invoice = {
         clientCode: client ? client.code : '',
         clientName: client ? client.name : '',
@@ -133,5 +131,45 @@ export class InvoiceService {
       };
     }
     return result;
+  }
+  getTotals(invoices: InvoicePayload[]) {
+    return [
+      {
+        name: 'Total',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.total)
+        ),
+      },
+      {
+        name: 'Subtotal',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.subtotal)
+        ),
+      },
+      {
+        name: 'Paid',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.paid)
+        ),
+      },
+      {
+        name: 'Owed',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.owed)
+        ),
+      },
+      {
+        name: 'Discount',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.discount)
+        ),
+      },
+      {
+        name: 'Tax',
+        value: this.numberService.addAll(
+          invoices.map((invoice) => invoice.tax)
+        ),
+      },
+    ];
   }
 }

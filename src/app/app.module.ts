@@ -118,6 +118,7 @@ import { UpdateProductTypeComponent } from './component/page/productType/update-
 import { UpdateCurrentUserComponent } from './component/page/user/update-current-user/update-current-user.component';
 import { SearchUserComponent } from './component/page/user/search-user/search-user.component';
 import { UserResultsComponent } from './component/shared/user/user-results/user-results.component';
+import { PrintTotalsInformationComponent } from './component/shared/print/print-totals-information/print-totals-information.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -203,6 +204,7 @@ import { UserResultsComponent } from './component/shared/user/user-results/user-
     UpdateCurrentUserComponent,
     SearchUserComponent,
     UserResultsComponent,
+    PrintTotalsInformationComponent,
   ],
   imports: [
     BrowserModule,

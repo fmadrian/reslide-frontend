@@ -1,0 +1,12 @@
+<div class="mat-typography totals-information">
+  <mat-divider></mat-divider>
+  <div class="totals-information-items">
+    <ng-template [ngIf]="totals.length > 0">
+      <div class="totals-information-item" *ngFor="let total of totals">
+        <span>{{ total.name }}: </span
+        ><span class="totals-information-number"> {{ total.value }}</span>
+      </div>
+    </ng-template>
+  </div>
+  <mat-divider></mat-divider>
+</div>

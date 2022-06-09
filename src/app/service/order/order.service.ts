@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { IndividualPayload } from 'src/app/payload/individual/individual.payload';
 import { OrderPayload } from 'src/app/payload/order/order.payload';
 import { ApiRoutes } from 'src/app/utils/apiRoutes';
+import { TotalsInformation } from 'src/app/utils/totals-information';
 import { DateService } from '../date/date.service';
 import { NumberService } from '../number/number.service';
 
@@ -110,12 +111,13 @@ export class OrderService {
       // 1. Get the total in each detail.
       // 2. Filter them to avoid undefined values.
       // 3. Add them and return the total
-      const total = order.details
-        .map((detail) => this.numberService.numberFilter(detail.total))
-        .reduce(this.numberService.add, 0);
-      const paid = order.transaction.payments
-        .map((payment) => this.numberService.numberFilter(payment.paid))
-        .reduce(this.numberService.add, 0);
+
+      const total = this.numberService.addAll(
+        order.details.map((detail) => detail.total)
+      );
+      const paid = this.numberService.addAll(
+        order.transaction.payments.map((payment) => payment.paid)
+      );
 
       order = {
         details: order.details,
@@ -146,5 +148,22 @@ export class OrderService {
       delete order.expectedDeliveryDate;
     }
     return order;
+  }
+
+  getTotals(orders: OrderPayload[]): TotalsInformation[] {
+    return [
+      {
+        name: 'Total',
+        value: this.numberService.addAll(orders.map((order) => order.total)),
+      },
+      {
+        name: 'Paid',
+        value: this.numberService.addAll(orders.map((order) => order.paid)),
+      },
+      {
+        name: 'Owed',
+        value: this.numberService.addAll(orders.map((order) => order.owed)),
+      },
+    ];
   }
 }

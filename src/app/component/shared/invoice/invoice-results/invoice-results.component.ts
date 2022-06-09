@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
@@ -22,7 +22,9 @@ import { DateService } from 'src/app/service/date/date.service';
 import { DialogService } from 'src/app/service/dialog/dialog.service';
 import { IndividualService } from 'src/app/service/individual/individual.service';
 import { InvoiceService } from 'src/app/service/invoice/invoice.service';
+import { NumberService } from 'src/app/service/number/number.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
+import { TotalsInformation } from 'src/app/utils/totals-information';
 
 @Component({
   selector: 'app-invoice-results',
@@ -62,6 +64,7 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   invoiceSelected: InvoicePayload | null;
   // Output
   @Output() componentOutput = new EventEmitter<InvoicePayload[]>();
+  totals: TotalsInformation[] = [];
   // GUI flag
   isLoading = true;
   @Input() showUpdateButton: boolean;
@@ -76,7 +79,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private dateService: DateService,
     private individualService: IndividualService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private numberService: NumberService
   ) {
     this.searchForm = this.formBuilder.group({});
     this.datasource = new MatTableDataSource();
@@ -93,20 +97,8 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     this.searchForm = this.formBuilder.group({
       clientAutocomplete: [''],
     });
-    // Get the dates and convert them to ISO string to use them in the API call.
-    let start = this.dateService.getISOString(this.dateRange.start);
-    let end = this.dateService.getISOString(this.dateRange.end);
-    this.invoiceService.search(start, end).subscribe(
-      (data) => {
-        this.loadDataSource(data);
-      },
-      () => {
-        this.router.navigateByUrl(AppRoutes.error.internal);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
+    this.search();
+
     this.clients$ = this.searchForm
       .get('clientAutocomplete')
       ?.valueChanges.pipe(
@@ -137,9 +129,11 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
     const start = this.dateService.getISOString(this.dateRange.start);
     const end = this.dateService.getISOString(this.dateRange.end);
     this.isLoading = true;
+    this.totals = [];
     this.invoiceService.search(start, end, code).subscribe(
       (data) => {
         this.loadDataSource(data);
+        this.totals = this.invoiceService.getTotals(data);
         // Updates the URL with the dates introduced.
         this.router.navigate([], { queryParams: { start, end } });
       },

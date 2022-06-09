@@ -5,13 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class NumberService {
   constructor() {}
-  add(x: number, y: number) {
-    return x + y;
+
+  // Filters undefined numbers and returns the sum of them.
+  addAll(numbers: any[]) {
+    return parseFloat(
+      numbers
+        .map(this.numberFilter)
+        .reduce((x, y) => x + y, 0)
+        .toFixed(2)
+    );
   }
   /**
    * Allows to filter undefined values
    */
-  numberFilter(x: number | undefined) {
+  private numberFilter(x: number | undefined) {
     if (x !== undefined) {
       return parseFloat(x.toFixed(2)); // Rounds it to 2 decimals
     }

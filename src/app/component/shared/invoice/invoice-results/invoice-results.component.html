@@ -71,6 +71,10 @@
           ')'
         "
       ></app-print-basic-information>
+
+      <app-print-totals-information [totals]="totals">
+      </app-print-totals-information>
+
       <!-- Sortable table -->
       <table
         mat-table
@@ -80,15 +84,8 @@
       >
         <!-- Id column -->
         <ng-container matColumnDef="id">
-          <th
-            class="print-hide"
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-          >
-            Id
-          </th>
-          <td class="print-hide" mat-cell *matCellDef="let invoice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let invoice">
             {{ invoice.id }}
           </td>
         </ng-container>

@@ -20,6 +20,12 @@
       <app-print-basic-information
         [title]="printTitle"
       ></app-print-basic-information>
+
+      <ng-template [ngIf]="showPrintButton">
+        <!-- Totals -->
+        <app-print-totals-information [totals]="totals">
+        </app-print-totals-information>
+      </ng-template>
       <!-- Sortable table -->
       <table mat-table matSort [dataSource]="datasource">
         <!-- Date  -->

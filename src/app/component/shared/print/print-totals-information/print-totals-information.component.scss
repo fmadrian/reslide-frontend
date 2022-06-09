@@ -1,0 +1,15 @@
+/**
+  Totals information styles
+*/
+
+.totals-information {
+  margin-bottom: 10px;
+  text-align: left;
+  .totals-information-items {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .totals-information-number {
+    font-weight: bold;
+  }
+}

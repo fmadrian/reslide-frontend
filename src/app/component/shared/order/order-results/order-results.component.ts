@@ -20,8 +20,10 @@ import { OrderPayload } from 'src/app/payload/order/order.payload';
 import { DateService } from 'src/app/service/date/date.service';
 import { DialogService } from 'src/app/service/dialog/dialog.service';
 import { IndividualService } from 'src/app/service/individual/individual.service';
+import { NumberService } from 'src/app/service/number/number.service';
 import { OrderService } from 'src/app/service/order/order.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
+import { TotalsInformation } from 'src/app/utils/totals-information';
 
 @Component({
   selector: 'app-order-results',
@@ -36,7 +38,7 @@ export class OrderResultsComponent implements OnInit {
   displayedColumns = [
     'id',
     'date',
-    'providerCode',
+    'expectedDate',
     'providerName',
     'total',
     'paid',
@@ -67,6 +69,8 @@ export class OrderResultsComponent implements OnInit {
   dialogRef: MatDialogRef<OrderResultsComponent> | null;
   // App routes (we need to do this, so we can use them in the html section of the component.)
   AppRoutes = AppRoutes;
+  // Totals
+  totals: TotalsInformation[] = [];
   constructor(
     public injector: Injector,
     private router: Router,
@@ -74,7 +78,8 @@ export class OrderResultsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dateService: DateService,
     private individualService: IndividualService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private numberService: NumberService
   ) {
     this.searchForm = this.formBuilder.group({});
     this.datasource = new MatTableDataSource();
@@ -92,19 +97,7 @@ export class OrderResultsComponent implements OnInit {
       providerAutocomplete: [''],
     });
     // Get the dates and convert them to ISO string to use them in the API call.
-    const start = this.dateService.getISOString(this.orderDate.start);
-    const end = this.dateService.getISOString(this.orderDate.end);
-    this.orderService.search(start, end).subscribe(
-      (data) => {
-        this.loadDataSource(data);
-      },
-      () => {
-        this.router.navigateByUrl(AppRoutes.error.internal);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
+    this.search();
     this.providers$ = this.searchForm
       .get('providerAutocomplete')
       ?.valueChanges.pipe(
@@ -148,6 +141,7 @@ export class OrderResultsComponent implements OnInit {
       : null;
 
     this.isLoading = true;
+    this.totals = [];
     this.orderService
       .search(
         start_date,
@@ -161,6 +155,7 @@ export class OrderResultsComponent implements OnInit {
       .subscribe(
         (data) => {
           this.loadDataSource(data);
+          this.totals = this.orderService.getTotals(data);
         },
         () => {
           this.router.navigateByUrl(AppRoutes.error.internal);

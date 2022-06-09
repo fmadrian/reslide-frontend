@@ -14,9 +14,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PaymentPayload } from 'src/app/payload/payment/payment.payload';
 import { DateService } from 'src/app/service/date/date.service';
+import { NumberService } from 'src/app/service/number/number.service';
 import { PaymentService } from 'src/app/service/payment/payment.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
+import { TotalsInformation } from 'src/app/utils/totals-information';
 
 @Component({
   selector: 'app-payment-results',
@@ -52,6 +54,7 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   @Input() title = 'Payments';
   @Input() printTitle = ''; // String used to represent the date range of a search
   @Input() showPrintButton = false; // Indicates if we're trying to access the component from the search payments page.
+  totals: TotalsInformation[] = []; // Shows the total (paid) of all the payments displayed.
   // Output
   @Output() paymentResultsOutput = new EventEmitter<PaymentPayload[]>();
   @Output() refreshTransaction = new EventEmitter<void>();
@@ -59,7 +62,8 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   constructor(
     private paymentService: PaymentService,
     private snackbarService: SnackbarService,
-    private dateService: DateService
+    private dateService: DateService,
+    private numberService: NumberService
   ) {
     this.datasource = new MatTableDataSource();
     this.paymentSelected = null;
@@ -101,9 +105,20 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   reloadDatasource() {
     this.datasource = new MatTableDataSource(this.paymentResultsInput);
     this.datasource.sort = this.sort;
+    this.getTotals();
   }
 
   getDate(date: string) {
     return this.dateService.getLocaleString(date);
+  }
+  getTotals() {
+    this.totals = [
+      {
+        name: 'Total',
+        value: this.numberService.addAll(
+          this.paymentResultsInput.map((payment) => payment.paid)
+        ),
+      },
+    ];
   }
 }

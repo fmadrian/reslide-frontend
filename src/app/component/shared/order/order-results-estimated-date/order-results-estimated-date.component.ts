@@ -6,6 +6,7 @@ import { OrderPayload } from 'src/app/payload/order/order.payload';
 import { DateService } from 'src/app/service/date/date.service';
 import { OrderService } from 'src/app/service/order/order.service';
 import { AppRoutes } from 'src/app/utils/appRoutes';
+import { TotalsInformation } from 'src/app/utils/totals-information';
 
 @Component({
   selector: 'app-order-results-estimated-date',
@@ -22,10 +23,11 @@ export class OrderResultsEstimatedDateComponent
   error = '';
   orders: OrderPayload[] = [];
   form = this.formBuilder.group({});
+  totals: TotalsInformation[] = [];
   displayedColumns = [
     'id',
     'date',
-    'providerCode',
+    'expectedDate',
     'providerName',
     'total',
     'paid',
@@ -66,6 +68,7 @@ export class OrderResultsEstimatedDateComponent
     this.orderService.searchAfterEstimatedDate(afterDate).subscribe(
       (data) => {
         this.orders = data;
+        this.totals = this.orderService.getTotals(data);
         this.loadDataSource();
       },
       (error) => {
@@ -81,6 +84,9 @@ export class OrderResultsEstimatedDateComponent
     this.datasource.sort = this.sort;
   }
   getDate(date: string) {
-    return this.dateService.getLocaleString(date);
+    if (date) {
+      return this.dateService.getLocaleString(date);
+    }
+    return '';
   }
 }
