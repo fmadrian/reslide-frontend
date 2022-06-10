@@ -1,32 +1,51 @@
 <div class="mat-elevation-z8 summary">
+  <h2>Information</h2>
   <section class="mat-typography">
-    <!-- Only shows the order ID when are updating or viewing it.-->
-    <p *ngIf="order && order.id">
-      {{ "Order ID: " + (order ? order?.id : "0") }}
-    </p>
-    <p *ngIf="order && order.transaction.fullname">
-      {{
-        "Cashier: " +
-          order.transaction.fullname +
-          "(" +
-          order.transaction.username +
-          ")"
-      }}
-    </p>
-    <p>
-      {{ "Date: " + getDate(order?.transaction?.date) }}
-    </p>
-    <p>
-      {{ "Provider: " + getOrderProvider() }}
-    </p>
-    <p>
-      {{ "Estimated delivery date: " + getDate(order?.expectedDeliveryDate) }}
-    </p>
-    <p>
-      {{ "Actual delivery date: " + getDate(order?.actualDeliveryDate) }}
-    </p>
-    <p>{{ order ? "Total: " + order?.total : "Total: 0" }}</p>
-    <p>{{ order ? "Paid: " + order?.paid : "Paid: 0" }}</p>
-    <p>{{ order ? "Owed: " + order?.owed : "Owed: 0" }}</p>
+    <div>
+      <!-- Only shows the order ID when are updating or viewing it.-->
+      <span *ngIf="order && order.id">
+        {{ "Order ID: " + (order ? order?.id : "0") }}
+      </span>
+    </div>
+    <div>
+      <span *ngIf="order && order.transaction.fullname">
+        {{
+          "Cashier: " +
+            order.transaction.fullname +
+            "(" +
+            order.transaction.username +
+            ")"
+        }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Date: " + getDate(order?.transaction?.date) }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Provider: " + getOrderProvider() }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Estimated delivery date: " + getDate(order?.expectedDeliveryDate) }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Actual delivery date: " + getDate(order?.actualDeliveryDate) }}
+      </span>
+    </div>
+    <div>
+      <span>{{ order ? "Total: " + order?.total : "Total: 0" }}</span>
+    </div>
+    <div>
+      <span>{{ order ? "Paid: " + order?.paid : "Paid: 0" }}</span>
+    </div>
+    <div>
+      <span>{{ order ? "Owed: " + order?.owed : "Owed: 0" }}</span>
+    </div>
   </section>
 </div>

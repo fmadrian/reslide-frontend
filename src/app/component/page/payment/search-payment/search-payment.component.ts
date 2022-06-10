@@ -17,7 +17,10 @@ export class SearchPaymentComponent implements OnInit {
   isLoading = false;
   form = this.formBuilder.group({});
   payments: PaymentPayload[] = [];
-  dateRange: DateRange = { start: new Date(), end: new Date() };
+  dateRange: DateRange = {
+    start: this.dateService.setTimeTo(new Date(), 'start'),
+    end: this.dateService.setTimeTo(new Date(), 'end'),
+  };
   title = ''; // Used in title when printing the results of a search.
   constructor(
     private paymentService: PaymentService,

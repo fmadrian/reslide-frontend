@@ -51,7 +51,10 @@ export class OrderResultsComponent implements OnInit {
   providers$: undefined | Observable<IndividualPayload[]>;
   provider: IndividualPayload | null = null;
   // Date ranges
-  orderDate: DateRange = { start: new Date(), end: new Date() };
+  orderDate: DateRange = {
+    start: this.dateService.setTimeTo(new Date(), 'start'),
+    end: this.dateService.setTimeTo(new Date(), 'end'),
+  };
   expectedDate: DateRange | null = null;
   actualDate: DateRange | null = null;
   // Dataset created to manipulate the data in the table.

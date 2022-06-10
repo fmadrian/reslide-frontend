@@ -18,7 +18,7 @@ export class LandingComponent implements OnInit {
     this.dateService.setTimeTo(this.today, 'start')
   );
   end = this.dateService.getISOString(
-    this.dateService.setTimeTo(this.today, 'finish')
+    this.dateService.setTimeTo(this.today, 'end')
   );
 
   constructor(private dateService: DateService) {}

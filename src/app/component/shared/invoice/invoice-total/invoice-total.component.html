@@ -1,31 +1,52 @@
 <div class="mat-elevation-z8 summary">
+  <h2>Information</h2>
   <section class="mat-typography">
     <!-- Only shows the invoice ID when are updating or viewing it.-->
-    <p *ngIf="invoice && invoice.id">
-      {{ "Invoice ID: " + (invoice ? invoice?.id : "0") }}
-    </p>
-    <p *ngIf="invoice && invoice.transaction.fullname">
-      {{ "Cashier: " + invoice.transaction.fullname }}
-      <!-- Only shows the username in the screen -->
-      <span class="print-hide">
-        {{ "(" + invoice.transaction.username + ")" }}
+    <div>
+      <span *ngIf="invoice && invoice.id">
+        {{ "Invoice ID: " + (invoice ? invoice?.id : "0") }}
       </span>
-    </p>
-    <p>
-      {{ "Date: " + getInvoiceDate() }}
-    </p>
-    <p>
-      {{ "Client: " + getInvoiceClient() }}
-    </p>
-    <p>
-      {{ invoice ? "Subtotal: " + invoice?.subtotal : "Subtotal: 0" }}
-    </p>
-    <p>{{ invoice ? "Tax: " + invoice?.tax : "Tax: 0" }}</p>
-    <p>
-      {{ invoice ? "Discount: " + invoice?.discount : "Discount: 0" }}
-    </p>
-    <p>{{ invoice ? "Total: " + invoice?.total : "Total: 0" }}</p>
-    <p>{{ invoice ? "Paid: " + invoice?.paid : "Paid: 0" }}</p>
-    <p>{{ invoice ? "Owed: " + invoice?.owed : "Owed: 0" }}</p>
+    </div>
+    <div>
+      <span *ngIf="invoice && invoice.transaction.fullname">
+        {{ "Cashier: " + invoice.transaction.fullname }}
+        <!-- Only shows the username in the screen -->
+        <span class="print-hide">
+          {{ "(" + invoice.transaction.username + ")" }}
+        </span>
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Date: " + getInvoiceDate() }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ "Client: " + getInvoiceClient() }}
+      </span>
+    </div>
+    <div>
+      <span>
+        {{ invoice ? "Subtotal: " + invoice?.subtotal : "Subtotal: 0" }}
+      </span>
+    </div>
+    <div>
+      <span>{{ invoice ? "Tax: " + invoice?.tax : "Tax: 0" }}</span>
+    </div>
+    <div>
+      <span>
+        {{ invoice ? "Discount: " + invoice?.discount : "Discount: 0" }}
+      </span>
+    </div>
+    <div>
+      <span>{{ invoice ? "Total: " + invoice?.total : "Total: 0" }}</span>
+    </div>
+    <div>
+      <span>{{ invoice ? "Paid: " + invoice?.paid : "Paid: 0" }}</span>
+    </div>
+    <div>
+      <span>{{ invoice ? "Owed: " + invoice?.owed : "Owed: 0" }}</span>
+    </div>
   </section>
 </div>

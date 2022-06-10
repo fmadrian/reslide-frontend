@@ -55,7 +55,10 @@ export class InvoiceResultsComponent implements OnInit, AfterViewInit {
   clients$: undefined | Observable<IndividualPayload[]>;
   client: IndividualPayload | null = null;
   // Date
-  @Input() dateRange: DateRange = { start: new Date(), end: new Date() };
+  @Input() dateRange: DateRange = {
+    start: this.dateService.setTimeTo(new Date(), 'start'),
+    end: this.dateService.setTimeTo(new Date(), 'end'),
+  };
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<InvoicePayload>;
   // Sort

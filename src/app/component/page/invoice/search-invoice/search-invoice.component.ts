@@ -9,7 +9,10 @@ import { DateService } from 'src/app/service/date/date.service';
   styleUrls: ['./search-invoice.component.scss'],
 })
 export class SearchInvoiceComponent implements OnInit {
-  dateRange: DateRange = { start: new Date(), end: new Date() };
+  dateRange: DateRange = {
+    start: this.dateService.setTimeTo(new Date(), 'start'),
+    end: this.dateService.setTimeTo(new Date(), 'end'),
+  };
   constructor(
     private route: ActivatedRoute,
     private dateService: DateService

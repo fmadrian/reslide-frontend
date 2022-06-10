@@ -29,7 +29,6 @@ export class ProductResultsQuantityComponent implements OnInit, AfterViewInit {
     'measurementType',
     'price',
     'taxExempt',
-    'button',
   ];
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<ProductPayload> = new MatTableDataSource();

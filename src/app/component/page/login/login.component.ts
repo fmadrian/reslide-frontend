@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl(AppRoutes.landing);
       },
       (error) => {
-        console.log(error);
         this.errorMessage = error;
       }
     );

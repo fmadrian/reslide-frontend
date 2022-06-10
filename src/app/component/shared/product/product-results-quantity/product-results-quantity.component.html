@@ -103,25 +103,6 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
                 <td mat-cell *matCellDef="let product">{{ product.price }}</td>
               </ng-container>
-              <ng-container matColumnDef="button">
-                <th
-                  class="print-hide"
-                  mat-header-cell
-                  *matHeaderCellDef
-                  mat-sort-header
-                ></th>
-                <td class="print-hide" mat-cell *matCellDef="let product">
-                  <a
-                    mat-button
-                    color="primary"
-                    [routerLink]="[
-                      '/'.concat(AppRoutes.product.update_id(product.id))
-                    ]"
-                  >
-                    Update
-                  </a>
-                </td>
-              </ng-container>
               <!-- Header row and row definitions -->
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

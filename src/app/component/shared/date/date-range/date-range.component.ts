@@ -7,8 +7,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateRange } from 'src/app/payload/dateRange/date-range.interface';
+import { DateService } from 'src/app/service/date/date.service';
 
 @Component({
   selector: 'app-date-range',
@@ -19,12 +20,18 @@ export class DateRangeComponent implements OnInit, OnChanges {
   @Input() title = '';
   @Input() showToggle = false; // Toggle that let's us deactivate the date.
   isActive = true;
-  @Input() dateInput: DateRange = { start: new Date(), end: new Date() };
+  @Input() dateInput: DateRange = {
+    start: this.dateService.setTimeTo(new Date(), 'start'),
+    end: this.dateService.setTimeTo(new Date(), 'end'),
+  };
   @Output() dateOutput = new EventEmitter<DateRange | null>();
 
   @Output() endDate = new EventEmitter<Date>();
   form: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private dateService: DateService
+  ) {
     const constraints: any[] = [];
     // Creates the field and adds the constraints.
     this.form = this.formBuilder.group({

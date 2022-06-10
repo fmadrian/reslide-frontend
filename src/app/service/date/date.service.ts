@@ -24,17 +24,17 @@ export class DateService {
     return new Date(isoDate).toLocaleString();
   }
   isValidDate(isoDate: string) {
-    if (new Date(isoDate).toString() !== 'Invalid Date') {
+    if (isoDate && new Date(isoDate).toString() !== 'Invalid Date') {
       return true;
     }
     return false;
   }
   // Sets the time of a date to 0:00:00 or 23:59:59
-  setTimeTo(date: Date, day: 'start' | 'finish') {
+  setTimeTo(date: Date, day: 'start' | 'end') {
     if (day === 'start') {
-      date.setHours(0, 0, 0);
-    } else if (day === 'finish') {
-      date.setHours(23, 59, 59);
+      date.setHours(0, 0, 0, 0);
+    } else if (day === 'end') {
+      date.setHours(24, 0, 0, 0);
     }
     return date;
   }
