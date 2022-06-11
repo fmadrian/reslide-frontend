@@ -1,4 +1,6 @@
-const serverRoute = 'http://localhost:8080/api';
+import { environment } from 'src/environments/environment';
+
+const serverRoute = `${environment.baseURL}/api`;
 const baseRoutes = {
   auth: `${serverRoute}/auth`,
   user: `${serverRoute}/user`,
