@@ -48,5 +48,30 @@
     <div>
       <span>{{ invoice ? "Owed: " + invoice?.owed : "Owed: 0" }}</span>
     </div>
+    <!-- Notes -->
+    <div
+      *ngIf="
+        this.invoice &&
+        this.invoice.transaction &&
+        this.invoice.transaction.notes
+      "
+      class="print-hide"
+    >
+      <span>Notes:</span>
+    </div>
   </section>
+  <div
+    *ngIf="
+      this.invoice && this.invoice.transaction && this.invoice.transaction.notes
+    "
+    class="print-hide"
+  >
+    <mat-form-field style="width: 100%" appearance="fill">
+      <textarea matInput readonly>{{
+        this.invoice && this.invoice.transaction
+          ? this.invoice.transaction.notes
+          : ""
+      }}</textarea>
+    </mat-form-field>
+  </div>
 </div>

@@ -31,6 +31,7 @@ export class InvoiceDetailResultsComponent implements OnInit, OnChanges {
     'discount',
     'total',
     'deleteButton',
+    'notes',
   ];
   // Dataset created to manipulate the data in the table.
   datasource: MatTableDataSource<InvoiceDetailPayload>;

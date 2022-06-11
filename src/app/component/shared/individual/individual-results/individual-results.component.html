@@ -67,9 +67,15 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let individual">
             <div *ngIf="showUpdateButton; else notUpdating">
-              <button mat-button color="primary" (click)="update(individual)">
+              <a
+                mat-button
+                color="primary"
+                [routerLink]="[
+                  '/'.concat(AppRoutes.individual.update_id(individual.id))
+                ]"
+              >
                 Update
-              </button>
+              </a>
             </div>
             <ng-template #notUpdating>
               <button

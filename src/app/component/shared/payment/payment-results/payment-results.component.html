@@ -1,5 +1,16 @@
-<div class="content results-container">
-  <div class="table-container mat-elevation-z8">
+<div
+  [ngClass]="{
+    'details-component': useDetailsCSSClasses === true,
+    'content results-container': useDetailsCSSClasses === false
+  }"
+>
+  <div
+    [ngClass]="{
+      'details-component': useDetailsCSSClasses === true,
+      'table-container': useDetailsCSSClasses === false,
+      'mat-elevation-z8': true
+    }"
+  >
     <section class="mat-typography">
       <h2>
         {{ title }}
@@ -27,7 +38,13 @@
         </app-print-totals-information>
       </ng-template>
       <!-- Sortable table -->
-      <table mat-table matSort [dataSource]="datasource">
+      <table
+        mat-table
+        matSort
+        style="width: 100%"
+        class="mat-elevation-z8"
+        [dataSource]="datasource"
+      >
         <!-- Date  -->
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>

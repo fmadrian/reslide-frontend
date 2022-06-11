@@ -166,6 +166,19 @@ $margin: 10px;
   font-weight: bold;
 }
 
+/**
+  Invoice and order details
+*/
+.details-component {
+  padding: 20px;
+}
+.details-container {
+  padding: 20px;
+  & table {
+    width: 100%;
+  }
+}
+
 // Used to hide elements on the GUI that we need when we print.
 .hide {
   display: none;

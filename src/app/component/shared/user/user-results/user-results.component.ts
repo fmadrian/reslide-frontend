@@ -78,8 +78,11 @@ export class UserResultsComponent implements OnInit, AfterViewInit {
         this.loadDataSource();
       },
       (error) => {
-        this.snackbarService.show(error);
-        this.router.navigateByUrl(AppRoutes.error.internal);
+        const message = error.error ? error.error.message : error;
+        this.snackbarService.show(message);
+        this.router.navigate([AppRoutes.error.internal], {
+          queryParams: { error: 'Error', message },
+        });
       },
       () => {
         this.isLoading = false;

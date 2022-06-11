@@ -1,23 +1,34 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppRoutes } from 'src/app/utils/appRoutes';
 
 @Component({
   selector: 'app-internal-error',
   templateUrl: './internal-error.component.html',
-  styleUrls: ['./internal-error.component.scss']
+  styleUrls: ['./internal-error.component.scss'],
 })
 export class InternalErrorComponent implements OnInit {
-
-  constructor(private router: Router, private location : Location) { }
+  error = ' Internal error ';
+  message = 'Sorry, something unexpected has happened.';
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params.error && params.message) {
+        this.error = params.error;
+        this.message = params.message;
+      }
+    });
   }
-  goToLanding(){
+  goToLanding() {
     this.router.navigateByUrl(AppRoutes.landing);
   }
-  goBack(){
+  goBack() {
     this.location.back();
   }
 }

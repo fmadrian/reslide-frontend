@@ -54,6 +54,8 @@ export class PaymentResultsComponent implements OnInit, OnChanges {
   @Input() title = 'Payments';
   @Input() printTitle = ''; // String used to represent the date range of a search
   @Input() showPrintButton = false; // Indicates if we're trying to access the component from the search payments page.
+  @Input() useDetailsCSSClasses = true; // Changes the CSS classes used when displaying payments.
+  // Totals information
   totals: TotalsInformation[] = []; // Shows the total (paid) of all the payments displayed.
   // Output
   @Output() paymentResultsOutput = new EventEmitter<PaymentPayload[]>();

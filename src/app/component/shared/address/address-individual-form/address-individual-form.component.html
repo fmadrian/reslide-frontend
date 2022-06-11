@@ -1,66 +1,99 @@
 <div class="content">
-    <mat-card>
-        <mat-card-title>
-            Address            
-        </mat-card-title>
-        <mat-card-actions>
-            <button type="button" mat-button [disabled]="addressSelected === null" (click)="deleteAddress()">Delete address</button>
-            <button type="button" mat-button (click)="openAddressForm()">Create new address</button>
-        </mat-card-actions>
-        <mat-card-subtitle>User addresses:</mat-card-subtitle>
-        <mat-card-content> 
-            <table mat-table matSort [dataSource]="datasource" class="mat-elevation-z8"> 
-                <!-- Id column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-                    <td mat-cell *matCellDef="let address"> {{address.id}} </td>
-                </ng-container>
-                <!-- Value column -->
-                <ng-container matColumnDef="value">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type / Name </th>
-                <td mat-cell *matCellDef="let address"> {{address.value}} </td>
-                </ng-container>
-                <!-- Description column -->
-                <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-                    <td mat-cell *matCellDef="let address"> {{address.description}} </td>
-                </ng-container>
-                <!-- Header row and row definitions -->
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <!-- (click)= event triggered by a click on the table -->
-                <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
-                <tr mat-row 
-                    (click)="selectAddress(row)" 
-                    [class.clicked-row]="row === addressSelected"
-                    *matRowDef="let row; columns: displayedColumns;"
-                ></tr>
-            </table>
-            <!-- Create new contact-->
-            <ng-template [ngIf]="this.isAddressFormOpen.getValue()">
-                <mat-card class="mat-elevation-z8 contact-form"> 
-                    <mat-card-title>Add new address</mat-card-title>
-                    <mat-card-content>
-                        <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
-                              <mat-form-field class="form-field" appearance="fill">
-                                <mat-label>Type / Name</mat-label>
-                                <input [formControlName]="'value'" matInput>
-                                <mat-error *ngIf="addressForm.get('value')?.hasError('required')">
-                                    Please enter the address
-                                </mat-error>
-                              </mat-form-field>
-                              <mat-form-field class="form-field" appearance="fill">
-                                <mat-label>Description (optional)</mat-label>
-                                <input [formControlName]="'description'" matInput>
-                                <mat-error *ngIf="addressForm.get('description')?.hasError('required')">
-                                    Please enter the description
-                                </mat-error>
-                              </mat-form-field>
-                              <button type="submit" [disabled]="!addressForm.valid" class="form-button" mat-raised-button color="primary">Save address</button>
-                        </form>
-                    </mat-card-content>
-                    <button type="button" (click)="closeAddressForm()" class="form-button" mat-raised-button color="warn">Cancel</button>
-                </mat-card>
-            </ng-template>
-        </mat-card-content>
-    </mat-card>
+  <mat-card>
+    <mat-card-title> Address </mat-card-title>
+    <mat-card-actions>
+      <button
+        type="button"
+        mat-button
+        [disabled]="addressSelected === null"
+        (click)="deleteAddress()"
+      >
+        Delete address
+      </button>
+      <button type="button" mat-button (click)="openAddressForm()">
+        Create new address
+      </button>
+    </mat-card-actions>
+    <mat-card-subtitle>User addresses:</mat-card-subtitle>
+    <mat-card-content>
+      <table
+        mat-table
+        matSort
+        [dataSource]="datasource"
+        class="mat-elevation-z8"
+      >
+        <!-- Id column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let address">{{ address.id }}</td>
+        </ng-container>
+        <!-- Value column -->
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type / Name</th>
+          <td mat-cell *matCellDef="let address">{{ address.value }}</td>
+        </ng-container>
+        <!-- Description column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+          <td mat-cell *matCellDef="let address">{{ address.description }}</td>
+        </ng-container>
+        <!-- Header row and row definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- (click)= event triggered by a click on the table -->
+        <!-- [class.conditional-class]= class used on a element only when certain condition are fullfilled-->
+        <tr
+          mat-row
+          (click)="selectAddress(row)"
+          [class.clicked-row]="row === addressSelected"
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+      <!-- Create new contact-->
+      <ng-template [ngIf]="this.isAddressFormOpen.getValue()">
+        <mat-card class="mat-elevation-z8 contact-form">
+          <mat-card-title>Add new address</mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+              <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Type / Name</mat-label>
+                <input [formControlName]="'value'" matInput />
+                <mat-error
+                  *ngIf="addressForm.get('value')?.hasError('required')"
+                >
+                  Please enter the address
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input [formControlName]="'description'" matInput />
+                <mat-error
+                  *ngIf="addressForm.get('description')?.hasError('required')"
+                >
+                  Please enter the description
+                </mat-error>
+              </mat-form-field>
+              <button
+                type="submit"
+                [disabled]="!addressForm.valid"
+                class="form-button"
+                mat-raised-button
+                color="primary"
+              >
+                Save address
+              </button>
+            </form>
+          </mat-card-content>
+          <button
+            type="button"
+            (click)="closeAddressForm()"
+            class="form-button"
+            mat-raised-button
+            color="warn"
+          >
+            Cancel
+          </button>
+        </mat-card>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
 </div>

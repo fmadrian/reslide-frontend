@@ -47,5 +47,24 @@
     <div>
       <span>{{ order ? "Owed: " + order?.owed : "Owed: 0" }}</span>
     </div>
+    <!-- Notes -->
+    <div
+      *ngIf="
+        this.order && this.order.transaction && this.order.transaction.notes
+      "
+      class="print-hide"
+    >
+      <span>Notes:</span>
+    </div>
   </section>
+  <div
+    *ngIf="this.order && this.order.transaction && this.order.transaction.notes"
+    class="print-hide"
+  >
+    <mat-form-field style="width: 100%" appearance="fill">
+      <textarea matInput readonly>{{
+        this.order && this.order.transaction ? this.order.transaction.notes : ""
+      }}</textarea>
+    </mat-form-field>
+  </div>
 </div>

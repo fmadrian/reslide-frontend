@@ -40,6 +40,8 @@ export class IndividualResultsComponent implements OnInit {
   @Input() showUpdateButton: boolean;
   // Dialog
   dialogRef: MatDialogRef<IndividualResultsComponent> | null;
+  // App routes
+  AppRoutes = AppRoutes;
   constructor(
     public injector: Injector,
     private router: Router,
@@ -83,11 +85,6 @@ export class IndividualResultsComponent implements OnInit {
         this.isLoading = false;
       }
     );
-  }
-  update(individual: IndividualPayload) {
-    if (individual?.id !== null && individual?.id !== undefined) {
-      this.router.navigateByUrl(AppRoutes.individual.update_id(individual.id));
-    }
   }
   sendToParentComponent(individual: IndividualPayload) {
     if (individual !== null && individual !== undefined) {
