@@ -2,16 +2,15 @@
 
 ## Description
 
-Reslide is a web point of sale that allows clients to manage information about: users, clients, products, invoices, orders, payments, product brands, measurement types, payment methods, individual types, contact types, and product types.
-This repository contains the application's frontend files necessary to deploy it.
+This repository contains the instructions necessary to install the application's frontend.
 
-App demo: [https://m6q1cn5p.herokuapp.com/](https://m6q1cn5p.herokuapp.com/)
+[Project description](https://github.com/fsv2860/reslide)
 
-**NOTE: Demo might be in maintenance mode in order to save up usage quota.**
+[Backend repository](https://www.github.com/fsv2860/reslide-backend)
 
-Backend code: [https://www.github.com/fsv2860/reslide-backend](https://www.github.com/fsv2860/reslide-backend)
+[App demo](https://reslide-demo.herokuapp.com/)
 
-## Deployment
+## Installation
 
 ### General requirements
 
