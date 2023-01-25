@@ -8,8 +8,6 @@ This repository contains the instructions necessary to install the application's
 
 [Backend repository](https://www.github.com/fsv2860/reslide-backend)
 
-[App demo](https://reslide-demo.herokuapp.com/)
-
 ## Installation
 
 ### General requirements
